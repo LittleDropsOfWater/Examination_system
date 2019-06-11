@@ -1,19 +1,11 @@
-import React, { Component } from 'react';
+import  { useState,useEffect } from "react";
+
 import styles from "./style.css";
 import { Avatar } from 'antd';
 import LeftSide from '../../components/LeftSide';
 import HeaderRight from '../../components/HeaderRight';
-class index extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {  };
-	}
-	static defaultProps={
-		img:'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png',
-		nickname:'chenmanjie'
-	}
-	render() {
-		const {img,nickname}=this.props;
+	function HomePage(props){
+		const {img,nickname}=props;
 		
 		return (
 			<div className={styles.wrap}>
@@ -39,6 +31,9 @@ class index extends Component {
 			</div>
 		);
 	}
-}
 
-export default index;
+HomePage.defaultProps={
+	img:'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png',
+	nickname:'chenmanjie'
+}
+export default HomePage;
