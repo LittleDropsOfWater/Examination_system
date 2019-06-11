@@ -32,7 +32,9 @@ class index extends Component {
 					<div className={styles.leftside}>
 						<LeftSide  />
 					</div>
-					<div className={styles.content}></div>
+					<div className={styles.content}>
+						<div className={styles.context}></div>
+					</div>
 				</main>
 			</div>
 		);

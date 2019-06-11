@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from "./style.scss";
 import { Menu, Icon, Button } from 'antd';
 const { SubMenu }  = Menu;
 class LeftSide extends Component {
@@ -48,13 +49,35 @@ class LeftSide extends Component {
 						title:'试卷列表',
 					}
 				]
+			},
+			{
+				id:'sub4',
+				title:'班级管理',
+				icon:'project',
+				list:[
+					{
+						title:'班级管理',
+					},{
+						title:'教室管理',
+					},{
+						title:'学生管理',
+					}
+				]
+			},
+			{
+				id:'sub5',
+				title:'阅卷管理',
+				icon:'project',
+				list:[
+					{
+						title:'待批班级',
+					}
+				]
 			}
 		]
 	}
 	render() {
 		const {data}=this.props;
-		console.log(data);
-		
 		return (
 		<div >
         
@@ -62,7 +85,8 @@ class LeftSide extends Component {
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
-          theme="dark"
+					theme="dark"
+					className={styles.menu}
         >
 					{
 						data.map(({id,title,icon,list})=>(
@@ -77,7 +101,9 @@ class LeftSide extends Component {
 						>
 							{
 								list.map((sitem,index)=>(
-							<Menu.Item key={`${title}-${sitem.title}`}>{sitem.title}</Menu.Item>
+							<Menu.Item key={`${title}-${sitem.title}`}
+							
+							>{sitem.title}</Menu.Item>
 
 								))
 							}

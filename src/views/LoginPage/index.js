@@ -1,42 +1,44 @@
-import React, { Component } from "react";
+import  { useState,useEffect } from "react";
 import { connect } from "dva";
-import styles from "./IndexPage.css";
+import styles from "./index.css";
 
 import { Input, Form, Button, Checkbox, Icon } from "antd";
 const rc = [/[a-z]/, /[A-Z]/, /\d/, /[\x21-\x7e]/, /.{6,}/];
 const RegTest=(reg)=>value=>reg.every(val=>val.test(value))
 const PassWordRegTest=RegTest(rc)
-class IndexPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    document.title = "摸底考试管理！！！";
-  }
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+function LoginPage ({login,form,history,user,user:{code,msg}}){
+	useEffect(()=>{
+		if(code===-1)return;
+		alert(msg)
+	},[user])
+  const handleSubmit = e => {
+		e.preventDefault();
+    form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        console.log(this);
-        //跳转到home页面
-        this.props.history.push('/home')
+				const {username:user_name,password:user_pwd}=values;
+				login({user_name,user_pwd})
+				//跳转到home页面
+        // history.push('/home')
       }
     });
-  };
-  validatePassword = (rule, value, callback) => {
-    // const form = this.props.form;
+	};
+	
+  const validatePassword = (rule, value, callback) => {
+    // const form = props.form;
     if (PassWordRegTest(value)) {
       callback();
     } else {
       callback("密码校验失败!密码包含大小写字母、数字、特殊符号");
     }
   };
-  render() {
-    const { getFieldDecorator } = this.props.form;
+  
+		const { getFieldDecorator } = form;
+		
     return (
       <div className={styles.wrap}>
         <div className={styles.content}>
-          <Form onSubmit={this.handleSubmit} className={styles["login-form"]}>
+          <Form onSubmit={handleSubmit} className={styles["login-form"]}>
             <Form.Item>
               {getFieldDecorator("username", {
                 rules: [{ required: true, message: "请输入你的用户名!" }]
@@ -55,8 +57,9 @@ class IndexPage extends Component {
                 rules: [
                   { required: true, message: "请输入你的密码!" },
                   {
-                    validator: this.validatePassword
-                  }
+                    validator: validatePassword
+									}
+									
                 ]
               })(
                 <Input
@@ -83,7 +86,6 @@ class IndexPage extends Component {
                 className={styles["login-form-button"]}
                 size="large"
               >
-               
                 登录
               </Button>
             </Form.Item>
@@ -91,7 +93,17 @@ class IndexPage extends Component {
         </div>
       </div>
     );
-  }
+ 
 }
 
-export default Form.create({ name: "normal_login" })(connect()(IndexPage));
+const mapStateToProps = state => state;
+const mapDispatchToProps = dispatch => ({
+	login(payload){
+		dispatch({
+			type:'user/login',
+			payload
+		})
+	}
+});
+export default Form.create({ name: "normal_login" })(connect( mapStateToProps,
+  mapDispatchToProps)(LoginPage));

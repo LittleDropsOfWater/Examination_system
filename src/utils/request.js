@@ -1,30 +1,24 @@
-import fetch from 'dva/fetch';
+import axios from 'axios';
 
-function parseJSON(response) {
-  return response.json();
-}
+//实现拦截器, 对请求进行统一判断
+//拦截器 
+//请求拦截器
+//响应拦截器
+const service = axios.create({
+  baseURL:'http://169.254.0.233:7001/',
+  timeout:5000
+})
 
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
+// request interceptor
+service.interceptors.request.use(
+  config=>config,
+ Promise.reject
+)
 
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
-}
+// response interceptor
+service.interceptors.response.use(
+  response=>response.data,
+  Promise.reject
+)
 
-/**
- * Requests a URL, returning a promise.
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- * @return {object}           An object containing either "data" or "err"
- */
-export default function request(url, options) {
-  return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }));
-}
+export default service;

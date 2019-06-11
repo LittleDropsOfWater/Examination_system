@@ -12,7 +12,8 @@
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,.19)
+    box-shadow: 0 0 10px rgba(0,0,0,.19);
+    z-index: 9;
 
 }
 .logo{
@@ -21,11 +22,17 @@
 .main{
   display: flex;
   flex:1;
+  overflow: hidden;
 }
 .leftside{
   width: 200px;
   background-color: #232a41;
+  overflow-y: auto;
 }
 .content{
   flex:1;
+}
+.context{
+  background-color: #ccc;
+  padding: 80px;
 }
