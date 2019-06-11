@@ -1,11 +1,13 @@
 import React ,{useEffect} from 'react';
 import { connect } from 'dva';
-import style from "./IndexPage.css"
+import style from "./index.css"
 import {Form,Icon,Input,Button,Checkbox} from "antd"
-  function IndexPage(props){
+  function Login(props){
     useEffect(()=>{
-     
-    },[]);
+     if(props.user.code===1){
+       props.history.push({pathname:"/home"})
+     }
+    },[props.user]);
   let  handleSubmit = e => {
       e.preventDefault();
       props.form.validateFields((err, values) => {
@@ -14,7 +16,7 @@ import {Form,Icon,Input,Button,Checkbox} from "antd"
             login({
               user_name:values.username,
               user_pwd:values.password
-            })
+            });
         }
       });
     };
@@ -65,14 +67,14 @@ import {Form,Icon,Input,Button,Checkbox} from "antd"
     );
   }
 
-const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(IndexPage)
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login)
 const MapState=state=>{
   return state
 }
 const MapDispatch=dispatch=>({
   login(payload){
     dispatch({
-      type:"use/login",
+      type:"user/login",
       payload
     })
   }

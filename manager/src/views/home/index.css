@@ -1,0 +1,75 @@
+div,p,ul,ol,li,dl,dt,dd,form,table,h1,h2,h3,h4,h5,h6,input,select,textarea,span,strong,em,b,i,u,a,img,*{padding:0;margin:0;}
+body,html,#root{
+    width: 100%;
+    height: 100%;
+
+}
+.wrap{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column
+}
+.nav{
+    width: 100%;
+    height: 64px;
+    border-bottom: 1px solid  #ccc;
+    box-shadow: 0 2px 5px #ccc;
+    display: flex;
+    justify-content: space-between;
+    line-height: 64px;
+   z-index: 99;
+}
+.nav>div>h5:hover{
+    background: #eee;
+}
+.nav h4{
+    width: 120px;
+    height: 64px;
+    margin-left: 80px;
+}
+.nav h4 img{
+    width: 100%;
+    height: 30px;
+}
+.nav h5{
+    width: 132px;
+    height: 64px;
+    margin-right: 40px;
+    text-align: center;
+}
+.nav h5 img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 8px;
+}
+.main{
+    flex:1;
+    display: flex;
+    overflow: hidden;
+}
+.left{
+    width: 195px;
+    overflow-y: auto;
+    z-index: 999;
+}
+.right{
+     flex: 1;
+    /* height: 100%; */
+    display: flex;
+}
+.left>ul{
+    width: 100%;
+    height: 100%;
+    background: #232A41;
+}
+.content{
+    flex:1;
+}
+.right .content h4{
+    width: 100%;
+    height: 70px;
+    background: #f0f2f5;
+}
