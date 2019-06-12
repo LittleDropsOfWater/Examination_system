@@ -1,15 +1,16 @@
 import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
 import Login from './views/login';
-import Home from "./views/home"
+import Main from "./views/main"
 
 
 function RouterConfig({ history }){
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/home"  component={Home} />
-        <Route path="/" exact component={Login} />
+        <Route path="/login" component={Login} />
+        <Route path="/"  component={Main} />
+        
       </Switch>
     </Router>
   );
