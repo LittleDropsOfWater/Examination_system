@@ -1,7 +1,7 @@
 import React,{useEffect} from "react";
 import style from "./index.css";
 import {connect} from "dva";
-import { Layout, Breadcrumb, Select, Row, Col, Button, Icon, Tag ,Table} from 'antd';
+import { Layout, Breadcrumb, Select, Row, Col, Button, Icon, Tag ,Table} from './node_modules/antd';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -39,9 +39,7 @@ function Look(props) {
     props.getAllExam();
     props.getCourseClass()
    },[])
-  //  console.log(props)
-   const {examType,questions_type,subjectType,allQuestion}=props;
-
+   console.log(props)
     return (
         <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
@@ -60,7 +58,7 @@ function Look(props) {
                     <Col span={21}>
                         <div>
                            {
-                             subjectType.map(item=>(
+                             props.Course.map(item=>(
                               <MyTag key={item.subject_id}>{item.subject_text}</MyTag>
                              ))
                            }   
@@ -79,7 +77,7 @@ function Look(props) {
                             )}
                         >
                           {
-                            examType.map(item=>(
+                            props.examClass.map(item=>(
                               <Option key={item.exam_id} value={item.exam_id}>{item.exam_name}</Option>
                             ))
                           } 
@@ -95,7 +93,7 @@ function Look(props) {
                         )}
                     >
                       {
-                        questions_type.map(item=>(
+                        props.allCourseClass.map(item=>(
                           <Option key={item.questions_type_id} value={item.questions_type_id}>{item.questions_type_text}</Option>
                         ))
                       }   
@@ -106,7 +104,7 @@ function Look(props) {
                         </Button>
                     </Col>
                 </Row>
-                <Table rowKey={"questions_id"} className={style.table} columns={columns} dataSource={allQuestion} />
+                <Table rowKey={"questions_id"} className={style.table} columns={columns} dataSource={props.allExam} />
             </Content>
 
             
@@ -128,32 +126,32 @@ class MyTag extends React.Component {
   }
  const MapState=state=>{
    return {
-     ...state.question
+     ...state.view
    }
  }
  const MapDispatch=dispatch=>({
    //获取所有考试类型
   getExamClass(){
     dispatch({
-      type:"question/getExamType",
+      type:"view/examClass",
     })
   },
   //获取所有课程
   getAllCourse(){
     dispatch({
-      type:"question/getSubject",
+      type:"view/course",
     })
   },
   //所有题目
   getAllExam(){
     dispatch({
-      type:"question/getAllquestion"
+      type:"view/allExam"
     })
   },
   //所有题目类型
   getCourseClass(){
     dispatch({
-      type:"question/getQuestionsType",
+      type:"view/courseClass",
     })
 
   }

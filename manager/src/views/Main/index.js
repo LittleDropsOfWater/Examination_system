@@ -1,72 +1,77 @@
-import { useEffect } from "react";
-import { connect } from "dva";
-import styles from "./style.scss";
-import { Avatar, Layout,Spin } from "antd";
-import { Route, Switch,Redirect } from "dva/router";
-import LeftSide from "@/components/LeftSide";
-import HeaderRight from "@/components/HeaderRight";
-import Add from "./Questions/Add";
-import Type from "./Questions/Type";
-import View from "./Questions/View";
-const { Header, Content, Sider } = Layout;
+import { } from 'react';
+import { connect } from 'dva';
+import { Route, Switch } from 'dva/router';
+import style from "./index.css"
+import { Menu, Dropdown } from 'antd';
+import MenuViews from "../../components/menuViews"
+import Add from "./add"
+import Type from "./type"
+import View from "./view"
+function Home(props) {
 
-function HomePage(props) {
-  const { img, nickname,loading } = props;
-  useEffect(() => {
-    props.userInfo();
-  }, []);
-  return (
-    <Layout className={styles.wrap}>
-      <Header className={styles.header}>
-        <div>
-          <img src="logo.jpg" className={styles.logo} alt="logo" />
-        </div>
-        <HeaderRight>
-          <>
-            <Avatar src={img} style={{ marginRight: "10px" }} />
-            {nickname}
-          </>
-        </HeaderRight>
-      </Header>
-      <Layout className={styles.main} >
-        <Sider className={styles.leftside}>
-          <LeftSide />
-        </Sider>
-        <Content className={styles.content} style={{padding:'0px 24px 24px'}}>
-            <Switch>
-              <Redirect exact from='/' to="/questions/add" />
-              <Route path="/questions/add" component={Add} />
-              <Route path="/questions/type" component={Type} />
-              <Route path="/questions/view" component={View} />
-            </Switch>
-           {loading?
-            <div className={styles.loading}>
-              <Spin/>
+    const { titList } = props
+    const menu = (
+        <Menu>
+            {
+                titList.map(item => (
+                    <Menu.Item key={item.id}>
+                        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+                            {item.tit}
+                        </a>
+                    </Menu.Item>
+                ))
+            }
+        </Menu>)
+    return (
+        <div className={style.wrap}>
+            <div className={style.nav}>
+                <h4>
+                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" alt="" />
+                </h4>
+                <div>
+                    <Dropdown overlay={menu}>
+                        <h5>
+                            <span>
+                                <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt="" /> chenmanjie
+                        </span>
+                        </h5>
+                    </Dropdown>
+                </div>
             </div>
-            :null}
-        </Content>
-      </Layout>
-    </Layout>
-  );
+            <main className={style.main}>
+                <div className={style.left}>
+                    <MenuViews />
+                </div>
+                <div className={style.right}>
+                    <div className={style.content}>
+                        <Switch>
+                            <Route path="/questions/add" component={Add} />
+                            <Route path="/questions/type" component={Type} />
+                            <Route path="/questions/view" component={View} />
+                        </Switch>
+                    </div>
+                </div>
+            </main>
+        </div>
+    );
 }
 
-HomePage.defaultProps = {
-  img:
-    "https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png",
-  nickname: "chenmanjie"
-};
-const mapState = state => {
+Home.defaultProps = {
+    titList: [
+        {
+            tit: "个人中心",
+            id: 1
+        }, {
+            tit: "我的班级",
+            id: 2
+        }, {
+            tit: "设置",
+            id: 3
+        }, {
+            tit: "退出登录",
+            id: 4
+        },
+    ]
+}
 
-  return {
-    loading:state.loading.global
-  }
-};
-const mapDispatch = dispatch => ({
-  userInfo() {
-    dispatch({ type: "user/userInfo" });
-  }
-});
-export default connect(
-  mapState,
-  mapDispatch
-)(HomePage);
+export default connect()(Home);

@@ -1,31 +1,31 @@
-.wrap{
-  background-color: navy;
-  height: 100%;
+*{
+  padding: 0;margin: 0;
 }
-.content{
-  width: 400px;
-  padding: 40px 20px 16px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+.wrap{
+  width: 100%;
+  height: 100%;
+  background: #00f;
+  position: relative;
+}
+.login{
+  width:350px;
+  height: 280px;
   background: #fff;
   position: absolute;
-  right: 15%;
-  top: 25%;
-  box-sizing: border-box;
+  right: 10%;
+  top:20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
- .login-form {
-  max-width: 400px;
+.login_form {
+  width: 280px;
 }
- .login-form-forgot {
+.login_form_forgot {
   float: right;
 }
- .login-form-button {
+.login_form_button {
   width: 100%;
-  margin-top: 10px;
-  padding: 0 40px !important;
-  border-radius: 4px!important;
-  border: 0!important;
-  font-size: 14px!important;
-  color: #fff!important;
-  background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
 }
+
+
