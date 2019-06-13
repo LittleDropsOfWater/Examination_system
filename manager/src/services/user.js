@@ -37,3 +37,10 @@ export function getAllCourse(){
     method:"GET"
   })
 }
+//获取所有题目类型
+export function getCourseClass(){
+  return request({
+    url:"/exam/getQuestionsType",
+    method:"GET"
+  })
+}

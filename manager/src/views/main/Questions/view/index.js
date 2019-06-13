@@ -1,24 +1,24 @@
-import React,{useEffect} from "react"
-import style from "./index.css"
-import {connect} from "dva"
-import { Layout, Breadcrumb, Select, Row, Col, Button, Icon, Tag ,Table} from 'antd';
+import React,{useEffect} from "react";
+import style from "./index.css";
+import {connect} from "dva";
+import { Layout, Breadcrumb, Select, Row, Col, Button, Icon, Tag ,Table} from './node_modules/antd';
 
 const { Content } = Layout;
 const { Option } = Select;
 const { CheckableTag } = Tag;
 const columns = [
     {
-      dataIndex: 'name',
-      key: 'name', 
+      dataIndex: '',
+      key: '', 
       render: text => (
         <>
-            <h4>{text}</h4>
+            <h4>{text.title}</h4>
             <h4>
-                <Tag color="blue">blue</Tag>
-                <Tag color="geekblue">geekblue</Tag>
-                <Tag color="gold">gold</Tag>
+                <Tag color="blue">{text.questions_type_text}</Tag>
+                <Tag color="geekblue">{text.subject_text}</Tag>
+                <Tag color="gold">{text.exam_name}</Tag>
             </h4>
-            <a href="">dingshaoshan</a>
+            <a href="">{text.user_name}</a>
             <a href="">发布</a>
         </>
       ),
@@ -32,33 +32,18 @@ const columns = [
       ),
     },
   ];
-  const data = [
-    {
-      key: '1',
-      name: 'John '
-    },
-    {
-      key: '2',
-      name: 'Jim Green'
-    },
-    {
-      key: '3',
-      name: 'Joe Black'
-    },
-  ];
-
 function Look(props) {
    useEffect(()=>{
     props.getExamClass();
     props.getAllCourse();
-    props.getAllExam()
+    props.getAllExam();
+    props.getCourseClass()
    },[])
    console.log(props)
     return (
         <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>试题分类</Breadcrumb.Item>
-
             </Breadcrumb>
             <Content
                 style={{
@@ -69,12 +54,14 @@ function Look(props) {
                 }}
             >
                 <Row className={style.row}>
-                    <Col span={6}>课程类型:</Col>
-                    <Col span={18}>
+                    <Col span={3}>课程类型:</Col>
+                    <Col span={21}>
                         <div>
-                            <MyTag>Tag1</MyTag>
-                            <MyTag>Tag2</MyTag>
-                            <MyTag>Tag3</MyTag>
+                           {
+                             props.Course.map(item=>(
+                              <MyTag key={item.subject_id}>{item.subject_text}</MyTag>
+                             ))
+                           }   
                         </div>
                     </Col>
                 </Row>
@@ -106,21 +93,21 @@ function Look(props) {
                         )}
                     >
                       {
-                        props.Course.map(item=>(
-                          <Option key={item.subject_id} value={item.subject_id}>{item.subject_text}</Option>
+                        props.allCourseClass.map(item=>(
+                          <Option key={item.questions_type_id} value={item.questions_type_id}>{item.questions_type_text}</Option>
                         ))
-                      }
-                        
-                        
+                      }   
                     </Select></Col>
                     <Col span={8}>
                         <Button className={style.btn} type="primary">
                             <Icon type="search" />查询
-                    </Button>
+                        </Button>
                     </Col>
                 </Row>
-                <Table className={style.table} columns={columns} dataSource={data} />
+                <Table rowKey={"questions_id"} className={style.table} columns={columns} dataSource={props.allExam} />
             </Content>
+
+            
         </Layout>
     )
 }
@@ -160,6 +147,13 @@ class MyTag extends React.Component {
     dispatch({
       type:"view/allExam"
     })
+  },
+  //所有题目类型
+  getCourseClass(){
+    dispatch({
+      type:"view/courseClass",
+    })
+
   }
  })
 export default connect(MapState,MapDispatch)(Look)

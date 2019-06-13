@@ -1,4 +1,4 @@
-import {getExamClass,getAllCourse,getAllViews} from "../services/user"
+import {getExamClass,getAllCourse,getAllViews,getCourseClass} from "../services/user"
 export default {
  
     namespace: 'view',
@@ -6,7 +6,8 @@ export default {
     state: {
        Course:[],
        allExam:[],
-       examClass:[]
+       examClass:[],
+       allCourseClass:[]
     },
   
     subscriptions: {
@@ -38,18 +39,29 @@ export default {
             type:"examData",
             payload:data.code===1?data.data:-1
         })
-    }
+      },
+      //所有题目类型
+      *courseClass({payload},{call,put}){
+        let data=yield call(getCourseClass)
+        yield put({
+          type:"allCourseClass",
+          payload:data.code===1?data.data:-1
+        })
+      }
     },
   
     reducers: {
         classDate(state,{payload}){
             return {...state,examClass:payload}
-          },
+        },
           allCourse(state,{payload}){
             return {...state,Course:payload}
-          },
+        },
         examData(state,{payload}){
             return {...state,allExam:payload}
+        },
+        allCourseClass(state,{payload}){
+            return {...state,allCourseClass:payload}
         }
     },
   };

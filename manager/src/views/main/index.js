@@ -5,8 +5,8 @@ import style from "./index.css"
 import { Menu, Dropdown } from 'antd';
 import MenuViews from "../../components/menuViews"
 import Add from "./add"
-import ClassIfy from "./type"
-import Look from "./view"
+import Type from "./type"
+import View from "./view"
 function Home(props) {
 
     const { titList } = props
@@ -46,8 +46,8 @@ function Home(props) {
                     <div className={style.content}>
                         <Switch>
                             <Route path="/questions/add" component={Add} />
-                            <Route path="/questions/type" component={ClassIfy} />
-                            <Route path="/questions/view" component={Look} />
+                            <Route path="/questions/type" component={Type} />
+                            <Route path="/questions/view" component={View} />
                         </Switch>
                     </div>
                 </div>

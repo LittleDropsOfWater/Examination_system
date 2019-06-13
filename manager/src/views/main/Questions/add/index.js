@@ -1,4 +1,4 @@
-import React,{useEffect} from "react"
+import React,{useEffect} from "react";
 import { connect } from 'dva';
 function Add(props){
     useEffect(()=>{

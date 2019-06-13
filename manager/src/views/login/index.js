@@ -6,12 +6,11 @@ function Login(props) {
 
   //判断是否登录
   useEffect(() => {
-    console.log(props)
     if (props.isLogin === 1) {
       message.success('登陆成功');
       //登录成功
       let pathName = decodeURIComponent(props.history.location.search.split('=')[1]);
-      props.history.replace(pathName);
+      props.history.replace(pathName||"/");
     }else if(props.isLogin===-1){
      //登陆失败
      message.error('登陆失败');
