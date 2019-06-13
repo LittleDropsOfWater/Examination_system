@@ -1,0 +1,27 @@
+.wrap {
+  height: 100%;
+  background-color: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.19);
+  z-index: 9;
+}
+.logo {
+  width: 120px;
+}
+.leftside {
+  background-color: #232a41;
+  overflow-y: auto;
+}
+
+:global {
+  .ant-btn-primary{
+    padding: 0 40px!important;
+    background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+  }
+}

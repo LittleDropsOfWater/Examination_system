@@ -1,0 +1,9 @@
+.menu {
+  background-color: #232a41;
+}
+:global {
+  .ant-menu-inline.ant-menu-sub {
+    background-color: #232a41 !important;
+    color: #f90 !important;
+  }
+}
