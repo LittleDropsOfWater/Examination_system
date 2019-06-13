@@ -5,9 +5,7 @@ import { Input, Form, Button, Checkbox, Icon, message } from "antd";
 
 function LoginPage({ login, form, history, match, location,code, msg  }) {
   //判断是否登陆
-  console.log(history);
-  console.log(match);
-  console.log(location);
+
   
   useEffect(() => {
     if (code === -1) return;
@@ -16,7 +14,6 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
       message.success(msg);
       //2存储cookie
       //3.跳转到home页面
-      console.log('props.history',history);
       let pathName=location.search.split('=')[1]||'/';
       history.replace(pathName);
     } else {

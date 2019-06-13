@@ -17,13 +17,8 @@ export default {
 
   //订阅路由跳转，监听页面切换
   subscriptions: {
-    setup(a,b) {
+    setup({ dispatch, history }) {
       // eslint-disable-line
-      console.log('sbuscriptions:',a,b);
-      
-      const { dispatch, history }=a;
-      console.log(history);
-      
       return history.listen(({pathname='/'})=>{
         console.log('监听pathname:',pathname);
         const token=getToken();
@@ -32,7 +27,6 @@ export default {
           //做token检测
           if(!token){
             //利用redux做路由跳转
-            console.log('跳到login');
             dispatch(routerRedux.push({
               // pathname:`/login`,
               pathname:`/login`,
@@ -43,7 +37,6 @@ export default {
           //去登录页面，如果已登录跳回首页
           if(token){
             //利用redux做路由跳转
-            console.log('跳到首页');
             dispatch(routerRedux.replace({
               pathname:'/',
             }))
@@ -55,14 +48,10 @@ export default {
   //异步操作
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      // eslint-disable-line
-      yield put({ type: "save" });
-    },
     *login({ payload }, { call, put }) {
-      console.log("payload...", payload);
+      // console.log("payload...", payload);
       let data = yield call(login, payload);
-      console.log("data...", data);
+      // console.log("data...", data);
       //设置登陆态到cookie里
       if(data.code === 1){
         setToken(data.token);
@@ -71,17 +60,20 @@ export default {
         type: "save",
         payload:data
       });
-      
-     
     },
     *userInfo(action, { call, put }) {
       let data = yield call(userInfo);
-      console.log("userInfo.Data:", data.data);
+      // console.log("userInfo.Data:", data.data);
       yield put({
         type: "save",
         payload: data.data
       });
       setUserData(data.data);
+    },
+    *logOut(action,{call,put}){
+      yield setToken('');
+      yield setUserData('');
+      yield put({type:'loginCodeReset'});
     }
   },
   //同步操作
@@ -90,7 +82,7 @@ export default {
     save(state, { payload }) {
       return { ...state, ...payload };
     },
-    logOut(state) {
+    loginCodeReset(state) {
       return { ...state, ...defaultState };
     },
     updateLogin(state,{payload}){

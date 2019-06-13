@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { connect } from "dva";
 import styles from "./style.scss";
-import { Avatar, Layout } from "antd";
+import { Avatar, Layout,Spin } from "antd";
 import { Route, Switch,Redirect } from "dva/router";
 import LeftSide from "@/components/LeftSide";
 import HeaderRight from "@/components/HeaderRight";
@@ -11,7 +11,7 @@ import View from "./Questions/View";
 const { Header, Content, Sider } = Layout;
 
 function HomePage(props) {
-  const { img, nickname } = props;
+  const { img, nickname,loading } = props;
   useEffect(() => {
     props.userInfo();
   }, []);
@@ -39,6 +39,11 @@ function HomePage(props) {
               <Route path="/questions/type" component={Type} />
               <Route path="/questions/view" component={View} />
             </Switch>
+           {loading?
+            <div className={styles.loading}>
+              <Spin/>
+            </div>
+            :null}
         </Content>
       </Layout>
     </Layout>
@@ -50,7 +55,12 @@ HomePage.defaultProps = {
     "https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png",
   nickname: "chenmanjie"
 };
-const mapState = state => state;
+const mapState = state => {
+
+  return {
+    loading:state.loading.global
+  }
+};
 const mapDispatch = dispatch => ({
   userInfo() {
     dispatch({ type: "user/userInfo" });

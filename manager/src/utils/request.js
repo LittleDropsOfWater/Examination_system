@@ -6,8 +6,8 @@ import { getToken } from "@/utils/user";
 //请求拦截器
 //响应拦截器
 const service = axios.create({
-  baseURL: "http://169.254.0.233:7001/",//叶文程的服务器
-  // baseURL: "http://169.254.78.4:7001/",//唐小彬的服务器
+  // baseURL: "http://169.254.0.233:7001/",//叶文程的服务器
+  baseURL: "http://169.254.78.4:7001/",//唐小彬的服务器
   timeout: 5000
 });
 
@@ -30,3 +30,17 @@ service.interceptors.response.use(response => {
 }, Promise.reject);
 
 export default service;
+export const  getRequest=({url,params={}})=>{
+  return service({
+		url,
+    method:'GET',
+    params
+	})
+}
+export const  postRequest=({url,data={}})=>{
+  return service({
+		url,
+    method:'POST',
+    data
+	})
+}

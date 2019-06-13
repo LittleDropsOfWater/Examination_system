@@ -15,7 +15,7 @@ function Add(props) {
 	获取所有的课程 /exam/subject GET
 	获取所有的试题类型 /exam/getQuestionsType
 		*/
-  console.log("add组件props", props);
+  // console.log("add组件props", props);
   const {
     form,
     question,
@@ -48,7 +48,7 @@ function Add(props) {
       okText: "确定",
       cancelText: "取消",
       onOk() {
-        console.log("OK",e);
+        // console.log("OK",e);
         handleSubmit(e);
       },
       onCancel() {
@@ -61,7 +61,7 @@ function Add(props) {
     form.validateFields((err, values) => {
       if (!err) {
         //调添加试题接口
-        console.log({ ...values, user_id: JSON.parse(getUserData()).user_id });
+        // console.log({ ...values, user_id: JSON.parse(getUserData()).user_id });
         addQuestions({ ...values, user_id: JSON.parse(getUserData()).user_id });
       }
     });
@@ -128,7 +128,7 @@ function Add(props) {
   添加试题接口 /exam/questions POST
  */
 const mapState = state => {
-  console.log("add-redux.state:", state);
+  // console.log("add-mapState.state:", state);
   return { ...state.question, user_id: state.user.user_id };
 };
 const mapDispatch = dispatch => ({
@@ -138,7 +138,7 @@ const mapDispatch = dispatch => ({
     });
   },
   addQuestions(payload) {
-    console.log("dispatch-addQuestions-paylod", payload);
+    // console.log("dispatch-addQuestions-paylod", payload);
     dispatch({
       type: "question/addQuestions",
       payload

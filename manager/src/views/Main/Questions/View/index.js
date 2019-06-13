@@ -39,7 +39,7 @@ function Look(props) {
     props.getAllExam();
     props.getCourseClass()
    },[])
-   console.log(props)
+  //  console.log(props)
    const {examType,questions_type,subjectType,allQuestion}=props;
 
     return (

@@ -1,4 +1,4 @@
-import { getExamType, getSubject, getQuestionsType ,addQuestions,getAllquestion} from "@/services";
+import { getExamType, getSubject, getQuestionsType ,getAllquestion,addQuestions,addQuestionsType} from "@/services";
 export default {
   //命名空间
   namespace: "question",
@@ -8,7 +8,8 @@ export default {
     subjectType: [],//课程类型
     questions_type: [],//试题类型
     allQuestion:[],
-    code:-1
+    code:-1,
+    typeCode:-1,
   },
 
   subscriptions: {
@@ -27,8 +28,7 @@ export default {
   effects: {
     *getExamType({ payload }, { call, put }) {
       let data = yield call(getExamType);
-      console.log("examType:", data);
-
+      // console.log("examType:", data);
       if (data.code === 1) {
         yield put({
           type: "save",
@@ -40,7 +40,7 @@ export default {
     },
     *getSubject({ payload }, { call, put }) {
       let data = yield call(getSubject);
-      console.log("subject:", data);
+      // console.log("subject:", data);
       if (data.code === 1) {
         yield put({
           type: "save",
@@ -49,10 +49,10 @@ export default {
           }
         });
       }
-    },
+    },  
     *getQuestionsType({ payload }, { call, put }) {
       let data = yield call(getQuestionsType);
-      console.log("getQuestionsType:", data);
+      // console.log("getQuestionsType:", data);
       if (data.code === 1) {
         yield put({
           type: "save",
@@ -63,8 +63,8 @@ export default {
       }
     },
     *getAllquestion({ payload }, { call, put }) {
-      let data = yield call(getAllquestion);
-      console.log("getAllquestion:", data);
+      let data = yield call(getAllquestion,payload);
+      // console.log("getAllquestion:", data);
       if (data.code === 1) {
         yield put({
           type: "save",
@@ -75,25 +75,41 @@ export default {
       }
     },
     *getAddPage({ payload }, { call, put }) {
-      console.log("models-getAddPage");
+      // console.log("models-getAddPage");
       yield put({ type: "getExamType" });
       yield put({ type: "getSubject" });
       yield put({ type: "getQuestionsType" });
     },
     *addQuestions({payload},{call,put}){
-      console.log('model-question-addQuestions.payload',payload);
+      // console.log('model-question-addQuestions.payload',payload);
       let data=yield call(addQuestions,payload);
-      console.log('addQuestions.data',data);
+      // console.log('addQuestions.data',data);
       yield put({
         type:'save',
         payload:data
       })
+    }
+    ,
+    *addQuestionsType({payload},{call,put}){
+      // console.log('model-question-addQuestionsType.payload',payload);
+      try{
+        let data=yield call(addQuestionsType,payload);
+          yield put({type:'getQuestionsType'})
+        yield put({type:'typeCode',payload:data.code===1?1:0})
+      } catch (err) {
+        yield put({type:'typeCode',payload:0})
+      }
+     
+
     }
   },
   //同步操作
   reducers: {
     save(state, action) {
       return { ...state, ...action.payload };
+    },
+    typeCode(state,action){
+      return {...state,typeCode:action.payload}
     }
   }
 };

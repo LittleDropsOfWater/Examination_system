@@ -1,4 +1,4 @@
-import request from '../utils/request';
+import request,{getRequest,postRequest} from '../utils/request';
 /**
  * 
 	获取所有的考试类型 exam/examType GET
@@ -9,40 +9,43 @@ import request from '../utils/request';
  */
 //考试类型 
 export function getExamType(params){
-	return request({
+	return getRequest({
 		url:'exam/examType',
-		method:'GET',
 	})
 }
 //获取所有的课程
 export function getSubject(){
-	return request({
+	return getRequest({
 		url:'/exam/subject',
-		method:'GET',
 	})
 }
 //获取所有的试题类型
 export function getQuestionsType(){
-	return request({
+	return getRequest({
 		url:'/exam/getQuestionsType',
-		method:'GET',
 	})
 }
 
 //获取所有试题
 export function getAllquestion(){
-  return request({
+  return getRequest({
     url:"/exam/questions/new",
-    method:"GET"
   })
 }
 
 //添加试题接口	/exam/questions POST
-export function addQuestions(params){
-	console.log('service-questions.params',params)
-	return request({
+export function addQuestions(data){
+	// console.log('service-questions.params',params)
+	return postRequest({
 		url:'/exam/questions',
-		method:'POST',
-		data:params
+		data
+	})
+}
+//添加试题类型接口 /exam/insertQuestionsType GET
+export function addQuestionsType(params){
+	// console.log('service-addQuestionsType.params',params)
+	return getRequest({
+		url:'/exam/insertQuestionsType',
+		params
 	})
 }
