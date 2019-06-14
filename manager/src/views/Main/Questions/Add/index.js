@@ -144,7 +144,7 @@ const mapState = state => {
 const mapDispatch = dispatch => ({
   question() {
     dispatch({
-      type: "question/getAddPage"
+      type: "question/getAllType"
     });
   },
   addQuestions(payload) {
