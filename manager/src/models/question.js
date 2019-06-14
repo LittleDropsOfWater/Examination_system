@@ -11,7 +11,8 @@ export default {
     allQuestion:[],//所有试题
     EditQuestion:[],
     editCode:-1,
-    code:-1
+    code:-1,
+    typeCode:-1
   },
 
   subscriptions: {

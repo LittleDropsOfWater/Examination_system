@@ -60,6 +60,7 @@ function Type(props) {
   }, [questions_type]);
   useEffect(()=>{
     if(typeCode===-1)return ;
+    console.log(typeCode)
     if(typeCode){
         success('添加成功')
     }else{

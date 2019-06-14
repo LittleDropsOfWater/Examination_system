@@ -8,7 +8,7 @@ export const setToken = value => Cookie.set(key, value, { expires: 7 });
 
 const UserData = "UserData";
 //获取UserData 
-export const getUserData = () => Cookie.get(UserData);
+export const getUserData = () => JSON.parse(Cookie.get(UserData));
 
 //设置UserData
 export const setUserData = value => Cookie.set(UserData, value, { expires: 7 });

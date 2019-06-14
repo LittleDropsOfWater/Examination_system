@@ -19,7 +19,6 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
       message.error(msg);
     }
   }, [code,msg]);
-
   //处理表单提交
   const handleSubmit = e => {
     e.preventDefault();

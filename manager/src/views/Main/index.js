@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { connect } from "dva";
 import styles from "./style.scss";
 import { Avatar, Layout,Spin } from "antd";
@@ -11,14 +11,20 @@ import View from "./Questions/View";
 import AddUser from "./User/AddUser";
 import UserShow from "./User/UserShow";
 import Detail from "./Questions/Detail";
-import Edit from "./Questions/Edit"
+import Edit from "./Questions/Edit";
+import {getUserData} from '@/utils/user'
 const { Header, Content, Sider } = Layout;
 
 function HomePage(props) {
-  const { img, nickname,loading } = props;
+  const { img, loading } = props;
+  const[nickname,updateName]=useState('猫猫')
   useEffect(() => {
     props.userInfo();
+    console.log(getUserData());
   }, []);
+  useEffect(()=>{
+    updateName(getUserData().user_name);
+  },props)
   return (
     <Layout className={styles.wrap}>
       <Header className={styles.header}>

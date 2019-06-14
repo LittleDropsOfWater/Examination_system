@@ -17,12 +17,9 @@ export default {
 
   //订阅路由跳转，监听页面切换
   subscriptions: {
-    setup(a, b) {
+    setup({ dispatch, history }) {
       // eslint-disable-line
-      console.log("sbuscriptions:", a, b);
-      const { dispatch, history } = a;
-      console.log(history);
-
+      // console.log("sbuscriptions:", a, b);
       return history.listen(({ pathname = "/" }) => {
         console.log("监听pathname:", pathname);
         const token = getToken();
@@ -31,7 +28,6 @@ export default {
           //做token检测
           if (!token) {
             //利用redux做路由跳转
-            console.log("跳到login");
             dispatch(
               routerRedux.push({
                 // pathname:`/login`,
@@ -44,7 +40,6 @@ export default {
           //去登录页面，如果已登录跳回首页
           if (token) {
             //利用redux做路由跳转
-            console.log("跳到首页");
             dispatch(
               routerRedux.replace({
                 pathname: "/"
