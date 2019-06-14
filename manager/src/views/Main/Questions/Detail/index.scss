@@ -1,0 +1,13 @@
+.content{
+	background: rgb(255, 255, 255); padding: 24px; margin: 0px 10px 20px; border-radius: 10px;
+}
+.react-markdown{
+	line-height: 1.6;
+	word-wrap: break-word;
+	pre{
+		background-color: #f6f6f6;
+		line-height: 1.3;
+		color: #657b83;
+		white-space: pre-wrap;
+	}
+}

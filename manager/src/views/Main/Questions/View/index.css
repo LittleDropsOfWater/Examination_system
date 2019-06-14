@@ -1,9 +1,7 @@
 .row{
     height: 60px;
 }
-.btn{
-    margin-left: 50px;
-}
-.table td{
-    line-height: 30px;
+.tag{
+    margin-bottom: 10px;
+    margin-left: 10px;
 }

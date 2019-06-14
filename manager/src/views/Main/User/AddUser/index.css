@@ -1,0 +1,11 @@
+.content{
+    display: flex;
+    flex-wrap: wrap;
+}
+.wrap{
+    width: 33%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+    box-sizing: border-box;
+}

@@ -64,12 +64,15 @@ LeftSide.defaultProps = {
       id: "sub2",
       title: "用户管理",
       icon: "user",
+      path:"user",
       list: [
         {
-          title: "添加用户"
+          title: "添加用户",
+          path:"addUser"
         },
         {
-          title: "用户展示"
+          title: "用户展示",
+          path:"userShow"
         }
       ]
     },
