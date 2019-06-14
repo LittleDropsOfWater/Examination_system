@@ -71,7 +71,7 @@ function Add(props) {
           <Form.Item label="题干">
             {getFieldDecorator("title", { rules: [
                 { required: true, message: "请输入题干!" },
-                {pattern:/^.{1,20}&/,message:'不能超过20字'},
+                {pattern:/^.{1,20}$/,message:'不能超过20字'},
               ]})(
               <Input
                 className={styles.titleInput}
