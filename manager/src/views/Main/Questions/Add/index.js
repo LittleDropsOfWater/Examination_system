@@ -39,41 +39,40 @@ function Add(props) {
     }
     
   },[code,msg])
+
   //确认框
-  function showConfirm(e) {
-    // e.preventDefault();
+  function showConfirm() {
     confirm({
       title: "你确定要添加这道试题吗?",
       content: "真的要添加吗",
       okText: "确定",
       cancelText: "取消",
       onOk() {
-        console.log("OK",e);
-        handleSubmit(e);
+        form.validateFields((err, values) => {
+          if (!err) {
+            //调添加试题接口
+            // console.log({ ...values, user_id: getUserData().user_id });
+            addQuestions({ ...values, user_id: getUserData().user_id });
+          }
+        });
       },
       onCancel() {
       }
     });
   }
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        //调添加试题接口
-        // console.log({ ...values, user_id: JSON.parse(getUserData()).user_id });
-        addQuestions({ ...values, user_id: JSON.parse(getUserData()).user_id });
-      }
-    });
-  };
+
   return (
     <Layout>
       <Title>添加试题</Title>
       <Content className={styles.content}>
         <h3>题目信息</h3>
-        <Form layout="vertical" onSubmit={handleSubmit}>
+        <Form layout="vertical" >
           <Form.Item label="题干">
-            {getFieldDecorator("title", {})(
+            {getFieldDecorator("title", { rules: [
+                { required: true, message: "请输入题干!" },
+                {pattern:/^.{1,20}&/,message:'不能超过20字'},
+              ]})(
               <Input
                 className={styles.titleInput}
                 size="large"
@@ -82,24 +81,31 @@ function Add(props) {
             )}
           </Form.Item>
           <Form.Item label="题目主体">
-            {getFieldDecorator("questions_stem", {})(
+            {getFieldDecorator("questions_stem", {
+              rules: [
+                { required: true, message: "请输入题目主体!" },
+              ]
+            })(
               <Editor placeholder="请输入内容" height="auto" />
             )}
           </Form.Item>
           <Form.Item label="请选择考试类型:">
             {
               getFieldDecorator("exam_id", {
+           
               initialValue: examType[0] ? Object.values(examType[0])[0] : "周考1"
             })(<SelectOption list={examType} />)
             }
           </Form.Item>
           <Form.Item label="请选择课程类型:">
             {getFieldDecorator("subject_id", {
+              
               initialValue: subjectType[0] ? Object.values(subjectType[0])[0] : "javaScript上"
             })(<SelectOption list={subjectType} />)}
           </Form.Item>
           <Form.Item label="请选择题目类型:">
             {getFieldDecorator("questions_type_id", {
+              
               initialValue: questions_type[0]
                 ? Object.values(questions_type[0])[0]
                 : "简答题"
@@ -107,7 +113,11 @@ function Add(props) {
           </Form.Item>
 
           <Form.Item label="答案信息">
-            {getFieldDecorator("questions_answer", {})(
+            {getFieldDecorator("questions_answer", {
+               rules: [
+                { required: true, message: "未输入题目主体!" },
+              ],
+            })(
               <Editor placeholder="请输入内容" height="auto" />
             )}
           </Form.Item>
