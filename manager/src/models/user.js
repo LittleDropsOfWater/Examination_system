@@ -1,10 +1,10 @@
 import { login, userInfo } from "@/services";
-import {setToken,getToken,setUserData} from '@/utils/user'
-import {routerRedux} from 'dva/router';
+import { setToken, getToken, setUserData } from "@/utils/user";
+import { routerRedux } from "dva/router";
 
 const defaultState = {
   code: -1,
-  msg: "",
+  msg: ""
 };
 export default {
   //命名空间
@@ -17,39 +17,42 @@ export default {
 
   //订阅路由跳转，监听页面切换
   subscriptions: {
-    setup(a,b) {
+    setup(a, b) {
       // eslint-disable-line
-      console.log('sbuscriptions:',a,b);
-      
-      const { dispatch, history }=a;
+      console.log("sbuscriptions:", a, b);
+      const { dispatch, history } = a;
       console.log(history);
-      
-      return history.listen(({pathname='/'})=>{
-        console.log('监听pathname:',pathname);
-        const token=getToken();
-        if(pathname.indexOf('/login')===-1){
+
+      return history.listen(({ pathname = "/" }) => {
+        console.log("监听pathname:", pathname);
+        const token = getToken();
+        if (pathname.indexOf("/login") === -1) {
           //不去登录页面，
           //做token检测
-          if(!token){
+          if (!token) {
             //利用redux做路由跳转
-            console.log('跳到login');
-            dispatch(routerRedux.push({
-              // pathname:`/login`,
-              pathname:`/login`,
-              search:`redirect=${encodeURIComponent(pathname)}`
-            },))
+            console.log("跳到login");
+            dispatch(
+              routerRedux.push({
+                // pathname:`/login`,
+                pathname: `/login`,
+                search: `redirect=${encodeURIComponent(pathname)}`
+              })
+            );
           }
-        }else{
+        } else {
           //去登录页面，如果已登录跳回首页
-          if(token){
+          if (token) {
             //利用redux做路由跳转
-            console.log('跳到首页');
-            dispatch(routerRedux.replace({
-              pathname:'/',
-            }))
+            console.log("跳到首页");
+            dispatch(
+              routerRedux.replace({
+                pathname: "/"
+              })
+            );
           }
         }
-      })
+      });
     }
   },
   //异步操作
@@ -64,15 +67,13 @@ export default {
       let data = yield call(login, payload);
       console.log("data...", data);
       //设置登陆态到cookie里
-      if(data.code === 1){
+      if (data.code === 1) {
         setToken(data.token);
       }
       yield put({
         type: "save",
-        payload:data
+        payload: data
       });
-      
-     
     },
     *userInfo(action, { call, put }) {
       let data = yield call(userInfo);
@@ -82,6 +83,14 @@ export default {
         payload: data.data
       });
       setUserData(data.data);
+    },
+    *logOut({ payload }, { call, put }) {
+      yield setToken("");
+      yield setUserData("");
+      yield put({ type: "logReset" });
+      yield routerRedux.push({
+        pathname: `/login`
+      });
     }
   },
   //同步操作
@@ -90,11 +99,11 @@ export default {
     save(state, { payload }) {
       return { ...state, ...payload };
     },
-    logOut(state) {
+    logReset(state) {
       return { ...state, ...defaultState };
     },
-    updateLogin(state,{payload}){
-      return {...state,isLogin:payload}
+    updateLogin(state, { payload }) {
+      return { ...state, isLogin: payload };
     }
   }
 };

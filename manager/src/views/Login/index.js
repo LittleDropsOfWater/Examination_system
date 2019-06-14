@@ -13,7 +13,7 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
       //2存储cookie
       //3.跳转到home页面
       let pathName=location.search.split('=')[1]||'/';
-      history.replace(pathName);
+      history.replace(decodeURIComponent(pathName));
     } else {
       //登陆失败
       message.error(msg);
