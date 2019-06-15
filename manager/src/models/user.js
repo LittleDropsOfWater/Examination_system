@@ -78,7 +78,6 @@ export default {
     },
     *userInfo(action, { call, put }) {
       let data = yield call(userInfo);
-      console.log("userInfo.Data:", data.data);
       yield put({
         type: "save",
         payload: data.data

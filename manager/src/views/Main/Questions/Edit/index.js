@@ -17,7 +17,7 @@ function Edit(props) {
         getEditQuestion,
         updateQuestions,
         EditQuestion,
-        editCode
+        typeCode
     } = props;
     console.log(props)
     const { getFieldDecorator } = form;
@@ -28,14 +28,14 @@ function Edit(props) {
         })
     }, [])
     useEffect(() => {
-        if (editCode === -1) return
-        if (editCode) {
+        if (typeCode === -1) return
+        if (typeCode) {
             success("更新成功")
             props.history.replace("/questions/view")
         } else {
             error("更新失败")
         }
-    }, [editCode])
+    }, [typeCode])
 
     //确认框
     function showConfirm(e) {
@@ -115,7 +115,6 @@ function Edit(props) {
 const MapState = state => {
     return {
         ...state.question,
-        editCode: state.question.editCode,
         EditQuestion: state.question.EditQuestion[0]
 
     }
