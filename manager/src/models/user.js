@@ -1,5 +1,11 @@
 import { login, userInfo } from "@/services";
-import { setToken, getToken, setUserData } from "@/utils/user";
+import {
+  setToken,
+  getToken,
+  removeToken,
+  setUserData,
+  removeUserData
+} from "@/utils/user";
 import { routerRedux } from "dva/router";
 
 const defaultState = {
@@ -80,16 +86,16 @@ export default {
       setUserData(data.data);
     },
     *logOut({ payload }, { call, put }) {
-      yield setToken("");
-      yield setUserData("");
+      yield removeToken("");
+      yield removeUserData("");
       yield put({ type: "logReset" });
       yield routerRedux.push({
         pathname: `/login`
       });
     }
   },
-  //同步操作
 
+  //同步操作
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload };

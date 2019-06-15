@@ -16,15 +16,14 @@ import {getUserData} from '@/utils/user'
 const { Header, Content, Sider } = Layout;
 
 function HomePage(props) {
-  const { img, loading } = props;
+  const { img, loading ,userInfo} = props;
   const[nickname,updateName]=useState('猫猫')
-  useEffect(() => {
-    props.userInfo();
-    console.log(getUserData());
-  }, []);
+  //发起用户信息请求
+  useEffect(userInfo, []);
+  //更新用户信息
   useEffect(()=>{
     updateName(getUserData().user_name);
-  },props)
+  },[props])
   return (
     <Layout className={styles.wrap}>
       <Header className={styles.header}>

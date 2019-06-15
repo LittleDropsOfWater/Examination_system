@@ -6,6 +6,9 @@ export const getToken = () => Cookie.get(key);
 //设置token
 export const setToken = value => Cookie.set(key, value, { expires: 7 });
 
+//删除token
+export const removeToken = () => Cookie.remove(key);
+
 const UserData = "UserData";
 //获取UserData 
 export const getUserData = () => {
@@ -15,3 +18,6 @@ export const getUserData = () => {
 
 //设置UserData
 export const setUserData = value => Cookie.set(UserData, value, { expires: 7 });
+
+//删除UserData
+export const removeUserData=()=>Cookie.remove(UserData);
