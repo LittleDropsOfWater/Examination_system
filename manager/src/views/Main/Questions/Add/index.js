@@ -9,7 +9,7 @@ import { getUserData } from "@/utils/user";
 const { Content } = Layout;
 const { confirm } = Modal;
 const { success, error } = message;
-function Add(props) {
+function QuestionsAdd(props) {
   /*
 	获取所有的考试类型 exam/examType GET
 	获取所有的课程 /exam/subject GET
@@ -147,4 +147,4 @@ const mapDispatch = dispatch => ({
 export default connect(
   mapState,
   mapDispatch
-)(Form.create({ name: "questions_add" })(Add));
+)(Form.create({ name: "questions_add" })(QuestionsAdd));

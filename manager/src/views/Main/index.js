@@ -5,13 +5,15 @@ import { Avatar, Layout,Spin } from "antd";
 import { Route, Switch,Redirect } from "dva/router";
 import LeftSide from "@/components/LeftSide";
 import HeaderRight from "@/components/HeaderRight";
-import Add from "./Questions/Add";
+import QuestionsAdd from "./Questions/Add";
 import Type from "./Questions/Type";
 import View from "./Questions/View";
 import AddUser from "./User/AddUser";
 import UserShow from "./User/UserShow";
 import Detail from "./Questions/Detail";
 import Edit from "./Questions/Edit";
+import ExamAdd from "./Exam/Add";
+
 import {getUserData} from '@/utils/user'
 const { Header, Content, Sider } = Layout;
 
@@ -43,13 +45,14 @@ function HomePage(props) {
         </Sider>
         <Content className={styles.content} style={{padding:'0px 24px 24px'}}>
             <Switch>
-              <Route path="/questions/add" component={Add} />
+              <Route path="/questions/add" component={QuestionsAdd} />
               <Route path="/questions/type" component={Type} />
               <Route path="/questions/view" component={View} />
               <Route path="/user/adduser" component={AddUser} />
               <Route path="/user/userShow" component={UserShow}/>
               <Route path="/questions/detail" component={Detail} />
               <Route path="/edit/questions" component={Edit} />
+              <Route path="/exam/add" component={ExamAdd} />
               <Redirect exact from='/' to="/questions/add" />
             </Switch>
             {

@@ -80,12 +80,17 @@ LeftSide.defaultProps = {
       id: "sub3",
       title: "考试管理",
       icon: "schedule",
+      path:'exam',
+
       list: [
         {
-          title: "添加考试"
-        },
+          title: "添加考试",
+          path:'add',
+    },
         {
-          title: "试卷列表"
+          title: "试卷列表",
+          path:'list',
+
         }
       ]
     },
