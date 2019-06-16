@@ -12,7 +12,6 @@ function Detail(props) {
             questions_id: props.location.search.split("=")[1]
         })
     },[])
-  console.log(props)
     return (
         <Layout>
             <Title>试题详情</Title>
@@ -30,8 +29,6 @@ function Detail(props) {
                 </Content>
                 <Content className={styles.content}>
                 <ReactMarkdown className={styles['react-markdown']} source={props.questions_answer} />
-
-
                 </Content>
             </Content>
         </Layout>)
