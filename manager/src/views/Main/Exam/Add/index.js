@@ -34,7 +34,8 @@ function ExamAdd(props) {
     questions_type,
     subjectType,
     typeCode,
-    msg
+    msg,
+    history
   } = props;
   const { getFieldDecorator } = form;
 
@@ -72,7 +73,7 @@ function ExamAdd(props) {
   return (
     <Layout>
       <Title>添加考试</Title>
-      <Content className={styles.content}>
+      <Content className='content' >
         <Form layout="vertical" onSubmit={handleSubmit}>
           <Form.Item label="试卷名称">
             {getFieldDecorator("title", {

@@ -1,5 +1,5 @@
 import dva from 'dva';
-import './index.css';
+import './index.scss';
 import loading from "dva-loading";
 // import {createLogger} from 'redux-logger';
 import {message} from 'antd';
@@ -18,6 +18,7 @@ app.use(loading());
 // 3. Model
 // app.model(require('./models/example').default);
 app.model(require('./models/user').default);
+app.model(require('./models/exam').default);
 app.model(require('./models/question').default);
 
 // 4. Router

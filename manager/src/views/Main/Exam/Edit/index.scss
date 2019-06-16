@@ -1,0 +1,21 @@
+.exam{
+	min-height: 680px;
+	margin: auto;
+	padding: 40px;
+	text-align: center;
+	position: relative;
+	h2,p{
+		margin-bottom: 10px;
+	}
+.questionsitem{
+	text-align: left;
+    border: 1px solid #ccc;
+    padding: 20px;
+		margin-bottom: 20px;
+		.questionsitemTitle{
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 10px;
+		}
+}
+}

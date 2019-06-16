@@ -88,9 +88,9 @@ export default {
       yield removeToken("");
       yield removeUserData("");
       yield put({ type: "logReset" });
-      yield routerRedux.push({
+      yield put(routerRedux.push({
         pathname: `/login`
-      });
+      }));
     }
   },
 

@@ -13,8 +13,10 @@ import UserShow from "./User/UserShow";
 import Detail from "./Questions/Detail";
 import Edit from "./Questions/Edit";
 import ExamAdd from "./Exam/Add";
+import ExamList from "./Exam/List";
 
 import {getUserData} from '@/utils/user'
+import ExamEdit from "./Exam/Edit";
 const { Header, Content, Sider } = Layout;
 
 function HomePage(props) {
@@ -53,6 +55,8 @@ function HomePage(props) {
               <Route path="/questions/detail" component={Detail} />
               <Route path="/edit/questions" component={Edit} />
               <Route path="/exam/add" component={ExamAdd} />
+              <Route path="/exam/edit" component={ExamEdit} />
+              <Route path="/exam/list" component={ExamList} />
               <Redirect exact from='/' to="/questions/add" />
             </Switch>
             {
