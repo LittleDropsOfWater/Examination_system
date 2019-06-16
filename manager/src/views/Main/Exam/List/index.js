@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 // import style from "./index.css";
 import { connect } from "dva";
 import { Link } from "dva/router";
 import {
   Layout,
-  Breadcrumb,
+  
   Select,
   Row,
   Col,
@@ -13,7 +13,7 @@ import {
   Tag,
   Table,
   Form,
-  Empty
+  
 } from "antd";
 import Title from "@/components/Title";
 
@@ -74,14 +74,14 @@ function ExamList(props) {
   const { getFieldDecorator } = props.form;
   const {
     examType,
-    questions_type,
     subjectType,
-    allQuestion,
+    // allQuestion,
 		getAllType,
 		exams
   } = props;
   function handleSubmit() {}
   useEffect(getAllType, []);
+  
   return (
     <Layout>
       <Title>试卷列表</Title>
