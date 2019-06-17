@@ -1,0 +1,33 @@
+.exam{
+	min-height: 980px;
+	margin: auto;
+	padding: 20px;
+	text-align: center;
+	position: relative;
+	h3{
+		font-size: 20px;
+		font-weight: bold;
+	}
+}
+.reactMarkdown{
+
+	img{
+		width: 100%;
+	}
+	pre{
+		background-color: #eee;
+		border-radius: 10px;
+		padding: 20px;
+	}
+}
+.questionsItem{
+	border:1px solid #999;
+	text-align: left;
+	padding: 40px;
+	margin: 10px;
+	margin-bottom: 30px;
+	h4{
+		font-size: 18px;
+		margin-bottom: 20px;
+	}
+}
