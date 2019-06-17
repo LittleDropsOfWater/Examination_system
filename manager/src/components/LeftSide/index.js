@@ -93,15 +93,19 @@ LeftSide.defaultProps = {
       id: "sub4",
       title: "班级管理",
       icon: "project",
+      path:"class",
       list: [
         {
-          title: "班级管理"
+          title: "班级管理",
+          path:"grade"
         },
         {
-          title: "教室管理"
+          title: "教室管理",
+          path:"room"
         },
         {
-          title: "学生管理"
+          title: "学生管理",
+          path:"student"
         }
       ]
     },

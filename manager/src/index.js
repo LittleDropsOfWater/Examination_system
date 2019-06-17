@@ -19,6 +19,8 @@ app.use(loading());
 // app.model(require('./models/example').default);
 app.model(require('./models/user').default);
 app.model(require('./models/question').default);
+app.model(require('./models/userShow').default);
+app.model(require('./models/class.js').default);
 
 // 4. Router
 app.router(require('./router').default);

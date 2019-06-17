@@ -6,6 +6,15 @@
     width: 33%;
     border: 1px solid #ccc;
     border-radius: 3px;
+    padding:10px;
     overflow: hidden;
     box-sizing: border-box;
+}
+.wrap_p{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
 }

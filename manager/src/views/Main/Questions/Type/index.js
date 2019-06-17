@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "dva";
+import Title from "@/components/Title"
 import {
   Layout,
-  Breadcrumb,
   Button,
   Icon,
   Table,
@@ -51,7 +51,6 @@ function Type(props) {
     }
   ];
   useEffect(() => {
-    console.log(props.getQuestionsType);
     props.getQuestionsType();
   }, []);
   useEffect(() => {
@@ -70,9 +69,7 @@ function Type(props) {
   },[typeCode])
   return (
     <Layout style={{ padding: "0 24px 24px" }}>
-      <Breadcrumb style={{ margin: "16px 0" }}>
-        <Breadcrumb.Item>试题分类</Breadcrumb.Item>
-      </Breadcrumb>
+      <Title>试题分类</Title>
       <Content
         style={{
           background: "#fff",

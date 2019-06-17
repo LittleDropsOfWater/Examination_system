@@ -60,8 +60,6 @@ function Add(props) {
       }
     });
   }
-
-
   return (
     <Layout>
       <Title>添加试题</Title>

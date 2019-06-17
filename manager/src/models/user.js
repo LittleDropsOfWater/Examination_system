@@ -21,7 +21,6 @@ export default {
       // eslint-disable-line
       // console.log("sbuscriptions:", a, b);
       return history.listen(({ pathname = "/" }) => {
-        console.log("监听pathname:", pathname);
         const token = getToken();
         if (pathname.indexOf("/login") === -1) {
           //不去登录页面，
