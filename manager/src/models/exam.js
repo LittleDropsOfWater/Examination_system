@@ -1,4 +1,4 @@
-import { addExam,updateExam,getAllExam } from "@/services/exam";
+import { addExam,updateExam,getExam,getTheExam } from "@/services/exam";
 import {  setExam} from "@/utils/user";
 import { routerRedux } from "dva/router";
 
@@ -8,6 +8,7 @@ export default {
   //模块内部状态
   state: {
     exams:[],
+    theExam:{}
   },
 
   subscriptions: {
@@ -42,12 +43,26 @@ export default {
 			}
     },
     *getAllExam({ payload }, { call, put }){
-      let data= yield call(getAllExam);
+      let data= yield call(getExam,{pageSize:20});
       yield put({
         type:'updateExams',
         payload:data.exam
       })
-    }
+    },
+    *searchExams({payload},{call,put}){
+      let data= yield call(getExam,payload);
+      yield put({
+        type:'updateExams',
+        payload:data.exam
+      })
+    },
+    *getTheExam({payload},{call,put}){
+      let data= yield call(getTheExam,payload);
+      yield put({
+        type:'updateTheExam',
+        payload:data.data
+      })
+    },
   },
   //同步操作
   reducers: {
@@ -56,7 +71,9 @@ export default {
     },
     updateExams(state,action){
       return {...state, exams:action.payload};
+    },
+    updateTheExam(state,action){
+      return {...state,theExam:action.payload}
     }
-  },
-
+  }
 };
