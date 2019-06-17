@@ -1,8 +1,8 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "dva";
 import styles from "./style.scss";
-import { Avatar, Layout,Spin } from "antd";
-import { Route, Switch,Redirect } from "dva/router";
+import { Avatar, Layout, Spin } from "antd";
+import { Route, Switch, Redirect } from "dva/router";
 import LeftSide from "@/components/LeftSide";
 import HeaderRight from "@/components/HeaderRight";
 import QuestionsAdd from "./Questions/Add";
@@ -15,20 +15,25 @@ import Edit from "./Questions/Edit";
 import ExamAdd from "./Exam/Add";
 import ExamList from "./Exam/List";
 
-import {getUserData} from '@/utils/user'
+import { getUserData } from "@/utils/user";
 import ExamEdit from "./Exam/Edit";
 import ExamDetail from "./Exam/Detail";
+
+import Grade from "./Class/Grade";
+import Room from "./Class/Room";
+import Student from "./Class/Student";
 const { Header, Content, Sider } = Layout;
 
 function HomePage(props) {
-  const { img, loading ,userInfo} = props;
-  const[nickname,updateName]=useState('猫猫')
-  //发起用户信息请求
-  useEffect(userInfo, []);
-  //更新用户信息
-  useEffect(()=>{
+  const { img, loading } = props;
+  const [nickname, updateName] = useState("猫猫");
+  useEffect(() => {
+    props.userInfo();
+    console.log(getUserData());
+  }, []);
+  useEffect(() => {
     updateName(getUserData().user_name);
-  },[props])
+  }, props);
   return (
     <Layout className={styles.wrap}>
       <Header className={styles.header}>
@@ -42,32 +47,41 @@ function HomePage(props) {
           </>
         </HeaderRight>
       </Header>
-      <Layout className={styles.main} >
+      <Layout className={styles.main}>
         <Sider className={styles.leftside}>
           <LeftSide />
         </Sider>
-        <Content className={styles.content} style={{overflow:'hidden'}}>
-        
-          <Content style={{padding:'0px 24px 24px',overflow:'scroll',height:'100%'}}>
+        <Content className={styles.content} style={{ overflow: "hidden" }}>
+          <Content
+            style={{
+              padding: "0px 24px 24px",
+              overflow: "scroll",
+              height: "100%"
+            }}
+          >
             <Switch>
               <Route path="/questions/add" component={QuestionsAdd} />
               <Route path="/questions/type" component={Type} />
               <Route path="/questions/view" component={View} />
-              <Route path="/user/adduser" component={AddUser} />
-              <Route path="/user/userShow" component={UserShow}/>
               <Route path="/questions/detail" component={Detail} />
               <Route path="/edit/questions" component={Edit} />
+              <Route path="/user/adduser" component={AddUser} />
+              <Route path="/user/userShow" component={UserShow} />
+              <Route path="/class/grade" component={Grade} />
+              <Route path="/class/room" component={Room} />
+              <Route path="/class/student" component={Student} />
               <Route path="/exam/add" component={ExamAdd} />
               <Route path="/exam/edit" component={ExamEdit} />
               <Route path="/exam/list" component={ExamList} />
               <Route path="/exam/detail/:id" component={ExamDetail} />
-              <Redirect exact from='/' to="/questions/add" />
+              <Redirect exact from="/" to="/questions/add" />
             </Switch>
           </Content>
-        {
-          loading?<div className={styles.loading}><Spin size="large" delay={500}/></div>:null
-        }
-           
+          {loading ? (
+            <div className={styles.loading}>
+              <Spin size="large" delay={500} />
+            </div>
+          ) : null}
         </Content>
       </Layout>
     </Layout>
@@ -80,9 +94,9 @@ HomePage.defaultProps = {
   nickname: "chenmanjie"
 };
 const mapState = state => {
-   return {
-     loading:state.loading.global
-   }
+  return {
+    loading: state.loading.global
+  };
 };
 const mapDispatch = dispatch => ({
   userInfo() {

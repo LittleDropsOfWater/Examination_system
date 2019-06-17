@@ -65,7 +65,6 @@ export default {
     //获取所有的课程类型
     *getSubject({ payload }, { call, put }) {
       let data = yield call(getSubject);
-      console.log("subject:", data);
       if (data.code === 1) {
         yield put({
           type: "save",
