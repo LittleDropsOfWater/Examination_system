@@ -10,9 +10,8 @@ export default {
     questions_type: [],//试题类型
     allQuestion:[],//所有试题
     EditQuestion:[],
-    editCode:-1,
-    code:-1,
-    typeCode:-1
+    
+    typeCode:-1,
   },
 
   subscriptions: {
@@ -29,6 +28,7 @@ export default {
 //获取所有试题   
  */
   effects: {
+    //获取所有的考试类型 exam/examType GET
     *getExamType({ payload }, { call, put }) {
       let data = yield call(getExamType);
       if (data.code === 1) {
@@ -58,18 +58,9 @@ export default {
     //更新试题
     *updateQuestion({ payload }, { call, put }){
       let data = yield call(updateQuestion,payload);
-        yield put({
-          type: "save",
-          payload: {
-            editCode: data.code
-          }
-        });
-        yield put({
-          type: "save",
-          payload: {
-            editCode: -1
-          }
-        });
+      yield put({ type: "callTypeCode", payload: data.code });
+
+
     },
     //获取所有的课程类型
     *getSubject({ payload }, { call, put }) {
@@ -128,17 +119,14 @@ export default {
     *addQuestions({payload},{call,put}){
       // console.log('model-question-addQuestions.payload',payload);
       let data=yield call(addQuestions,payload);
-      // console.log('addQuestions.data',data);
-      yield put({
-        type:'save',
-        payload:data
-      })
+      yield put({ type: "callTypeCode", payload: data.code });
     },
     //添加试题类型
     *addQuestionsType({ payload }, { call, put }) {
       // console.log('model-question-addQuestionsType.payload',payload);
       try {
         let data = yield call(addQuestionsType, payload);
+        console.log(data);
         yield put({ type: "getQuestionsType" });
         yield put({ type: "callTypeCode", payload: data.code === 1 ? 1 : 0 });
       } catch (err) {

@@ -28,14 +28,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 99;
 }
 .content{
   position: relative;
+
 }
 
 :global {
   .ant-btn-primary{
     padding: 0 40px!important;
     background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+  }
+  .ant-table-row td{
+    vertical-align: middle;
+    
   }
 }

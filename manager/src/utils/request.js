@@ -37,18 +37,18 @@ export const  getRequest=({url,params={}})=>{
     params
 	})
 }
-export const  postRequest=({url,data={}})=>{
+export const  postRequest=({url,params={}})=>{
   return service({
 		url,
     method:'POST',
-    data
+    data:params
 	})
 }
-export const  putRequest=({url,data={}})=>{
+export const  putRequest=({url,params={}})=>{
   return service({
 		url,
     method:'PUT',
-    data
+    data:params
 	})
 }
 
