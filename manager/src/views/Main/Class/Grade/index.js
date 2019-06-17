@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { connect } from "dva"
+import style from "./index.css"
 import Title from "@/components/Title"
 import {
   Layout,
@@ -16,35 +17,7 @@ import {
 const { Content } = Layout;
 const { Option } = Select;
 const { success, error } = message;
-// const columns = [
-//   {
-//     title: "班级名",
-//     dataIndex: "grade_name"
-//   },
-//   {
-//     title: "课程名",
-//     dataIndex: "subject_text"
-//   },
-//   {
-//     title: "教室号",
-//     dataIndex: "room_text"
-//   },
-//   {
-//     title: "操作",
-//     dataIndex: "操作"
-//   }
-// ];
-const columns = [
-  { title: '班级名', dataIndex: 'grade_name', key: 'name' },
-  { title: 'Age', dataIndex: 'age', key: 'age' },
-  { title: 'Address', dataIndex: 'address', key: 'address' },
-  {
-    title: 'Action',
-    dataIndex: '',
-    key: 'x',
-    render: () => <a href="javascript:;">Delete</a>,
-  },
-];
+
 function Grade(props) {
   const [DialogVisible, setDialogVisible] = useState(false);
   const { getGrade,
@@ -75,7 +48,6 @@ function Grade(props) {
       e.preventDefault();
       props.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
           addGrade({
             grade_name:values.grade_name,
             room_id:values.room_id,
@@ -85,6 +57,31 @@ function Grade(props) {
         }
       });
     };
+    const columns = [
+      {
+        title: "班级名",
+        dataIndex: "grade_name"
+      },
+      {
+        title: "课程名",
+        dataIndex: "subject_text"
+      },
+      {
+        title: "教室号",
+        dataIndex: "room_text"
+      },
+      {
+        title: '操作',
+        dataIndex: '',
+        render: (val) => <p><span className={style.active} onClick={(e)=>{
+          console.log(val)
+          setDialogVisible(true)
+            e.preventDefault();
+            props.form.setFieldsValue({ grade_name:val.grade_name, room_id:val.room_id,subject_id:val.subject_id })
+        
+        }}>修改</span>|<span className={style.active}>删除</span></p>,
+      },
+    ];
   const { getFieldDecorator } = props.form;
   return (
     <Layout style={{ padding: "0 24px 24px" }}>
