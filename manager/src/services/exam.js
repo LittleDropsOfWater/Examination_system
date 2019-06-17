@@ -5,5 +5,6 @@ export function addExam(params){
 		params
 	})
 }
-export const updateExam=(id,params)=>putRequest({url:`/exam/exam/${id}`,params})
-export const getAllExam=(params={})=>getRequest({url:'/exam/exam'})
+export const updateExam=(id,params={})=>putRequest({url:`/exam/exam/${id}`,params})
+export const getExam=(params={})=>getRequest({url:'/exam/exam',params})
+export const getTheExam=(id='')=>getRequest({url:`/exam/exam/${id}`})

@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-// import style from "./index.css";
+import React, { useEffect, useState } from "react";
+import styles from "./index.scss";
 import { connect } from "dva";
 import { Link } from "dva/router";
+import moment from 'moment';
 import {
   Layout,
   
@@ -13,7 +14,7 @@ import {
   Tag,
   Table,
   Form,
-  
+  Radio 
 } from "antd";
 import Title from "@/components/Title";
 
@@ -24,19 +25,23 @@ const columns = [
 		title:'试卷信息',
     dataIndex: '',
     key: '',
-    render: text => (
-    
+    render: text => {
+      let time=moment(text.end_time-text.start_time);
+      return ((
         <>
           <h4>{text.title}</h4>
           <h4>
             <Tag color="geekblue">{text.subject_text}</Tag>
             <Tag color="gold">{text.exam_name}</Tag>
           </h4>
-          <span>{text.user_name}</span>
-          <span>发布</span>
+          <h4>题量:{text.number}道题</h4>
+          <h4>考试时间:{time.hours()}小时
+          {time.minutes()}分钟
+          </h4>
         </>
     
-    ),
+    ))
+    },
 	},
 	{
 		title:'班级',
@@ -52,21 +57,20 @@ const columns = [
 		title:'创建人',
 		dataIndex:'user_name',
 	},{
-		title:'开始时间',
+		title:'开始时间', 
 		dataIndex:'start_time',
-		render:text=>(<>{new Date(+text.start_time).toLocaleString()}</>)
+		render:text=>(<>{new Date(+text).toLocaleString()}</>)
 	},{
 		title:'结束时间',
 		dataIndex:'end_time',
-		render:text=>(<>{new Date(+text.end_time).toLocaleString()}</>)
+		render:text=>(<>{new Date(+text).toLocaleString()}</>)
 
 	},
   {
+		title:'操作',
     key: 'action',
     render: (text, record) => (
-      <span style={{ position: "absolute", right: 20 }}>
-        <Link to={{ pathname: "/edit/questions", search: `id=${text.questions_id}` }}>编辑</Link>
-      </span>
+        <Link to={{ pathname: `/exam/detail/${text.exam_exam_id}`, params:{id:text.exam_exam_id} }}>详情</Link>
     ),
   },
 ];
@@ -75,12 +79,44 @@ function ExamList(props) {
   const {
     examType,
     subjectType,
-    // allQuestion,
 		getAllType,
-		exams
+    exams,
+    form,
+    searchExams
   } = props;
-  function handleSubmit() {}
+  let[radioValue,ChangeRadioValue]=useState(-1)
+  let[currentExams,ChangeCurrentExams]=useState(exams)
+  function handleSubmit(e) {
+    e.preventDefault();
+    form.validateFields((err, values) => {
+      if(!err){
+        for(let k in values){
+          if(!values[k]){
+            delete values[k]
+          }
+        }
+        searchExams(values);
+      }
+  
+    });
+  }
+  function TabChange(e){
+    const value=e.target.value;
+    console.log(value,exams);
+    ChangeRadioValue(value);
+    if(value===-1){
+      ChangeCurrentExams(exams)
+    }else{
+      ChangeCurrentExams(exams.filter(val=>val.status===value));
+
+    }
+  }
   useEffect(getAllType, []);
+  useEffect(()=>{
+    ChangeCurrentExams(exams)
+  }, [exams]);
+ 
+  
   
   return (
     <Layout>
@@ -91,11 +127,16 @@ function ExamList(props) {
             <Col span={8}>
               <Form.Item>
                 考试类型:
-                {getFieldDecorator("exam_id", {})(
+                {getFieldDecorator("exam_type", {
+                  initialValue:'',
+                })(
                   <Select
                     style={{ width: 120 }}
                     dropdownRender={menu => <div>{menu}</div>}
                   >
+                    <Option key='all' value=''>
+                        所有类型
+                      </Option>
                     {examType.map(item => (
                       <Option key={item.exam_id} value={item.exam_id}>
                         {item.exam_name}
@@ -108,11 +149,16 @@ function ExamList(props) {
             <Col span={8}>
               <Form.Item>
                 课程:
-                {getFieldDecorator("questions_type_id", {})(
+                {getFieldDecorator("subject_id", {
+                  initialValue:'',
+                })(
                   <Select
-                    style={{ width: 120 }}
+                    style={{ width: 180 }}
                     dropdownRender={menu => <div>{menu}</div>}
                   >
+                         <Option key='all' value=''>
+                        所有课程
+                      </Option>
                     {subjectType.map(({ subject_id, subject_text }) => (
                       <Option key={subject_id} value={subject_id}>
                         {subject_text}
@@ -132,8 +178,16 @@ function ExamList(props) {
         </Form>
       </Content>
 			<Content className="content">
+        <div className={styles.tool}>
 				<h4>试卷列表</h4>
-				<Table rowKey={"exam_exam_id"}  columns={columns} dataSource={exams} />}
+        <Radio.Group value={radioValue} onChange={TabChange} style={{ marginBottom: 16 }}>
+          <Radio.Button value={-1}>全部</Radio.Button>
+          <Radio.Button value={1}>进行中</Radio.Button>
+          <Radio.Button value={2}>已结束</Radio.Button>
+        </Radio.Group>
+
+        </div>
+				<Table rowKey={"exam_exam_id"}  columns={columns} dataSource={currentExams} />
 			</Content>
     </Layout>
   );
@@ -147,7 +201,14 @@ const mapDispatch = dispatch => ({
 		dispatch({
 			type:'exam/getAllExam'
 		})
+  },
+  searchExams(payload){
+    dispatch({
+      type:'exam/searchExams',
+      payload
+    })
   }
+
 });
 export default connect(
   mapState,

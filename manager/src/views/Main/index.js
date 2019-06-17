@@ -17,6 +17,7 @@ import ExamList from "./Exam/List";
 
 import {getUserData} from '@/utils/user'
 import ExamEdit from "./Exam/Edit";
+import ExamDetail from "./Exam/Detail";
 const { Header, Content, Sider } = Layout;
 
 function HomePage(props) {
@@ -45,7 +46,9 @@ function HomePage(props) {
         <Sider className={styles.leftside}>
           <LeftSide />
         </Sider>
-        <Content className={styles.content} style={{padding:'0px 24px 24px'}}>
+        <Content className={styles.content} style={{overflow:'hidden'}}>
+        
+          <Content style={{padding:'0px 24px 24px',overflow:'scroll',height:'100%'}}>
             <Switch>
               <Route path="/questions/add" component={QuestionsAdd} />
               <Route path="/questions/type" component={Type} />
@@ -57,11 +60,14 @@ function HomePage(props) {
               <Route path="/exam/add" component={ExamAdd} />
               <Route path="/exam/edit" component={ExamEdit} />
               <Route path="/exam/list" component={ExamList} />
+              <Route path="/exam/detail/:id" component={ExamDetail} />
               <Redirect exact from='/' to="/questions/add" />
             </Switch>
-            {
-              loading?<div className={styles.loading}><Spin size="large" delay={500}/></div>:null
-            }
+          </Content>
+        {
+          loading?<div className={styles.loading}><Spin size="large" delay={500}/></div>:null
+        }
+           
         </Content>
       </Layout>
     </Layout>
