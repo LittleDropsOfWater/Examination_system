@@ -29,6 +29,7 @@
   align-items: center;
   justify-content: center;
   z-index: 99;
+  animation:fadeIn 2s ease-in;
 }
 .content{
   position: relative;
@@ -43,5 +44,14 @@
   .ant-table-row td{
     vertical-align: middle;
     
+  }
+}
+
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
   }
 }

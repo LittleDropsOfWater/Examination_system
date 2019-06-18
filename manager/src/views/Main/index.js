@@ -22,6 +22,8 @@ import ExamDetail from "./Exam/Detail";
 import Grade from "./Class/Grade";
 import Room from "./Class/Room";
 import Student from "./Class/Student";
+import MarkClassList from "./Mark/ClassList";
+import MarkClassMate from "./Mark/ClassMate";
 const { Header, Content, Sider } = Layout;
 
 function HomePage(props) {
@@ -74,12 +76,14 @@ function HomePage(props) {
               <Route path="/exam/edit" component={ExamEdit} />
               <Route path="/exam/list" component={ExamList} />
               <Route path="/exam/detail/:id" component={ExamDetail} />
+              <Route path="/mark/classlist" component={MarkClassList} />
+              <Route path="/mark/classmate/:id" component={MarkClassMate} />
               <Redirect exact from="/" to="/questions/add" />
             </Switch>
           </Content>
           {loading ? (
             <div className={styles.loading}>
-              <Spin size="large" delay={500} />
+              <Spin size="large"  />
             </div>
           ) : null}
         </Content>

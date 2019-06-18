@@ -1,7 +1,6 @@
-
 import styles from "./style.scss";
 import { Menu, Icon } from "antd";
-import {  Link} from "dva/router";
+import { Link } from "dva/router";
 const { SubMenu } = Menu;
 function LeftSide(props) {
   const { data } = props;
@@ -14,7 +13,7 @@ function LeftSide(props) {
         theme="dark"
         className={styles.menu}
       >
-        {data.map(({ id, title, icon, list ,path}) => (
+        {data.map(({ id, title, icon, list, path }) => (
           <SubMenu
             key={id}
             title={
@@ -26,9 +25,7 @@ function LeftSide(props) {
           >
             {list.map((sitem, index) => (
               <Menu.Item key={`${title}-${sitem.title}`}>
-                <Link to={`/${path}/${sitem.path}`}>
-                {sitem.title}
-                </Link>
+                <Link to={`/${path}/${sitem.path}`}>{sitem.title}</Link>
               </Menu.Item>
             ))}
           </SubMenu>
@@ -44,19 +41,19 @@ LeftSide.defaultProps = {
       id: "sub1",
       title: "试题管理",
       icon: "mail",
-      path:'questions',
+      path: "questions",
       list: [
         {
           title: "添加试题",
-          path:'add'
+          path: "add"
         },
         {
           title: "试题分类",
-          path:'type'
+          path: "type"
         },
         {
           title: "查看试题",
-          path:'view'
+          path: "view"
         }
       ]
     },
@@ -64,15 +61,15 @@ LeftSide.defaultProps = {
       id: "sub2",
       title: "用户管理",
       icon: "user",
-      path:"user",
+      path: "user",
       list: [
         {
           title: "添加用户",
-          path:"addUser"
+          path: "addUser"
         },
         {
           title: "用户展示",
-          path:"userShow"
+          path: "userShow"
         }
       ]
     },
@@ -80,17 +77,16 @@ LeftSide.defaultProps = {
       id: "sub3",
       title: "考试管理",
       icon: "schedule",
-      path:'exam',
+      path: "exam",
 
       list: [
         {
           title: "添加考试",
-          path:'add',
-    },
+          path: "add"
+        },
         {
           title: "试卷列表",
-          path:'list',
-
+          path: "list"
         }
       ]
     },
@@ -98,19 +94,19 @@ LeftSide.defaultProps = {
       id: "sub4",
       title: "班级管理",
       icon: "project",
-      path:"class",
+      path: "class",
       list: [
         {
           title: "班级管理",
-          path:"grade"
+          path: "grade"
         },
         {
           title: "教室管理",
-          path:"room"
+          path: "room"
         },
         {
           title: "学生管理",
-          path:"student"
+          path: "student"
         }
       ]
     },
@@ -118,9 +114,11 @@ LeftSide.defaultProps = {
       id: "sub5",
       title: "阅卷管理",
       icon: "project",
+      path: "mark",
       list: [
         {
-          title: "待批班级"
+          title: "待批班级",
+          path: "classlist"
         }
       ]
     }
