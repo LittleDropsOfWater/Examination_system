@@ -10,7 +10,6 @@ export default {
     questions_type: [],//试题类型
     allQuestion:[],//所有试题
     EditQuestion:[],
-    
     typeCode:-1,
   },
 
@@ -59,8 +58,6 @@ export default {
     *updateQuestion({ payload }, { call, put }){
       let data = yield call(updateQuestion,payload);
       yield put({ type: "callTypeCode", payload: data.code });
-
-
     },
     //获取所有的课程类型
     *getSubject({ payload }, { call, put }) {

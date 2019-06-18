@@ -21,3 +21,35 @@ export function getAddGrode(params){
         data:params
 	})
 }
+//删除班级
+export function deleteGrode(params){
+	return request({
+		url:'/manger/grade/delete',
+        method:'DELETE',
+        data:params
+	})
+}
+//删除教室
+export function deleteRoom(params){
+	return request({
+		url:'/manger/room/delete',
+        method:'DELETE',
+        data:params
+	})
+}
+//添加教室
+export function addRoom(params){
+	return request({
+		url:'manger/room',
+        method:'POST',
+        data:params
+	})
+}
+//修改班级信息
+export function updateClassMsg(params){
+	return request({
+		url:"/manger/grade/update",
+		method:"PUT",
+		data:params
+	})
+}

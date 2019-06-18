@@ -5,18 +5,17 @@ import {
   Form,
   Input,
   Button,
-  Modal,
   message,
   InputNumber,
   DatePicker
 } from "antd";
-import Editor from "for-editor";
+// import Editor from "for-editor";
 import SelectOption from "@/components/SelectOption";
 import Title from "@/components/Title";
-import { getUserData } from "@/utils/user";
+// import { getUserData } from "@/utils/user";
 import styles from "./index.scss";
 const { Content } = Layout;
-const { confirm } = Modal;
+// const { confirm } = Modal;
 const { success, error } = message;
 function ExamAdd(props) {
   /*
@@ -31,11 +30,11 @@ function ExamAdd(props) {
     form,
     question,
     examType,
-    questions_type,
+    // questions_type,
     subjectType,
     typeCode,
     msg,
-    history
+    // history
   } = props;
   const { getFieldDecorator } = form;
 

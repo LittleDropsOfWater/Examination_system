@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "dva";
-import { Layout, Button, Modal, Drawer, List } from "antd";
+import { Layout} from "antd";
 import Title from "@/components/Title";
 import styles from './index.scss';
 import ReactMarkdown from "react-markdown";
-
 const { Content } = Layout;
 function ExamDetail(props){
 	const {getTheExam,match:{params:{id}},theExam}=props;

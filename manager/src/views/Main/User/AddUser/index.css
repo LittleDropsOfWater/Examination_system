@@ -1,14 +1,21 @@
 .content{
     display: flex;
+}
+.app{
+    flex:1;
+    display: flex;
     flex-wrap: wrap;
+    border-top:1px solid #ccc;
+    border-left: 1px solid #ccc;
 }
 .wrap{
     width: 33%;
-    border: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     border-radius: 3px;
     padding:10px;
     overflow: hidden;
-    box-sizing: border-box;
+    box-sizing: border-box;   
 }
 .wrap_p{
     display: flex;
@@ -17,4 +24,7 @@
     margin-top: 10px;
     flex-wrap: wrap;
     margin-bottom: 30px;
+}
+h2{
+    padding: 0;
 }

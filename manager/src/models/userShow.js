@@ -36,6 +36,7 @@ export default {
     effects: {
       *userData({ payload }, { call, put }) {// eslint-disable-line
         let data=yield call(getUserData)
+        console.log(data)
         if(data.code===1){
             yield put({ 
                 type: 'save',

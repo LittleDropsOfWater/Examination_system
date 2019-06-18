@@ -9,11 +9,7 @@ import { getExam } from "@/utils/user";
 const { Content } = Layout;
 const { confirm } = Modal;
 function ExamEdit(props) {
-  console.log(props);
-
   const { updateExam, allQuestion, getClassData } = props;
-  console.log(props.match.params);
-  console.log(getExam());
   let [exam] = useState(getExam());
   let [questions, updateQuestions] = useState(exam.questions);
   let [DrawerVisible, ChangeDrawerVisible] = useState(false);

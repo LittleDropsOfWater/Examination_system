@@ -126,33 +126,8 @@ function UserShow(props) {
                         </TabPane>
                     ))
                 }
-                {/* <TabPane tab="用户数据" key="1">
-                    <h4>用户数据</h4>
-                    <Table rowKey={"user_id"} columns={columns} dataSource={allUser} size="middle" />
-                </TabPane>
-                <TabPane tab="身份数据" key="2">
-                    <h4>身份数据</h4>
-                    <Table rowKey={"identity_id"} columns={userIdentitys} dataSource={userIdentity} size="middle" />
-                </TabPane>
-                <TabPane tab="api接口权限" key="3">
-                    <h4>api接口权限</h4>
-                    <Table rowKey={"identity_api_authority_relation_id"} columns={api_authoritys} dataSource={api_authority} size="middle" />
-                </TabPane>
-                <TabPane tab="身份和api接口关系" key="4">
-                    <h4>身份和api接口关系</h4>
-                    <Table rowKey={"identity_api_authority_relation_id"} columns={identity_api_authority_relations} dataSource={identity_api_authority_relation} size="middle" />
-                </TabPane>
-                <TabPane tab="视图接口权限" key="5">
-                    <h4>视图接口权限</h4>
-                    <Table columns={view_authoritys} dataSource={view_authority} size="middle" />
-                </TabPane>
-                <TabPane tab="身份和视图权限关系" key="6">
-                    <h4>身份和视图权限关系</h4>
-                    <Table columns={columns} dataSource={data} size="middle" />
-                </TabPane> */}
             </Tabs>
         </div>
-
     )
 }
 const MapState = state => {

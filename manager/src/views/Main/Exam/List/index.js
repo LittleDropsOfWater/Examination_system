@@ -5,7 +5,6 @@ import { Link } from "dva/router";
 import moment from 'moment';
 import {
   Layout,
-  
   Select,
   Row,
   Col,
@@ -39,7 +38,6 @@ const columns = [
           {time.minutes()}分钟
           </h4>
         </>
-    
     ))
     },
 	},

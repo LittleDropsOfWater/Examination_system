@@ -16,10 +16,10 @@ import {
 } from "antd";
 const { Content } = Layout;
 const { Option } = Select;
-const { success, error } = message;
-
 function Grade(props) {
   const [DialogVisible, setDialogVisible] = useState(false);
+  const [addClass, updateClass] = useState(false);
+  const { getFieldDecorator } = props.form;
   const { getGrade,
     grade,
     getSubject,
@@ -27,7 +27,9 @@ function Grade(props) {
     room,
     subjectType,
     addGrade,
-    msg
+    msg,
+    deleteGrade,
+    updateClassMsg
   } = props
   useEffect(() => {
     getGrade()
@@ -35,6 +37,7 @@ function Grade(props) {
     getSubject()
   }, [])
   useEffect(()=>{
+    if(msg.code===-1)return
     if(msg.code===1){
       message.success(msg.msg);
     }else if(msg.code===0){
@@ -48,12 +51,27 @@ function Grade(props) {
       e.preventDefault();
       props.form.validateFields((err, values) => {
         if (!err) {
-          addGrade({
-            grade_name:values.grade_name,
-            room_id:values.room_id,
-            subject_id:values.subject_id
-          })
+          if(addClass){ //为true修改班级
+            let val=grade.find(item=>item.grade_name===values.grade_name)
+            updateClassMsg({
+              grade_id:val.grade_id,
+              subject_id:values.subject_id,
+              room_id:values.room_id
+            })
+          }else{ //为false添加班级
+            console.log("添加班级",{
+              grade_name:values.grade_name,
+              room_id:values.room_id,
+              subject_id:values.subject_id
+            })
+            addGrade({
+              grade_name:values.grade_name,
+              room_id:values.room_id,
+              subject_id:values.subject_id
+            })
+          }  
           setDialogVisible(false)
+          props.form.setFieldsValue({ grade_name:'', room_id:'',subject_id:'' })
         }
       });
     };
@@ -74,15 +92,19 @@ function Grade(props) {
         title: '操作',
         dataIndex: '',
         render: (val) => <p><span className={style.active} onClick={(e)=>{
-          console.log(val)
-          setDialogVisible(true)
+            setDialogVisible(true)
             e.preventDefault();
             props.form.setFieldsValue({ grade_name:val.grade_name, room_id:val.room_id,subject_id:val.subject_id })
-        
-        }}>修改</span>|<span className={style.active}>删除</span></p>,
+            updateClass(true)
+        }}>修改</span>|<span className={style.active} onClick={()=>{
+          deleteGrade({
+            grade_id:val.grade_id
+          })
+          let ind=grade.findIndex(item=>item.grade_id===val.grade_id)
+          grade.splice(ind,1)
+        }}>删除</span></p>,
       },
     ];
-  const { getFieldDecorator } = props.form;
   return (
     <Layout style={{ padding: "0 24px 24px" }}>
       <Title>班级管理</Title>
@@ -94,7 +116,9 @@ function Grade(props) {
           minHeight: 280
         }}
       >
-        <Button type="primary" onClick={() => setDialogVisible(true)}>
+        <Button type="primary" onClick={() => {
+          updateClass(false)
+          setDialogVisible(true)}}>
           <Icon type="plus" />
           添加班级
         </Button>
@@ -117,7 +141,7 @@ function Grade(props) {
           <Form.Item label="班级名">
             {getFieldDecorator('grade_name', {
               rules: [{ required: true, message: 'Please input your note!' }],
-            })(<Input placeholder="班级名" />)}
+            })(<Input disabled={addClass} placeholder="班级名" />)}
           </Form.Item>
           <Form.Item label="教室号">
             {getFieldDecorator('room_id', {
@@ -144,7 +168,6 @@ function Grade(props) {
               </Select>)}
           </Form.Item>
         </Form>
-
       </Modal>
     </Layout>
   )
@@ -177,6 +200,20 @@ const MapDispatch = dispatch => ({
   addGrade(payload){
     dispatch({
       type:"class/addGrode",
+      payload
+    })
+  },
+  //删除班级
+  deleteGrade(payload){
+    dispatch({
+      type:"class/grodeDelete",
+      payload
+    })
+  },
+  //更新班级信息
+  updateClassMsg(payload){
+    dispatch({
+      type:'class/updateClass',
       payload
     })
   }
