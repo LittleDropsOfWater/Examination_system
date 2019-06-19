@@ -46,6 +46,7 @@ function HomePage(props) {
           <>
             <Avatar src={img} style={{ marginRight: "10px" }} />
             {nickname}
+            
           </>
         </HeaderRight>
       </Header>

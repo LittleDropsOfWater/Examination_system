@@ -1,4 +1,3 @@
-import React from "react";
 import { connect } from "dva/router";
 function PaperDetail() {}
 const mapState = state => state;

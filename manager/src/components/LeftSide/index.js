@@ -1,9 +1,15 @@
 import styles from "./style.scss";
 import { Menu, Icon } from "antd";
 import { Link } from "dva/router";
+import { injectIntl } from "react-intl";
+
 const { SubMenu } = Menu;
 function LeftSide(props) {
-  const { data } = props;
+  const {
+    data,
+    intl: { formatMessage }
+  } = props;
+
   return (
     <div>
       <Menu
@@ -19,13 +25,15 @@ function LeftSide(props) {
             title={
               <span>
                 <Icon type={icon} />
-                <span>{title}</span>
+                <span>{formatMessage({ id: `router.${path}` })}</span>
               </span>
             }
           >
             {list.map((sitem, index) => (
-              <Menu.Item key={`${title}-${sitem.title}`}>
-                <Link to={`/${path}/${sitem.path}`}>{sitem.title}</Link>
+              <Menu.Item key={`${path}-${sitem.path}`}>
+                <Link to={`/${path}/${sitem.path}`}>
+                  {formatMessage({ id: `router.${path}.${sitem.path}` })}
+                </Link>
               </Menu.Item>
             ))}
           </SubMenu>
@@ -78,7 +86,6 @@ LeftSide.defaultProps = {
       title: "考试管理",
       icon: "schedule",
       path: "exam",
-
       list: [
         {
           title: "添加考试",
@@ -124,4 +131,4 @@ LeftSide.defaultProps = {
     }
   ]
 };
-export default LeftSide;
+export default injectIntl(LeftSide);
