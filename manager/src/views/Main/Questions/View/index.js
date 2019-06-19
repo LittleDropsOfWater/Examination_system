@@ -67,9 +67,7 @@ function Look(props) {
   };
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Title>试题分类</Title>
-      </Breadcrumb>
+        <Title>查看试题</Title>
       <Content
         style={{
           background: '#fff',

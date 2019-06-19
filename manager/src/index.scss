@@ -183,8 +183,34 @@ html, body, :global(#root) {
   height: 100%;
 }
 :global{
-
   .content{
     background: rgb(255, 255, 255); padding: 24px; margin: 0px 0px 20px; border-radius: 10px;
+  }
+
+  .reactMarkdown{
+    width: 100%;    
+    white-space: pre-wrap;
+    
+    h4{
+      margin: 12px 0;
+    }
+    img{
+      width: 100%;
+    }
+    pre{
+      background-color: #f6f6f6;
+      color: #657b83;
+      padding: 10px;
+		line-height: 1.5;
+      white-space: pre-wrap;
+    }
+  }
+  
+  .ant-btn-primary{
+    padding: 0 40px!important;
+    background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+  }
+  .ant-table-row td{
+    vertical-align: middle;
   }
 }

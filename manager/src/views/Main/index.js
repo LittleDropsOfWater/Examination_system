@@ -54,13 +54,7 @@ function HomePage(props) {
           <LeftSide />
         </Sider>
         <Content className={styles.content} style={{ overflow: "hidden" }}>
-          <Content
-            style={{
-              padding: "0px 24px 24px",
-              overflow: "scroll",
-              height: "100%"
-            }}
-          >
+          <Content className={styles.scroll}>
             <Switch>
               <Route path="/exam/detail/:id" component={ExamDetail} />
               <Route path="/questions/add" component={QuestionsAdd} />
