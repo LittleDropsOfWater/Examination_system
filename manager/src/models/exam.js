@@ -1,4 +1,4 @@
-import { addExam,updateExam,getExam,getTheExam } from "@/services/exam";
+import { addExam,updateExam,getExam,getTheExam,getStudentsPapers,getTheStudentPaper ,markingTestPaper} from "@/services/exam";
 import {  setExam} from "@/utils/user";
 import { routerRedux } from "dva/router";
 
@@ -8,7 +8,9 @@ export default {
   //模块内部状态
   state: {
     exams:[],
-    theExam:{}
+    theExam:{},
+    allPapers:[],
+    thePaper:[],
   },
 
   subscriptions: {
@@ -35,7 +37,6 @@ export default {
 			console.log(data);
 			if(data.code){
         yield  put(routerRedux.push({
-          // pathname:`/login`,
           pathname: `/exam/list`,
         }))
         console.log('跳转list')
@@ -63,6 +64,33 @@ export default {
         payload:data.data
       })
     },
+    *getStudentsPapers({payload},{call,put}){
+      let data= yield call(getStudentsPapers,payload);
+      console.log(data);
+      yield put({
+        type:'updateAllPapers',
+        payload:data.exam,
+      })
+    },
+    *getTheStudentPaper({payload},{call,put}){
+      let data= yield call(getTheStudentPaper,payload);
+      console.log(data);
+      yield put({
+        type:'TheStudentPaper',
+        payload:data.data,
+      })
+    },
+    *markingTestPaper({payload},{call,put}){
+      let data= yield call(markingTestPaper,payload);
+        console.log('markingTestPaper is',data);
+        if(data.code){
+          yield  put(routerRedux.push({
+            pathname: `/mark/classmate/${payload.grade_id}`,
+          }))
+        }
+        // http://localhost:8000/#/mark/classmate/joyqt9-gyxsa8-fif6c-j12o0k
+        // http://localhost:8000/#/exam/classmate/joyqt9-gyxsa8-fif6c-j12o0k
+    },
   },
   //同步操作
   reducers: {
@@ -74,6 +102,12 @@ export default {
     },
     updateTheExam(state,action){
       return {...state,theExam:action.payload}
-    }
+    },
+    updateAllPapers(state,action){
+      return {...state,allPapers:action.payload}
+    },
+    TheStudentPaper(state,action){
+      return {...state,thePaper:action.payload}
+    },
   }
 };

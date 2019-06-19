@@ -57,7 +57,9 @@ export default {
     //更新试题
     *updateQuestion({ payload }, { call, put }){
       let data = yield call(updateQuestion,payload);
-      yield put({ type: "callTypeCode", payload: data.code });
+      yield put({ type: "message/callMessage", payload: data.code });
+
+
     },
     //获取所有的课程类型
     *getSubject({ payload }, { call, put }) {

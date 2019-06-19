@@ -14,6 +14,7 @@ import SelectOption from "@/components/SelectOption";
 import Title from "@/components/Title";
 // import { getUserData } from "@/utils/user";
 import styles from "./index.scss";
+import moment from 'moment'
 const { Content } = Layout;
 // const { confirm } = Modal;
 const { success, error } = message;
@@ -106,7 +107,7 @@ function ExamAdd(props) {
           <Content style={{ display: "flex", alignItems: "flex-end" }}>
             <Form.Item label="考试时间：">
               {getFieldDecorator("start_time", {
-                rules: [{ required: true, message: "请选择考试开始时间!" }]
+                rules: [{ required: true, message: "请选择考试开始时间!" }],
               })(
                 <DatePicker
                   format="YYYY-MM-DD HH:mm:ss"

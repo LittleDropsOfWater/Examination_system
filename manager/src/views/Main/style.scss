@@ -13,10 +13,12 @@
 }
 .logo {
   width: 120px;
+  vertical-align: middle;
 }
 .leftside {
   background-color: #232a41;
   overflow-y: auto;
+  width: 300px;
 }
 .loading{
   position: absolute;
@@ -29,6 +31,7 @@
   align-items: center;
   justify-content: center;
   z-index: 99;
+  animation:fadeIn 2s ease-in;
 }
 .content{
   position: relative;
@@ -42,6 +45,14 @@
   }
   .ant-table-row td{
     vertical-align: middle;
-    
+  }
+}
+
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
   }
 }
