@@ -1,4 +1,3 @@
-
 export default {
   //命名空间
   namespace: 'global',
@@ -6,17 +5,6 @@ export default {
   state: {
 		locale:'zh'
 	},
-
-  subscriptions: {
-    setup({ dispatch, history }) {  // eslint-disable-line
-    },
-  },
-   //异步操作
-  effects: {
-    *fetch({ payload }, { call, put }) {  // eslint-disable-line
-      yield put({ type: 'save' });
-    },
-  },
   //同步操作
   reducers: {
     changeLocale(state, action) {

@@ -2,7 +2,7 @@ export default {
 	'router.questions':'QuestioviewnManage',
 	'router.questions.add':'AddQuestions',
 	'router.questions.type':'QuestionsType',
-	'router.questions.view':'QuestionsView',
+	'router.questions.view':'ViewQuestions',
 	'router.user':'UserManagement',
 	'router.user.addUser':'AddUser',
 	'router.user.userShow':'UserDisplay',

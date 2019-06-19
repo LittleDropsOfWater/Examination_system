@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import styles from "./index.scss";
 import { connect } from "dva";
 import { Link } from "dva/router";
@@ -6,7 +6,7 @@ import {
   Layout,
   Select,
   Row,
-  Col,
+  Col,  
   Button,
   Icon,
   Table,
@@ -17,10 +17,7 @@ import Title from "@/components/Title";
 const { Content } = Layout;
 const { Option } = Select;
 const columns = [
-  {
-    title: "班级",
-    dataIndex: ""
-  },
+
   {
     title: "姓名",
     dataIndex: "student_name"
@@ -41,28 +38,31 @@ const columns = [
     render: text => <>{new Date(+text).toLocaleString()}</>
   },
   {
-    title: "成材率"
+    title: "得分",
+    dataIndex:'score',
   },
   {
     title: "操作",
     key: "action",
     render: (text, record) => (
-      <Link to={{ pathname: `/mark/detail/${text.exam_student_id}` }}>批卷</Link>
+      <Link to={{ pathname: `/mark/paper/detail/${text.exam_student_id}` }}>批卷</Link>
     )
   }
 ];
 function ExamList(props) {
   const { getFieldDecorator } = props.form;
   const {
-    getAllType,
+    Init,
     form,
-    searchExams,
+    searchPapers,
     grade,
     allPapers,
     match: {
       params: { id }
     }
   } = props;
+
+  //查询按钮
   function handleSubmit(e) {
     e.preventDefault();
     form.validateFields((err, values) => {
@@ -72,18 +72,38 @@ function ExamList(props) {
             delete values[k];
           }
         }
-        searchExams(values);
+          updateGradeId(values.grade_id)
+        searchPapers(values);
       }
     });
   }
-
+  //发起初始请求
   useEffect(() => {
-    getAllType({ grade_id: id });
+    Init({ grade_id: id });
   }, []);
-
+  let [gradeId,updateGradeId]=useState(id);
+  //获取当前的班级、考试、教室
+  let [curGrade,updateGrade]=useState(grade.find(val=>val.grade_id===gradeId)||{})
+  useEffect(()=>{
+    updateGrade(grade.find(val=>val.grade_id===gradeId)||{});
+  },[grade,gradeId])
+  
   return (
     <Layout>
       <Title>试卷列表</Title>
+      <Content className="content">
+      <Row>
+            <Col span={8}>
+              班级名：{curGrade.grade_name}
+              </Col>
+            <Col span={8}>
+              课程名：{curGrade.subject_text}
+              </Col>
+            <Col span={8}>
+              教室号：{curGrade.room_text}
+              </Col>
+            </Row>
+      </Content>
       <Content className="content">
         <Form
           onSubmit={handleSubmit}
@@ -99,7 +119,7 @@ function ExamList(props) {
           <Row>
             <Col span={6}>
               <Form.Item label="状态">
-                {getFieldDecorator("exam_type", {
+                {getFieldDecorator("status", {
                   initialValue: ""
                 })(
                   <Select dropdownRender={menu => <div>{menu}</div>}>
@@ -112,8 +132,8 @@ function ExamList(props) {
             </Col>
             <Col span={6}>
               <Form.Item label="班级">
-                {getFieldDecorator("subject_id", {
-                  initialValue: ""
+                {getFieldDecorator("grade_id", {
+                  initialValue: id
                 })(
                   <Select dropdownRender={menu => <div>{menu}</div>}>
                     <Option key="all" value="">
@@ -156,13 +176,16 @@ const mapState = state => ({
   grade: state.class.grade
 });
 const mapDispatch = dispatch => ({
-  getAllType(payload) {
-    dispatch({
-      type: "question/getAllType"
-    });
+  Init(payload) {
     dispatch({
       type: "class/grade"
     });
+    dispatch({
+      type: "exam/getStudentsPapers",
+      payload
+    });
+  },
+  searchPapers(payload) {
     dispatch({
       type: "exam/getStudentsPapers",
       payload

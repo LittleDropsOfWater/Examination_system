@@ -15,5 +15,4 @@ export default {
 	'router.class.student':'学生管理',
 	'router.mark':'阅卷管理',
 	'router.mark.classlist':'待批班级',
-
 }

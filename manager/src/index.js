@@ -23,6 +23,7 @@ app.model(require('./models/question').default);
 app.model(require('./models/userShow').default);
 app.model(require('./models/class.js').default);
 app.model(require('./models/global').default);
+app.model(require('./models/message').default);
 
 // 4. Router
 app.router(require('./router').default);

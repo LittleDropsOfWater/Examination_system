@@ -18,6 +18,7 @@
 .leftside {
   background-color: #232a41;
   overflow-y: auto;
+  width: 300px;
 }
 .loading{
   position: absolute;
@@ -44,7 +45,6 @@
   }
   .ant-table-row td{
     vertical-align: middle;
-    
   }
 }
 

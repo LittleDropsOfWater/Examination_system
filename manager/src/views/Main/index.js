@@ -24,6 +24,8 @@ import Room from "./Class/Room";
 import Student from "./Class/Student";
 import MarkClassList from "./Mark/ClassList";
 import MarkClassMate from "./Mark/ClassMate";
+import PaperDetail from "./Mark/PaperDetail";
+import Message from "@/components/Message";
 const { Header, Content, Sider } = Layout;
 
 function HomePage(props) {
@@ -46,12 +48,11 @@ function HomePage(props) {
           <>
             <Avatar src={img} style={{ marginRight: "10px" }} />
             {nickname}
-            
           </>
         </HeaderRight>
       </Header>
       <Layout className={styles.main}>
-        <Sider className={styles.leftside}>
+        <Sider className={styles.leftside} width={230}>
           <LeftSide />
         </Sider>
         <Content className={styles.content} style={{ overflow: "hidden" }}>
@@ -79,14 +80,21 @@ function HomePage(props) {
               <Route path="/exam/detail/:id" component={ExamDetail} />
               <Route path="/mark/classlist" component={MarkClassList} />
               <Route path="/mark/classmate/:id" component={MarkClassMate} />
+              <Route
+                path="/mark/paper/detail/:exam_student_id"
+                component={PaperDetail}
+              />
               <Redirect exact from="/" to="/questions/add" />
             </Switch>
           </Content>
+          {/* loading效果 */}
           {loading ? (
             <div className={styles.loading}>
-              <Spin size="large"  />
+              <Spin size="large" />
             </div>
           ) : null}
+          {/*  全局提示*/}
+          <Message />
         </Content>
       </Layout>
     </Layout>

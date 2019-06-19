@@ -58,7 +58,7 @@ export default {
     //更新试题
     *updateQuestion({ payload }, { call, put }){
       let data = yield call(updateQuestion,payload);
-      yield put({ type: "callTypeCode", payload: data.code });
+      yield put({ type: "message/callMessage", payload: data.code });
 
 
     },
