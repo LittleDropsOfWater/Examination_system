@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./index.css";
 import { connect } from "dva";
 import { Link } from "dva/router"
+import Title from '@/components/Title'
 import { Layout, Breadcrumb, Select, Row, Col, Button, Icon, Tag, Table, Form, Empty } from 'antd';
 const { Content } = Layout;
 const { Option } = Select;
@@ -67,7 +68,7 @@ function Look(props) {
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>试题分类</Breadcrumb.Item>
+        <Title>试题分类</Title>
       </Breadcrumb>
       <Content
         style={{

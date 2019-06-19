@@ -23,11 +23,12 @@ import Student from "./Class/Student";
 import MarkClassList from "./Mark/ClassList";
 import MarkClassMate from "./Mark/ClassMate";
 import PaperDetail from "./Mark/PaperDetail";
+import NotFound from "./NotFound";
 import Message from "@/components/Message";
 const { Header, Content, Sider } = Layout;
 function HomePage(props) {
-  const { img, loading} = props;
-  console.log(props)
+  const { img, loading } = props;
+  console.log(props);
   const [nickname, updateName] = useState("猫猫");
   useEffect(() => {
     props.userInfo();
@@ -68,7 +69,7 @@ function HomePage(props) {
               <Route path="/questions/detail/:id" component={Detail} />
               <Route path="/edit/questions/:id" component={Edit} />
               <Route path="/user/adduser" component={AddUser} />
-              <Route path="/user/show" component={Show} />
+              <Route path="/user/userShow" component={Show} />
               <Route path="/class/grade" component={Grade} />
               <Route path="/class/room" component={Room} />
               <Route path="/class/student" component={Student} />
@@ -82,6 +83,7 @@ function HomePage(props) {
                 path="/mark/paper/detail/:exam_student_id"
                 component={PaperDetail}
               />
+              <Route component={NotFound} />
               <Redirect exact from="/" to="/questions/add" />
             </Switch>
           </Content>
@@ -105,7 +107,7 @@ HomePage.defaultProps = {
 };
 const mapState = state => {
   return {
-    loading: state.loading.global,
+    loading: state.loading.global
   };
 };
 const mapDispatch = dispatch => ({

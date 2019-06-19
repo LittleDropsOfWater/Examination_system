@@ -118,7 +118,7 @@ export default {
     *addQuestions({payload},{call,put}){
       // console.log('model-question-addQuestions.payload',payload);
       let data=yield call(addQuestions,payload);
-      yield put({ type: "callTypeCode", payload: data.code });
+      yield put({ type: "message/callMessage", payload: data });
     },
     //添加试题类型
     *addQuestionsType({ payload }, { call, put }) {
