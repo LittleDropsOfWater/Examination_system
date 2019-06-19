@@ -17,11 +17,11 @@ function Edit(props) {
         getEditQuestion,
         updateQuestions,
         EditQuestion,
-        typeCode
+        typeCode,
     } = props;
-    console.log(props)
+    
     const { getFieldDecorator } = form;
-    let edit_questions_id = props.location.search.split("=")[1];
+    let edit_questions_id = props.match.params.id;
     useEffect(() => {
         getEditQuestion({
             questions_id: edit_questions_id
@@ -46,7 +46,6 @@ function Edit(props) {
             okText: "确定",
             cancelText: "取消",
             onOk() {
-                console.log("OK", e);
                 form.validateFields((err, values) => {
                     if (!err) {
                         //调添加试题接口
@@ -54,9 +53,6 @@ function Edit(props) {
                         updateQuestions({ ...values, questions_id: edit_questions_id });
                     }
                 })
-            },
-            onCancel() {
-
             }
         });
     }

@@ -109,12 +109,12 @@ function AddUser(props) {
                             <Form.Item>
                                 <p className={style.wrap_p}>
                                     <Button htmlType="submit" type="primary">
-                                        查询
-                                </Button>
+                                        确定
+                                    </Button>
                                     <Button htmlType="submit" onClick={
                                         e => {
                                             e.preventDefault();
-                                            let val = show ? { user_name: '', user_pwd: '', identity_id: '', user_id: '' } : { user_name: '', user_pwd: '', identity_id: '' }
+                                            let val = show ? { user_name: undefined, user_pwd: undefined, identity_id: undefined, user_id: undefined } : { user_name: undefined, user_pwd: undefined, identity_id: undefined }
                                             props.form.setFieldsValue(val)
                                         }}>
                                         重置
@@ -145,12 +145,12 @@ function AddUser(props) {
                             <Form.Item>
                                 <p className={style.wrap_p}>
                                     <Button htmlType="submit" type="primary">
-                                        查询
-                                </Button>
+                                       确定
+                                   </Button>
                                     <Button htmlType="submit" onClick={
                                         e => {
                                             e.preventDefault();
-                                            props.form.setFieldsValue({ identity_text: '' })
+                                            props.form.setFieldsValue({ identity_text: undefined })
                                         }}>
                                         重置
                                 </Button>
@@ -192,19 +192,18 @@ function AddUser(props) {
                             <Form.Item>
                                 <p className={style.wrap_p}>
                                     <Button htmlType="submit" type="primary">
-                                        查询
-                                </Button>
+                                       确定
+                                   </Button>
                                     <Button htmlType="submit" onClick={
                                         e => {
                                             e.preventDefault();
-                                            props.form.setFieldsValue({ api_authority_text: '', api_authority_url: '', api_authority_mehtod: '' })
+                                            props.form.setFieldsValue({ api_authority_text: undefined, api_authority_url: undefined, api_authority_mehtod: undefined })
                                         }}>
                                         重置
                                 </Button>
                                 </p>
                             </Form.Item>
                         </Form>
-
                     </div>
                     <div className={style.wrap}>
                         <Form onSubmit={e => {
@@ -236,15 +235,15 @@ function AddUser(props) {
                             <Form.Item>
                                 <p className={style.wrap_p}>
                                     <Button htmlType="submit" type="primary">
-                                        查询
-                                </Button>
+                                       确定
+                                    </Button>
                                     <Button htmlType="submit" onClick={
                                         e => {
                                             e.preventDefault();
-                                            props.form.setFieldsValue({ view_authority_text: '' })
+                                            props.form.setFieldsValue({ view_authority_id: undefined })
                                         }}>
                                         重置
-                                </Button>
+                                    </Button>
                                 </p>
                             </Form.Item>
                         </Form>
@@ -289,15 +288,15 @@ function AddUser(props) {
                             <Form.Item>
                                 <p className={style.wrap_p}>
                                     <Button htmlType="submit" type="primary">
-                                        查询
-                                </Button>
+                                       确定
+                                    </Button>
                                     <Button htmlType="submit" onClick={
                                         e => {
                                             e.preventDefault();
-                                            props.form.setFieldsValue({ api_identity_id: '', api_authority_id: '' })
+                                            props.form.setFieldsValue({ api_identity_id: undefined, api_authority_id: undefined })
                                         }}>
                                         重置
-                                </Button>
+                                    </Button>
                                 </p>
                             </Form.Item>
                         </Form>
@@ -309,7 +308,7 @@ function AddUser(props) {
                                 if (!err) {
                                     setIdentityView({
                                         identity_id: values.view_identity_id,
-                                        view_authority_id: values.view_authority_id
+                                        view_authority_id: values.api_view_authority_id
                                     })
                                 }
                             });
@@ -330,26 +329,25 @@ function AddUser(props) {
                             </Form.Item>
                             <Form.Item
                                 style={{ margin: 0, marginTop: "10px" }}>
-                                {getFieldDecorator('view_authority_id', {})(
+                                {getFieldDecorator('api_view_authority_id', {})(
                                     <Select placeholder="请选择视图权限id" style={{ width: 150 }}>
                                         {
                                             identity_view_authority_relation.map(item => (
                                                 <Option key={item.identity_view_authority_relation_id} value={item.identity_view_authority_relation_id}>{item.view_authority_text}</Option>
                                             ))
                                         }
-
                                     </Select>
                                 )}
                             </Form.Item>
                             <Form.Item >
                                 <p className={style.wrap_p}>
                                     <Button htmlType="submit" type="primary">
-                                        查询
+                                        确定
                                     </Button>
                                     <Button htmlType="submit" onClick={
                                         e => {
                                             e.preventDefault();
-                                            props.form.setFieldsValue({ view_authority_id: '', view_identity_id: '' })
+                                            props.form.setFieldsValue({ api_view_authority_id: undefined, view_identity_id: undefined })
                                         }}>
                                         重置
                                     </Button>

@@ -1,7 +1,6 @@
 import { useEffect} from "react"
 import { Tabs, Table } from 'antd';
 import { connect } from "dva";
-import style from "./index.css"
 const { TabPane } = Tabs;
 function UserShow(props) {
     const { allUser,
@@ -113,11 +112,10 @@ function UserShow(props) {
     useEffect(() => {
         props.getUserData()
     }, [])
-
     return (
         <div>
-            <h2>用户展示</h2>
-            <Tabs onChange={(e) => console.log(e)} type="card">
+            <h2 style={{lineHeight:"60px"}}>用户展示</h2>
+            <Tabs type="card">
                 {
                     arr.map(item => (
                         <TabPane tab={item.title} key={item.title}>

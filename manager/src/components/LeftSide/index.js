@@ -1,10 +1,9 @@
-
 import styles from "./style.scss";
 import { Menu, Icon } from "antd";
 import {  Link} from "dva/router";
 const { SubMenu } = Menu;
 function LeftSide(props) {
-  const { data } = props;
+  const { data} = props;
   return (
     <div>
       <Menu
@@ -72,7 +71,7 @@ LeftSide.defaultProps = {
         },
         {
           title: "用户展示",
-          path:"userShow"
+          path:"show"
         }
       ]
     },
@@ -90,7 +89,6 @@ LeftSide.defaultProps = {
         {
           title: "试卷列表",
           path:'list',
-
         }
       ]
     },

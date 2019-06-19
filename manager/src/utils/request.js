@@ -25,10 +25,8 @@ service.interceptors.request.use(config => {
 
 // response interceptor 响应拦截
 service.interceptors.response.use(response => {
-  console.log('响应拦截:',response);
   return response.data
 }, Promise.reject);
-
 export default service;
 export const  getRequest=({url,params={}})=>{
   return service({

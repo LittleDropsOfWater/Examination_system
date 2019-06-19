@@ -12,7 +12,6 @@ import {
   message,
   Form,
   Select
-
 } from "antd";
 const { Content } = Layout;
 const { Option } = Select;
@@ -36,75 +35,68 @@ function Grade(props) {
     getRoom()
     getSubject()
   }, [])
-  useEffect(()=>{
-    if(msg.code===-1)return
-    if(msg.code===1){
+  useEffect(() => {
+    if (msg.code === -1) return
+    if (msg.code === 1) {
       message.success(msg.msg);
-    }else if(msg.code===0){
+    } else if (msg.code === 0) {
       message.error(msg.msg);
     }
-  },[msg])
+  }, [msg])
   const handleCancel = e => {
     setDialogVisible(false);
   };
+  const columns = [
+    {
+      title: "班级名",
+      dataIndex: "grade_name"
+    },
+    {
+      title: "课程名",
+      dataIndex: "subject_text"
+    },
+    {
+      title: "教室号",
+      dataIndex: "room_text"
+    },
+    {
+      title: '操作',
+      dataIndex: '',
+      render: (val) => <p><span className={style.active} onClick={(e) => {
+        setDialogVisible(true)
+        updateClass(true)
+        e.preventDefault();
+        props.form.setFieldsValue({ grade_name: val.grade_name, room_id: val.room_id, subject_id: val.subject_id })
+      }}>修改</span>|<span className={style.active} onClick={() => {
+        deleteGrade({
+          grade_id: val.grade_id
+        })
+      }}>删除</span></p>,
+    }
+  ];
   const handleOk = (e) => {
-      e.preventDefault();
-      props.form.validateFields((err, values) => {
-        if (!err) {
-          if(addClass){ //为true修改班级
-            let val=grade.find(item=>item.grade_name===values.grade_name)
-            updateClassMsg({
-              grade_id:val.grade_id,
-              subject_id:values.subject_id,
-              room_id:values.room_id
-            })
-          }else{ //为false添加班级
-            console.log("添加班级",{
-              grade_name:values.grade_name,
-              room_id:values.room_id,
-              subject_id:values.subject_id
-            })
-            addGrade({
-              grade_name:values.grade_name,
-              room_id:values.room_id,
-              subject_id:values.subject_id
-            })
-          }  
-          setDialogVisible(false)
-          props.form.setFieldsValue({ grade_name:'', room_id:'',subject_id:'' })
-        }
-      });
-    };
-    const columns = [
-      {
-        title: "班级名",
-        dataIndex: "grade_name"
-      },
-      {
-        title: "课程名",
-        dataIndex: "subject_text"
-      },
-      {
-        title: "教室号",
-        dataIndex: "room_text"
-      },
-      {
-        title: '操作',
-        dataIndex: '',
-        render: (val) => <p><span className={style.active} onClick={(e)=>{
-            setDialogVisible(true)
-            e.preventDefault();
-            props.form.setFieldsValue({ grade_name:val.grade_name, room_id:val.room_id,subject_id:val.subject_id })
-            updateClass(true)
-        }}>修改</span>|<span className={style.active} onClick={()=>{
-          deleteGrade({
-            grade_id:val.grade_id
+    e.preventDefault();
+    props.form.validateFields((err, values) => {
+      if (!err) {
+        if (addClass) { //为true修改班级
+          let val = grade.find(item => item.grade_name === values.grade_name)
+          updateClassMsg({
+            grade_id: val.grade_id,
+            subject_id: values.subject_id,
+            room_id: values.room_id
           })
-          let ind=grade.findIndex(item=>item.grade_id===val.grade_id)
-          grade.splice(ind,1)
-        }}>删除</span></p>,
-      },
-    ];
+        } else { //为false添加班级
+          addGrade({
+            grade_name: values.grade_name,
+            room_id: values.room_id,
+            subject_id: values.subject_id
+          })
+        }
+        setDialogVisible(false)
+        props.form.setFieldsValue({ grade_name: '', room_id: '', subject_id: '' })
+      }
+    });
+  };
   return (
     <Layout style={{ padding: "0 24px 24px" }}>
       <Title>班级管理</Title>
@@ -118,7 +110,8 @@ function Grade(props) {
       >
         <Button type="primary" onClick={() => {
           updateClass(false)
-          setDialogVisible(true)}}>
+          setDialogVisible(true)
+        }}>
           <Icon type="plus" />
           添加班级
         </Button>
@@ -129,7 +122,6 @@ function Grade(props) {
             dataSource={grade}
           />
         </div>
-        ,
       </Content>
       <Modal
         title="添加班级"
@@ -197,26 +189,25 @@ const MapDispatch = dispatch => ({
     })
   },
   //添加班级
-  addGrade(payload){
+  addGrade(payload) {
     dispatch({
-      type:"class/addGrode",
+      type: "class/addGrode",
       payload
     })
   },
   //删除班级
-  deleteGrade(payload){
+  deleteGrade(payload) {
     dispatch({
-      type:"class/grodeDelete",
+      type: "class/gradeDelete",
       payload
     })
   },
   //更新班级信息
-  updateClassMsg(payload){
+  updateClassMsg(payload) {
     dispatch({
-      type:'class/updateClass',
+      type: 'class/updateClass',
       payload
     })
   }
-
 })
 export default connect(MapState, MapDispatch)(Form.create()(Grade))

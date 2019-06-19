@@ -9,7 +9,7 @@ function Detail(props) {
     const {getDetailQuestion} =props
     useEffect(() => {
         getDetailQuestion({  
-            questions_id: props.location.search.split("=")[1]
+            questions_id: props.match.params.id
         })
     },[])
     return (

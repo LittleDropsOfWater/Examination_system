@@ -6,12 +6,13 @@ import styles from './index.scss';
 import ReactMarkdown from "react-markdown";
 const { Content } = Layout;
 function ExamDetail(props){
-	const {getTheExam,match:{params:{id}},theExam}=props;
+	const {getTheExam,
+		match:{params:{id}},
+		theExam
+	}=props;
 	useEffect(()=>{
 		getTheExam(id);
 	},[]);
-console.log(theExam);
-
 	return (
 		<Layout>
 			<Title>试卷详情</Title>
@@ -27,9 +28,7 @@ console.log(theExam);
 		</Layout>
 	)
 }
-const mapState = state => {
-	console.log(state);
-	
+const mapState = state => {	
 	return {theExam:state.exam.theExam};
 };
 const mapDispatch = dispatch => ({
@@ -40,6 +39,4 @@ const mapDispatch = dispatch => ({
     });
   }
 });
-
-export default connect(mapState,
-	mapDispatch)(ExamDetail);
+export default connect(mapState,mapDispatch)(ExamDetail);

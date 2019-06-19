@@ -10,13 +10,11 @@ import {
   Input,
   message,
   Form,
-  
 } from "antd";
 const { Content } = Layout;
-const {success,error}=message;
+const { success, error } = message;
 function Type(props) {
-  const { addQuestionsType, questions_type,typeCode } = props;
-
+  const { addQuestionsType, questions_type, typeCode } = props;
   const [DialogVisible, setDialogVisible] = useState(false);
   //弹框中的输入框
   const [iptValue, setIptValue] = useState("");
@@ -54,19 +52,16 @@ function Type(props) {
     props.getQuestionsType();
   }, []);
   useEffect(() => {
-    console.log("questions_type", questions_type);
     setIptValue('');
   }, [questions_type]);
-  useEffect(()=>{
-    if(typeCode===-1)return ;
-    console.log(typeCode)
-    if(typeCode){
-        success('添加成功')
-    }else{
-        error('添加失败')
+  useEffect(() => {
+    if (typeCode === -1) return;
+    if (typeCode) {
+      success('添加成功')
+    } else {
+      error('添加失败')
     }
-    
-  },[typeCode])
+  }, [typeCode])
   return (
     <Layout style={{ padding: "0 24px 24px" }}>
       <Title>试题分类</Title>
@@ -88,9 +83,7 @@ function Type(props) {
             columns={columns}
             dataSource={questions_type}
           />
-          ,
         </div>
-        ,
       </Content>
       <Modal
         title="添加试题类型"
@@ -125,7 +118,7 @@ const MapDispatch = dispatch => ({
     });
   }
 });
-export default Form.create({name:'addQuestionsType'})(connect(
+export default Form.create({ name: 'addQuestionsType' })(connect(
   MapState,
   MapDispatch
 )(Type));

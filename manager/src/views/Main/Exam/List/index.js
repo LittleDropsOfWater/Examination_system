@@ -100,7 +100,6 @@ function ExamList(props) {
   }
   function TabChange(e){
     const value=e.target.value;
-    console.log(value,exams);
     ChangeRadioValue(value);
     if(value===-1){
       ChangeCurrentExams(exams)
@@ -113,9 +112,6 @@ function ExamList(props) {
   useEffect(()=>{
     ChangeCurrentExams(exams)
   }, [exams]);
- 
-  
-  
   return (
     <Layout>
       <Title>试卷列表</Title>

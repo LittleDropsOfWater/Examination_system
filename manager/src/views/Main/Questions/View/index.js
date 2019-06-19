@@ -10,7 +10,7 @@ const columns = [
     dataIndex: '',
     key: '',
     render: text => (
-      <Link to={{ pathname: "/questions/detail", search: `id=${text.questions_id}` }}>
+      <Link to={{ pathname: `/questions/detail/${text.questions_id}`, params: {id:text.questions_id} }}>
         <>
           <h4>{text.title}</h4>
           <h4>
@@ -28,14 +28,19 @@ const columns = [
     key: 'action',
     render: (text, record) => (
       <span style={{ position: "absolute", right: 20 }}>
-        <Link to={{ pathname: "/edit/questions", search: `id=${text.questions_id}` }}>编辑</Link>
+        <Link to={{ pathname: `/edit/questions/${text.questions_id}`, params:{id:text.questions_id}}}>编辑</Link>
       </span>
     ),
   },
 ];
 function Look(props) {
   const { getFieldDecorator } = props.form
-  const { examType, questions_type, subjectType, allQuestion } = props;
+  const { examType, 
+    questions_type, 
+    subjectType, 
+    allQuestion,
+    getClassData
+  } = props;
   let [ind, updataInd] = useState(-1)
   useEffect(() => {
     props.getExamClass();
@@ -55,7 +60,7 @@ function Look(props) {
         if (ind !== -1) {
           payload.subject_id = subjectType[ind].subject_id
         }
-        props.getClassData(payload)
+        getClassData(payload)
       }
     });
   };

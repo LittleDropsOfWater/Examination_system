@@ -5,12 +5,12 @@ import LoginPage from './views/Login';
 
 function RouterConfig({ history }) {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path="/login"  component={LoginPage} />
-        <Route path="/"  component={HomePage} />
-      </Switch>
-    </Router>
+      <Router history={history}>
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <Route path="/" component={HomePage} />
+        </Switch>
+      </Router>
   );
 }
 
