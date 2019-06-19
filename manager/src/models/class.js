@@ -49,6 +49,7 @@ export default {
                 });
             }
         },
+        //添加班级
         *addGrode({ payload }, { call, put }) {
             let data = yield call(getAddGrode, payload)
             yield put({
@@ -57,7 +58,7 @@ export default {
                     msg: data
                 }
             })
-            if (data.code) {
+            if (data.code) { //如果添加成功重新获取班级和教室
                 yield put({
                     type: "classMsg"
                 })
