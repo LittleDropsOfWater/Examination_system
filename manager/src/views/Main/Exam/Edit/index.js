@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "dva";
-import { Layout, Button, Modal, Drawer, List, Collapse } from "antd";
+import { Layout, Button, Modal, Drawer, Collapse } from "antd";
 import Title from "@/components/Title";
 import ReactMarkdown from "react-markdown";
 import styles from "./index.scss";
 import { getExam } from "@/utils/user";
-
+import moment from 'moment';
 const { Content } = Layout;
 const { confirm } = Modal;
 const { Panel } = Collapse;
@@ -39,16 +39,18 @@ function ExamEdit(props) {
       }
     });
   }
-
+  let examTime=moment.duration(exam.end_time-exam.start_time);
+  let hour=examTime.asHours().toFixed(0);
+  let minutes=examTime.minutes();
   return (
     <Layout>
       <Title>创建试卷</Title>
       <Content className="content">
-        <Button onClick={() => ChangeDrawerVisible(true)}>添加新题</Button>
+        <Button onClick={(e) =>{e.preventDefault(); ChangeDrawerVisible(true)}}>添加新题</Button>
         <div className={styles.exam}>
           <h2>{exam.title}</h2>
           <p>
-            考试时间：1小时30分钟 监考人：刘于 开始考试时间：
+            考试时间：{hour}小时{minutes}分钟 监考人：刘于 开始考试时间：
             {new Date(exam.start_time).toLocaleString()} 阅卷人：刘于
           </p>
           {questions.map(({ questions_id, title, questions_stem,questions_answer }, index) => (
@@ -107,8 +109,10 @@ function DrawerListItem(item, questions, updateQuestions) {
           <Button
             className={styles.DrawerListButton}
             disabled={disabled}
-            onClick={() => {
-              console.log(item);
+            onClick={(e) => {
+              //阻止事件传递，避免弹出折叠页面
+              e.stopPropagation();
+              //添加试题，到当前试卷
               updateQuestions([...questions, item]);
             }}
           >

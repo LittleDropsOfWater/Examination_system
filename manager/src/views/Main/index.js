@@ -5,6 +5,7 @@ import { Avatar, Layout, Spin } from "antd";
 import { Route, Switch, Redirect } from "dva/router";
 import LeftSide from "@/components/LeftSide";
 import HeaderRight from "@/components/HeaderRight";
+import Message from "@/components/Message";
 import QuestionsAdd from "./Questions/Add";
 import Type from "./Questions/Type";
 import View from "./Questions/View";
@@ -14,7 +15,6 @@ import Detail from "./Questions/Detail";
 import Edit from "./Questions/Edit";
 import ExamAdd from "./Exam/Add";
 import ExamList from "./Exam/List";
-import { getUserData } from "@/utils/user";
 import ExamEdit from "./Exam/Edit";
 import ExamDetail from "./Exam/Detail";
 import Grade from "./Class/Grade";
@@ -24,10 +24,11 @@ import MarkClassList from "./Mark/ClassList";
 import MarkClassMate from "./Mark/ClassMate";
 import PaperDetail from "./Mark/PaperDetail";
 import NotFound from "./NotFound";
-import Message from "@/components/Message";
+import Forbidden from "./Forbidden";
+import { getUserData } from "@/utils/user";
 const { Header, Content, Sider } = Layout;
 function HomePage(props) {
-  const { img, loading } = props;
+  const { img, loading, myView, forbiddenView } = props;
   console.log(props);
   const [nickname, updateName] = useState("猫猫");
   useEffect(() => {
@@ -36,6 +37,8 @@ function HomePage(props) {
   useEffect(() => {
     updateName(getUserData().user_name);
   }, props);
+  console.log("myView...", myView);
+  console.log("forbiddenView...", forbiddenView);
   return (
     <Layout className={styles.wrap}>
       <Header className={styles.header}>
@@ -56,29 +59,27 @@ function HomePage(props) {
         <Content className={styles.content} style={{ overflow: "hidden" }}>
           <Content className={styles.scroll}>
             <Switch>
-              <Route path="/exam/detail/:id" component={ExamDetail} />
-              <Route path="/questions/add" component={QuestionsAdd} />
-              <Route path="/questions/type" component={Type} />
-              <Route path="/questions/view" component={View} />
-              <Route path="/questions/detail/:id" component={Detail} />
-              <Route path="/edit/questions/:id" component={Edit} />
-              <Route path="/user/adduser" component={AddUser} />
-              <Route path="/user/userShow" component={Show} />
-              <Route path="/class/grade" component={Grade} />
-              <Route path="/class/room" component={Room} />
-              <Route path="/class/student" component={Student} />
-              <Route path="/exam/add" component={ExamAdd} />
-              <Route path="/exam/edit" component={ExamEdit} />
-              <Route path="/exam/list" component={ExamList} />
-              <Route path="/exam/detail/:id" component={ExamDetail} />
-              <Route path="/mark/classlist" component={MarkClassList} />
-              <Route path="/mark/classmate/:id" component={MarkClassMate} />
-              <Route
-                path="/mark/paper/detail/:exam_student_id"
-                component={PaperDetail}
-              />
-              <Route component={NotFound} />
               <Redirect exact from="/" to="/questions/add" />
+              {/* 渲染该用户拥有的路由 */}
+              {myView.map(
+                item =>
+                  item.children &&
+                  item.children.map(val => (
+                    <Route
+                      key={val.id}
+                      path={val.path}
+                      component={val.component}
+                    />
+                  ))
+              )}
+              {/* 访问无权限的路由时跳往403路由 */}
+              {props.forbiddenView.map(item => {
+                return <Redirect key={item} from={item} to="/403" />;
+              })}
+              {/* 403路由 */}
+              <Route path="/403" component={Forbidden} />
+              {/* 404路由 */}
+              <Route component={NotFound} />
             </Switch>
           </Content>
           {/* loading效果 */}
@@ -101,7 +102,9 @@ HomePage.defaultProps = {
 };
 const mapState = state => {
   return {
-    loading: state.loading.global
+    loading: state.loading.global,
+    myView: state.user.myView,
+    forbiddenView: state.user.forbiddenView
   };
 };
 const mapDispatch = dispatch => ({

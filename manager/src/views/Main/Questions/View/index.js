@@ -29,7 +29,7 @@ const columns = [
     key: 'action',
     render: (text, record) => (
       <span style={{ position: "absolute", right: 20 }}>
-        <Link to={{ pathname: `/edit/questions/${text.questions_id}`, params:{id:text.questions_id}}}>编辑</Link>
+        <Link to={{ pathname: `/questions/edit/${text.questions_id}`, params:{id:text.questions_id}}}>编辑</Link>
       </span>
     ),
   },

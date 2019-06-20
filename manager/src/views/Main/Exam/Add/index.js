@@ -14,7 +14,6 @@ import SelectOption from "@/components/SelectOption";
 import Title from "@/components/Title";
 // import { getUserData } from "@/utils/user";
 import styles from "./index.scss";
-import moment from 'moment'
 const { Content } = Layout;
 // const { confirm } = Modal;
 const { success, error } = message;
@@ -110,7 +109,7 @@ function ExamAdd(props) {
                 rules: [{ required: true, message: "请选择考试开始时间!" }],
               })(
                 <DatePicker
-                  format="YYYY-MM-DD HH:mm:ss"
+                  format="YYYY-MM-DD HH:mm"
                   placeholder="开始时间"
                   showTime
                 />
@@ -130,7 +129,7 @@ function ExamAdd(props) {
                 rules: [{ required: true, message: "请选择考试结束时间!" }]
               })(
                 <DatePicker
-                  format="YYYY-MM-DD HH:mm:ss"
+                  format="YYYY-MM-DD HH:mm"
                   placeholder="结束时间"
                   showTime
                 />
