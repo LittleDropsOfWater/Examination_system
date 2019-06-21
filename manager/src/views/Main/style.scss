@@ -13,10 +13,17 @@
 }
 .logo {
   width: 120px;
+  vertical-align: middle;
 }
 .leftside {
   background-color: #232a41;
   overflow-y: auto;
+  width: 300px;
+}
+.scroll{
+  padding: 0px 24px 24px;
+  overflow: auto;
+  height: 100%;
 }
 .loading{
   position: absolute;
@@ -29,18 +36,18 @@
   align-items: center;
   justify-content: center;
   z-index: 99;
+  animation:fadeIn 2s ease-in;
 }
 .content{
   position: relative;
 }
 
-:global {
-  .ant-btn-primary{
-    padding: 0 40px!important;
-    background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+
+@keyframes fadeIn{
+  from{
+    opacity: 0;
   }
-  .ant-table-row td{
-    vertical-align: middle;
-    
+  to{
+    opacity: 1;
   }
 }

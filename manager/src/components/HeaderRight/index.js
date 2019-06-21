@@ -2,8 +2,8 @@ import {  useEffect } from "react";
 import { connect } from 'dva';
 import {Link} from 'dva/router'
 import { Menu, Dropdown } from "antd";
-import styles from "./style.css";
-
+import styles from "./style.scss";
+import LocaleButton from '@/components/LocaleButton'
 function HeaderRight({  children,logOut }) {
   useEffect(
     ()=>{
@@ -15,7 +15,7 @@ function HeaderRight({  children,logOut }) {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="http://www.alipay.com/"
+          href="javascript(0)"
         >
           个人中心
         </a>
@@ -24,7 +24,7 @@ function HeaderRight({  children,logOut }) {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="http://www.taobao.com/"
+          href="javascript(0)"
         >
           我的班级
         </a>
@@ -34,7 +34,7 @@ function HeaderRight({  children,logOut }) {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="http://www.tmall.com/"
+          href="javascript(0)"
         >
           设置
         </a>
@@ -51,9 +51,14 @@ function HeaderRight({  children,logOut }) {
     </Menu>
   )
   return (
+    <div className={styles.headerRight}>
     <Dropdown overlay={menu} className={styles.dropdown}>
-      <div style={{ cursor: "pointer" }}>{children}</div>
+      <div style={{ cursor: "pointer" }}>{children}
+      </div>
     </Dropdown>
+    <LocaleButton></LocaleButton>
+    
+    </div>
   );
 }
 HeaderRight.defaultProps = {

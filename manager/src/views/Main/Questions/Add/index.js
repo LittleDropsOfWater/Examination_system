@@ -69,7 +69,7 @@ function QuestionsAdd(props) {
     <Layout>
       <Title>添加试题</Title>
       <Content className={styles.content}>
-        <h3>题目信息</h3>
+        <h3 className={styles.contentTitle}>题目信息</h3>
         <Form layout="vertical">
           <Form.Item label="题干">
             {getFieldDecorator("title", {

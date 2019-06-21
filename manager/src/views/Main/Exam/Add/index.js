@@ -106,10 +106,10 @@ function ExamAdd(props) {
           <Content style={{ display: "flex", alignItems: "flex-end" }}>
             <Form.Item label="考试时间：">
               {getFieldDecorator("start_time", {
-                rules: [{ required: true, message: "请选择考试开始时间!" }]
+                rules: [{ required: true, message: "请选择考试开始时间!" }],
               })(
                 <DatePicker
-                  format="YYYY-MM-DD HH:mm:ss"
+                  format="YYYY-MM-DD HH:mm"
                   placeholder="开始时间"
                   showTime
                 />
@@ -129,7 +129,7 @@ function ExamAdd(props) {
                 rules: [{ required: true, message: "请选择考试结束时间!" }]
               })(
                 <DatePicker
-                  format="YYYY-MM-DD HH:mm:ss"
+                  format="YYYY-MM-DD HH:mm"
                   placeholder="结束时间"
                   showTime
                 />

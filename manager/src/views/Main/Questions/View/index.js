@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import style from "./index.css";
 import { connect } from "dva";
 import { Link } from "dva/router"
-import { Layout, Breadcrumb, Select, Row, Col, Button, Icon, Tag, Table, Form, Empty } from 'antd';
+import Title from '@/components/Title'
+import { Layout, Select, Row, Col, Button, Icon, Tag, Table, Form, Empty } from 'antd';
 const { Content } = Layout;
 const { Option } = Select;
 const columns = [
@@ -28,7 +29,7 @@ const columns = [
     key: 'action',
     render: (text, record) => (
       <span style={{ position: "absolute", right: 20 }}>
-        <Link to={{ pathname: `/edit/questions/${text.questions_id}`, params:{id:text.questions_id}}}>编辑</Link>
+        <Link to={{ pathname: `/questions/edit/${text.questions_id}`, params:{id:text.questions_id}}}>编辑</Link>
       </span>
     ),
   },
@@ -66,9 +67,7 @@ function Look(props) {
   };
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>试题分类</Breadcrumb.Item>
-      </Breadcrumb>
+        <Title>查看试题</Title>
       <Content
         style={{
           background: '#fff',

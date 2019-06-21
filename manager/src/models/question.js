@@ -57,7 +57,9 @@ export default {
     //更新试题
     *updateQuestion({ payload }, { call, put }){
       let data = yield call(updateQuestion,payload);
-      yield put({ type: "callTypeCode", payload: data.code });
+      yield put({ type: "message/callMessage", payload: data.code });
+
+
     },
     //获取所有的课程类型
     *getSubject({ payload }, { call, put }) {
@@ -85,7 +87,6 @@ export default {
       }
     },
     *getClassData({payload},{call,put}){
-      console.log(payload)
       let data=yield call(getClassQuery,payload)
       if(data.code===1){
         yield put({
@@ -108,7 +109,6 @@ export default {
       }
     },
     *getAllType({ payload }, { call, put }) {
-      // console.log("models-getAddPage");
       yield put({ type: "getExamType" });
       yield put({ type: "getSubject" });
       yield put({ type: "getQuestionsType" });
@@ -116,7 +116,7 @@ export default {
     *addQuestions({payload},{call,put}){
       // console.log('model-question-addQuestions.payload',payload);
       let data=yield call(addQuestions,payload);
-      yield put({ type: "callTypeCode", payload: data.code });
+      yield put({ type: "message/callMessage", payload: data });
     },
     //添加试题类型
     *addQuestionsType({ payload }, { call, put }) {
