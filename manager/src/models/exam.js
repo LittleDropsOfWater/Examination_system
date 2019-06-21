@@ -80,6 +80,7 @@ export default {
         payload:data.data,
       })
     },
+    //提交阅卷结果
     *markingTestPaper({payload},{call,put}){
       let data= yield call(markingTestPaper,payload);
         if(data.code){
@@ -87,6 +88,10 @@ export default {
             pathname: `/mark/classmate/${payload.grade_id}`,
           }))
         }
+        yield put({
+          type:'message/callMessage',
+          data
+        })
         // http://localhost:8000/#/mark/classmate/joyqt9-gyxsa8-fif6c-j12o0k
         // http://localhost:8000/#/exam/classmate/joyqt9-gyxsa8-fif6c-j12o0k
     },

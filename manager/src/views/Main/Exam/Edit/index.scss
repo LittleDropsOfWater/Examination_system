@@ -19,3 +19,24 @@
 		}
 }
 }
+.reactMarkdown{
+	width: 100%;    
+	white-space: pre-wrap;
+	img{
+		width: 100%;
+	}
+	pre{
+		background-color: #eee;
+		color:#333;
+		padding: 10px;
+	}
+}
+.DrawerListItem{
+	position: relative;
+}
+.DrawerListButton{
+	position: absolute;
+	right: 10px;
+	top: -5px;
+	z-index: 99;
+}
