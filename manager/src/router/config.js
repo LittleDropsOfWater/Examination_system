@@ -85,14 +85,14 @@ export default {
         {
           title: "router.questions.detail",
           path: "/questions/detail/:id",
-          id: "main-addQuestions",
+          id: "main-watchQuestions",
           component: QuestionDetail,
           disable: true
         },
         {
           title: "router.questions.edit",
           path: "/questions/edit/:id",
-          id: "main-addQuestions",
+          id: "main-watchQuestions",
           component: QuestionEdit,
           disable: true
         }
@@ -202,29 +202,6 @@ export default {
         }
       ]
     },
-    {
-      id: "403",
-      disable: true,
-      children: [
-        {
-          id: "main",
-          path: "/403",
-          component: Forbidden,
-          disable: true
-        }
-      ]
-    },
-    {
-      id: "404",
-      disable: true,
-      children: [
-        {
-          id: "main",
-          path: "",
-          component: NotFound,
-          disable: true
-        }
-      ]
-    }
+    
   ]
 };

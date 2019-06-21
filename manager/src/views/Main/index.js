@@ -8,20 +8,15 @@ import HeaderRight from "@/components/HeaderRight";
 import Message from "@/components/Message";
 import NotFound from "./NotFound";
 import Forbidden from "./Forbidden";
-import { getUserData } from "@/utils/user";
+import UDFile from '@/components/UploadButton'
 const { Header, Content, Sider } = Layout;
 function HomePage(props) {
   const { img, loading, myView, forbiddenView } = props;
   console.log(props);
   const [nickname, updateName] = useState("猫猫");
   useEffect(() => {
-    props.userInfo();
-  }, []);
-  useEffect(() => {
-    updateName(getUserData().user_name);
-  }, props);
-  console.log("myView...", myView);
-  console.log("forbiddenView...", forbiddenView);
+    updateName(props.userInfo.user_name);
+  }, [props.userInfo]);
   return (
     <Layout className={styles.wrap}>
       <Header className={styles.header}>
@@ -42,9 +37,10 @@ function HomePage(props) {
         <Content className={styles.content} style={{ overflow: "hidden" }}>
           <Content className={styles.scroll}>
             <Switch>
+              <Route path='/upload' component={UDFile}/>
               <Redirect exact from="/" to="/questions/add" />
               {/* 访问无权限的路由时跳往403路由 */}
-              {props.forbiddenView.map(item => {
+              {forbiddenView.map(item => {
                 return <Redirect key={item} from={item} to="/403" />;
               })}
               {/* 渲染该用户拥有的路由 */}
@@ -63,7 +59,7 @@ function HomePage(props) {
               {/* 403路由 */}
               <Route path="/403" component={Forbidden} />
               {/* 404路由 */}
-              <Route component={NotFound} />
+              <Route path="" component={NotFound} />
             </Switch>
           </Content>
           {/* loading效果 */}
@@ -87,14 +83,11 @@ HomePage.defaultProps = {
 const mapState = state => {
   return {
     loading: state.loading.global,
-    myView: state.user.myView,
-    forbiddenView: state.user.forbiddenView
+    ...state.user
   };
 };
 const mapDispatch = dispatch => ({
-  userInfo() {
-    dispatch({ type: "user/userInfo" });
-  }
+
 });
 export default connect(
   mapState,

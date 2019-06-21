@@ -84,7 +84,7 @@ input {
   padding: 0;
   border: none;
   outline: 0;
-  font-family: '微软雅黑' STHeitiSC-Light;
+  font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   vertical-align: baseline;
 }
 
@@ -179,10 +179,11 @@ textarea {
 }
 
 
-html, body, :global(#root) {
+:global{
+ 
+#root {
   height: 100%;
 }
-:global{
   .content{
     background: rgb(255, 255, 255); padding: 24px; margin: 0px 0px 20px; border-radius: 10px;
   }
