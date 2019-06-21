@@ -6,23 +6,6 @@ import { Route, Switch, Redirect } from "dva/router";
 import LeftSide from "@/components/LeftSide";
 import HeaderRight from "@/components/HeaderRight";
 import Message from "@/components/Message";
-import QuestionsAdd from "./Questions/Add";
-import Type from "./Questions/Type";
-import View from "./Questions/View";
-import AddUser from "./ShowUser/AddUser";
-import Show from "./ShowUser/Show";
-import Detail from "./Questions/Detail";
-import Edit from "./Questions/Edit";
-import ExamAdd from "./Exam/Add";
-import ExamList from "./Exam/List";
-import ExamEdit from "./Exam/Edit";
-import ExamDetail from "./Exam/Detail";
-import Grade from "./Class/Grade";
-import Room from "./Class/Room";
-import Student from "./Class/Student";
-import MarkClassList from "./Mark/ClassList";
-import MarkClassMate from "./Mark/ClassMate";
-import PaperDetail from "./Mark/PaperDetail";
 import NotFound from "./NotFound";
 import Forbidden from "./Forbidden";
 import { getUserData } from "@/utils/user";
@@ -60,6 +43,10 @@ function HomePage(props) {
           <Content className={styles.scroll}>
             <Switch>
               <Redirect exact from="/" to="/questions/add" />
+              {/* 访问无权限的路由时跳往403路由 */}
+              {props.forbiddenView.map(item => {
+                return <Redirect key={item} from={item} to="/403" />;
+              })}
               {/* 渲染该用户拥有的路由 */}
               {myView.map(
                 item =>
@@ -72,10 +59,7 @@ function HomePage(props) {
                     />
                   ))
               )}
-              {/* 访问无权限的路由时跳往403路由 */}
-              {props.forbiddenView.map(item => {
-                return <Redirect key={item} from={item} to="/403" />;
-              })}
+
               {/* 403路由 */}
               <Route path="/403" component={Forbidden} />
               {/* 404路由 */}
