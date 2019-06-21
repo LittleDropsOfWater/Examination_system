@@ -13,7 +13,6 @@ function RouterConfig({ history }) {
   return (
     <Intl>
         <LocaleProvider locale={zh_CN} >
-
       <Router history={history}>
         <Switch>
           <Route path="/login" component={LoginPage} />

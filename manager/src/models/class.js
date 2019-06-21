@@ -172,7 +172,7 @@ export default {
     reducers: {
         save(state, action) {
             return { ...state, ...action.payload };
-        },
+        }, 
         deleteGradeReducer(state,action){//删除班级 更新数据
             return {...state,grade:state.grade.filter(item=>item.grade_id!==action.payload.grade_id)}
         },
