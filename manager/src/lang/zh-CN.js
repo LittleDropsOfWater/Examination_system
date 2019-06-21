@@ -5,7 +5,7 @@ export default {
 	'router.questions.view':'查看试题',
 	'router.user':'用户管理',
 	'router.user.addUser':'添加用户',
-	'router.user.userShow':'用户展示',
+	'router.user.show':'用户展示',
 	'router.exam':'考试管理',
 	'router.exam.add':'添加考试',
 	'router.exam.list':'试卷列表',

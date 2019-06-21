@@ -87,7 +87,6 @@ export default {
       }
     },
     *getClassData({payload},{call,put}){
-      console.log(payload)
       let data=yield call(getClassQuery,payload)
       if(data.code===1){
         yield put({
@@ -110,7 +109,6 @@ export default {
       }
     },
     *getAllType({ payload }, { call, put }) {
-      // console.log("models-getAddPage");
       yield put({ type: "getExamType" });
       yield put({ type: "getSubject" });
       yield put({ type: "getQuestionsType" });

@@ -77,7 +77,7 @@ LeftSide.defaultProps = {
         },
         {
           title: "用户展示",
-          path: "userShow"
+          path: "show"
         }
       ]
     },

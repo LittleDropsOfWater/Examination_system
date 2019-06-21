@@ -5,7 +5,7 @@ export default {
 	'router.questions.view':'ViewQuestions',
 	'router.user':'UserManagement',
 	'router.user.addUser':'AddUser',
-	'router.user.userShow':'UserDisplay',
+	'router.user.show':'UserDisplay',
 	'router.exam':'ExamManagement',
 	'router.exam.add':'AddExam',
 	'router.exam.list':'VolumeList',

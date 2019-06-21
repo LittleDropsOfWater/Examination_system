@@ -2,15 +2,8 @@ import { useState, useEffect } from "react";
 import { connect } from "dva";
 import {
   Layout,
-  Select,
   Slider,
-  Row,
-  Col,
   Button,
-  Icon,
-  Table,
-  Form,
-  Affix,
   List,
   Tag,
   Divider,
@@ -20,8 +13,7 @@ import {
 import Title from "@/components/Title";
 import styles from "./index.scss";
 import ReactMarkdown from "react-markdown";
-const { Content, Sider, Header } = Layout;
-const { Option } = Select;
+const { Content} = Layout;
 const {confirm} = Modal;  
 function PaperDetail(props) {
   const {

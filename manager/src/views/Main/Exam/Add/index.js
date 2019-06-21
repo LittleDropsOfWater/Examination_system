@@ -14,7 +14,6 @@ import SelectOption from "@/components/SelectOption";
 import Title from "@/components/Title";
 // import { getUserData } from "@/utils/user";
 import styles from "./index.scss";
-import moment from 'moment'
 const { Content } = Layout;
 // const { confirm } = Modal;
 const { success, error } = message;

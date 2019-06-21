@@ -1,4 +1,10 @@
-import { addExam,updateExam,getExam,getTheExam,getStudentsPapers,getTheStudentPaper ,markingTestPaper} from "@/services/exam";
+import { addExam,
+  updateExam,
+  getExam,
+  getTheExam,
+  getStudentsPapers,
+  getTheStudentPaper,
+  markingTestPaper} from "@/services/exam";
 import {  setExam} from "@/utils/user";
 import { routerRedux } from "dva/router";
 
@@ -24,13 +30,11 @@ export default {
 		},  
 		*addExam({ payload }, { call, put }) {  // eslint-disable-line
 			let data=yield call(addExam,payload);
-			console.log(data);
 			if(data.code){
         yield setExam(data.data);
         yield put(routerRedux.push({
           pathname: `/exam/edit`,
         }))
-        console.log('跳转edit')
 			}
 		},	*updateExam({ payload }, { call, put }) {  // eslint-disable-line
 			let data=yield call(updateExam,payload.id,payload.params);
@@ -39,8 +43,6 @@ export default {
         yield  put(routerRedux.push({
           pathname: `/exam/list`,
         }))
-        console.log('跳转list')
-
 			}
     },
     *getAllExam({ payload }, { call, put }){
@@ -66,7 +68,6 @@ export default {
     },
     *getStudentsPapers({payload},{call,put}){
       let data= yield call(getStudentsPapers,payload);
-      console.log(data);
       yield put({
         type:'updateAllPapers',
         payload:data.exam,
@@ -74,7 +75,6 @@ export default {
     },
     *getTheStudentPaper({payload},{call,put}){
       let data= yield call(getTheStudentPaper,payload);
-      console.log(data);
       yield put({
         type:'TheStudentPaper',
         payload:data.data,
@@ -82,7 +82,6 @@ export default {
     },
     *markingTestPaper({payload},{call,put}){
       let data= yield call(markingTestPaper,payload);
-        console.log('markingTestPaper is',data);
         if(data.code){
           yield  put(routerRedux.push({
             pathname: `/mark/classmate/${payload.grade_id}`,

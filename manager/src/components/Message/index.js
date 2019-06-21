@@ -3,7 +3,6 @@ import {  connect} from "dva";
 import { message } from 'antd';
 const {success,error}=message;
 function Message({code,msg}){
-console.log('Message',code,msg);
 useEffect(()=>{
 if(code===-1)return ;
 if(code){
