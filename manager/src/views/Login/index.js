@@ -7,6 +7,7 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
   //判断是否登陆
   useEffect(() => {
     if (code === -1) return;
+    console.log('loginPage-Code',code,msg)
     if (code) {
       //1.提示登录成功
       message.success(msg);

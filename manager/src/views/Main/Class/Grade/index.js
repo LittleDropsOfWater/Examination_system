@@ -110,7 +110,9 @@ function Grade(props) {
       >
         <Button type="primary" onClick={() => {
           updateClass(false)
+          props.form.setFieldsValue({ grade_name: '', room_id: '', subject_id: '' })
           setDialogVisible(true)
+
         }}>
           <Icon type="plus" />
           添加班级
@@ -124,7 +126,7 @@ function Grade(props) {
         </div>
       </Content>
       <Modal
-        title="添加班级"
+        title={addClass?"修改班级":"添加班级"}
         visible={DialogVisible}
         onOk={handleOk}
         onCancel={handleCancel}

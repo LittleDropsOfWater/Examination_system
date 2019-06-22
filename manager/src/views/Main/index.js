@@ -12,7 +12,6 @@ import UDFile from '@/components/UploadButton'
 const { Header, Content, Sider } = Layout;
 function HomePage(props) {
   const { img, loading, myView, forbiddenView } = props;
-  console.log(props);
   const [nickname, updateName] = useState("猫猫");
   useEffect(() => {
     updateName(props.userInfo.user_name);

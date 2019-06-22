@@ -10,7 +10,6 @@ function AddUser(props) {
         view_authority,
         api_authority,
         identity_view_authority_relation,
-        msg,
         AddUser, //添加用户,
         UpdateUser,
         AddIdentity,
@@ -25,14 +24,7 @@ function AddUser(props) {
     useEffect(() => {
         props.getUserData()
     }, [])
-    useEffect(() => {
-        if (msg.code === -1) return
-        if (msg.code === 1) {
-            message.success(msg.msg);
-        } else if (msg.code === 0) {
-            message.error(msg.msg);
-        }
-    }, [msg])
+  
     function onChange(e) {
         e.target.value === "updateUser" ? upshow(true) : upshow(false)
     }
@@ -64,7 +56,8 @@ function AddUser(props) {
                                     } else {
                                         AddUser({
                                             "user_name": values.user_name,
-                                            "user_pwd": values.user_pwd
+                                            "user_pwd": values.user_pwd,
+                                            "identity_id": values.identity_id
                                         })
                                     }
                                 }

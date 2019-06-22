@@ -85,14 +85,14 @@ export default {
         {
           title: "router.questions.detail",
           path: "/questions/detail/:id",
-          id: "main-watchQuestions",
+          id: "main-addQuestions",
           component: QuestionDetail,
           disable: true
         },
         {
           title: "router.questions.edit",
           path: "/questions/edit/:id",
-          id: "main-watchQuestions",
+          id: "main-addQuestions",
           component: QuestionEdit,
           disable: true
         }
