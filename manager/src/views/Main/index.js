@@ -37,11 +37,14 @@ function HomePage(props) {
           <Content className={styles.scroll}>
             <Switch>
               <Route path='/upload' component={UDFile}/>
+
               <Redirect exact from="/" to="/questions/add" />
+
               {/* 访问无权限的路由时跳往403路由 */}
               {forbiddenView.map(item => {
                 return <Redirect key={item} from={item} to="/403" />;
               })}
+
               {/* 渲染该用户拥有的路由 */}
               {myView.map(
                 item =>
@@ -57,6 +60,7 @@ function HomePage(props) {
 
               {/* 403路由 */}
               <Route path="/403" component={Forbidden} />
+              
               {/* 404路由 */}
               <Route path="" component={NotFound} />
             </Switch>
