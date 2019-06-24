@@ -50,12 +50,12 @@ const MarkClassMate = dynamic({
 const PaperDetail = dynamic({
   component: () => import("@/views/Main/Mark/PaperDetail")
 });
-const NotFound = dynamic({
-  component: () => import("@/views/Main/NotFound")
-});
-const Forbidden = dynamic({
-  component: () => import("@/views/Main/Forbidden")
-});
+// const NotFound = dynamic({
+//   component: () => import("@/views/Main/NotFound")
+// });
+// const Forbidden = dynamic({
+//   component: () => import("@/views/Main/Forbidden")
+// });
 
 export default {
   routes: [

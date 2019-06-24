@@ -6,6 +6,8 @@ import styles from "./index.scss";
 import SelectOption from "@/components/SelectOption";
 import Title from "@/components/Title";
 import { getUserData } from "@/utils/user";
+import { injectIntl } from "react-intl";
+
 const { Content } = Layout;
 const { confirm } = Modal;
 const { success, error } = message;
@@ -24,7 +26,8 @@ function QuestionsAdd(props) {
     questions_type,
     subjectType,
     typeCode,
-    msg
+    msg,
+    intl: { formatMessage }
   } = props;
   const { getFieldDecorator } = form;
 
@@ -33,19 +36,19 @@ function QuestionsAdd(props) {
   useEffect(() => {
     if (typeCode === -1) return;
     if (typeCode) {
-      success("添加试题成功");
+      success(formatMessage({ id: "router.questions.add.successMsg" }));
     } else {
-      error("添加试题失败");
+      error(formatMessage({ id: "router.questions.add.errorMsg" }));
     }
   }, [typeCode, msg]);
 
   //确认框
   function showConfirm() {
     confirm({
-      title: "你确定要添加这道试题吗?",
-      content: "真的要添加吗",
-      okText: "确定",
-      cancelText: "取消",
+      title: formatMessage({ id: "router.questions.confirm.title" }),
+      content: formatMessage({ id: "router.questions.confirm.content" }),
+      okText: formatMessage({ id: "router.questions.confirm.okText" }),
+      cancelText: formatMessage({ id: "router.questions.confirm.cancelText" }),
       onOk() {
         form.validateFields((err, values) => {
           if (!err) {
@@ -58,60 +61,123 @@ function QuestionsAdd(props) {
       onCancel() {}
     });
   }
-  function initialValue(data,init){
-    return data[0]
-    ? Object.values(data[0])[0]
-    : init
+  function initialValue(data, init) {
+    return data[0] ? Object.values(data[0])[0] : init;
   }
-
 
   return (
     <Layout>
-      <Title>添加试题</Title>
+      <Title>{formatMessage({ id: "router.questions.add" })}</Title>
       <Content className={styles.content}>
-        <h3 className={styles.contentTitle}>题目信息</h3>
+        <h3 className={styles.contentTitle}>
+          {formatMessage({ id: "router.questions.add.contentTitle" })}
+        </h3>
         <Form layout="vertical">
-          <Form.Item label="题干">
+          <Form.Item
+            label={formatMessage({
+              id: "router.questions.add.form.title.label"
+            })}
+          >
             {getFieldDecorator("title", {
               rules: [
-                { required: true, message: "请输入题干!" },
-                { pattern: /^.{1,20}$/, message: "题干不能超过20字" }
+                {
+                  required: true,
+                  message: formatMessage({
+                    id: "router.questions.add.form.title.require"
+                  })
+                },
+                {
+                  pattern: /^.{1,20}$/,
+                  message: formatMessage({
+                    id: "router.questions.add.form.title.pattern"
+                  })
+                }
               ]
             })(
               <Input
                 className={styles.titleInput}
                 size="large"
-                placeholder="请输入题目标题,不超过20个字"
+                placeholder={formatMessage({
+                  id: "router.questions.add.form.title.placeholder"
+                })}
               />
             )}
           </Form.Item>
-          <Form.Item label="题目主体">
+          <Form.Item
+            label={formatMessage({
+              id: "router.questions.add.form.questionsStem.label"
+            })}
+          >
             {getFieldDecorator("questions_stem", {
-              rules: [{ required: true, message: "请输入题目主体!" }]
-            })(<Editor placeholder="请输入内容" height="auto" />)}
+              rules: [
+                {
+                  required: true,
+                  message: formatMessage({
+                    id: "router.questions.add.form.questionsStem.require"
+                  })
+                }
+              ]
+            })(
+              <Editor
+                placeholder={formatMessage({
+                  id: "router.questions.add.form.questionsStem.placeholder"
+                })}
+                height="auto"
+              />
+            )}
           </Form.Item>
-          <Form.Item label="请选择考试类型:">
+          <Form.Item
+            label={formatMessage({
+              id: "router.questions.add.form.examType.label"
+            })}
+          >
             {getFieldDecorator("exam_id", {
-              initialValue: initialValue(examType,"周考1"),
+              initialValue: initialValue(examType, "周考1")
             })(<SelectOption list={examType} />)}
           </Form.Item>
-          <Form.Item label="请选择课程类型:">
+          <Form.Item
+            label={formatMessage({
+              id: "router.questions.add.form.subjectType.label"
+            })}
+          >
             {getFieldDecorator("subject_id", {
-              initialValue: initialValue(subjectType,"javaScript上"),
+              initialValue: initialValue(subjectType, "javaScript上")
             })(<SelectOption list={subjectType} />)}
           </Form.Item>
-          <Form.Item label="请选择题目类型:">
+          <Form.Item
+            label={formatMessage({
+              id: "router.questions.add.form.questionsType.label"
+            })}
+          >
             {getFieldDecorator("questions_type_id", {
-              initialValue: initialValue(questions_type,"简答题"),
+              initialValue: initialValue(questions_type, "简答题")
             })(<SelectOption list={questions_type} />)}
           </Form.Item>
-          <Form.Item label="答案信息">
+          <Form.Item
+            label={formatMessage({
+              id: "router.questions.add.form.questionsAnswer.label"
+            })}
+          >
             {getFieldDecorator("questions_answer", {
-              rules: [{ required: true, message: "请输入答案信息!" }]
-            })(<Editor placeholder="请输入内容" height="auto" />)}
+              rules: [
+                {
+                  required: true,
+                  message: formatMessage({
+                    id: "router.questions.add.form.questionsAnswer.require"
+                  })
+                }
+              ]
+            })(
+              <Editor
+                placeholder={formatMessage({
+                  id: "router.questions.add.form.questionsAnswer.placeholder"
+                })}
+                height="auto"
+              />
+            )}
           </Form.Item>
           <Button onClick={showConfirm} type="primary" size="large">
-            提交
+            {formatMessage({ id: "router.questions.add.form.submit" })}
           </Button>
         </Form>
       </Content>
@@ -144,7 +210,9 @@ const mapDispatch = dispatch => ({
     });
   }
 });
-export default connect(
-  mapState,
-  mapDispatch
-)(Form.create({ name: "questions_add" })(QuestionsAdd));
+export default injectIntl(
+  connect(
+    mapState,
+    mapDispatch
+  )(Form.create({ name: "questions_add" })(QuestionsAdd))
+);

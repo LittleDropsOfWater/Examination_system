@@ -1,4 +1,4 @@
-import { login, getUserInfo, getViewAuthority } from "@/services";
+import { login, getUserInfo, getViewAuthority,updateUserInfo } from "@/services";
 import { setToken, getToken, removeToken } from "@/utils/user";
 import { routerRedux } from "dva/router";
 
@@ -114,6 +114,23 @@ export default {
           pathname: `/login`
         })
       );
+    },
+    *updateAvatar({ payload }, { call, put,select }){
+      let userInfo= yield select(state=>state.user.userInfo)
+      let data= yield call(updateUserInfo,{
+        user_id:userInfo.user_id,
+        avatar:payload
+      });
+      yield put({
+        type:'message/callMessage',
+        payload:data
+      })
+      if(data.code){
+        yield put({
+          type:'updateUserInfo',
+          payload:{...userInfo,avatar:payload}
+        })
+      }
     }
   },
 

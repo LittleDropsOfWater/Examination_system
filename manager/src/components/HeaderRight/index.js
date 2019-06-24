@@ -12,13 +12,9 @@ function HeaderRight({  children,logOut }) {
   const menu=(
     <Menu>
       <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="javascript(0)"
-        >
+          <Link to='/account'>
           个人中心
-        </a>
+          </Link>
       </Menu.Item>
       <Menu.Item>
         <a

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Layout, Radio, Form, Select, Input, Button, message } from 'antd';
+import { Layout, Radio, Form, Select, Input, Button, } from 'antd';
 import { connect } from "dva"
 import Title from "@/components/Title"
 import style from "./index.css"

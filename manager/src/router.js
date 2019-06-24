@@ -10,7 +10,6 @@ import zh_CN from "antd/lib/locale-provider/zh_CN";
 import moment from "moment";
 import "moment/locale/zh-cn";
 moment.locale("zh-cn");
-console.log('antd.zh-cn',zh_CN)
 function RouterConfig({ history }) {
   return (
     <Intl>

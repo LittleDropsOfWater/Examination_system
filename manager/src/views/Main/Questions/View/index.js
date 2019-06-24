@@ -3,7 +3,9 @@ import style from "./index.css";
 import { connect } from "dva";
 import { Link } from "dva/router"
 import Title from '@/components/Title'
-import { Layout, Breadcrumb, Select, Row, Col, Button, Icon, Tag, Table, Form, Empty } from 'antd';
+import { injectIntl } from "react-intl";
+
+import { Layout, Select, Row, Col, Button, Icon, Tag, Table, Form, Empty } from 'antd';
 const { Content } = Layout;
 const { Option } = Select;
 const columns = [
@@ -34,13 +36,20 @@ const columns = [
     ),
   },
 ];
-function Look(props) {
+function Options(data=[],value,text){
+  if(!(Array.isArray(data))&&value&&text){return null;}
+  return ( data.map(item => (
+    <Option key={item[value]} value={item[value]}>{item[text]}</Option>
+  )))
+}
+function View(props) {
   const { getFieldDecorator } = props.form
   const { examType, 
     questions_type, 
     subjectType, 
     allQuestion,
-    getClassData
+    getClassData,
+    intl: { formatMessage }
   } = props;
   let [ind, updataInd] = useState(-1)
   useEffect(() => {
@@ -67,7 +76,7 @@ function Look(props) {
   };
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
-        <Title>查看试题</Title>
+        <Title>{formatMessage({ id: "router.questions.view" })}</Title>
       <Content
         style={{
           background: '#fff',
@@ -103,11 +112,7 @@ function Look(props) {
                       </div>
                     )}
                   >
-                    {
-                      examType.map(item => (
-                        <Option key={item.exam_id} value={item.exam_id}>{item.exam_name}</Option>
-                      ))
-                    }
+                    {Options(examType,'exam_id','exam_name')}
                   </Select>
                 )}
               </Form.Item>
@@ -124,9 +129,7 @@ function Look(props) {
                   )}
                 >
                   {
-                    questions_type.map(item => (
-                      <Option key={item.questions_type_id} value={item.questions_type_id}>{item.questions_type_text}</Option>
-                    ))
+                    Options(questions_type,'questions_type_id','questions_type_text')
                   }
                 </Select>
               )}
@@ -182,4 +185,4 @@ const MapDispatch = dispatch => ({
     })
   }
 })
-export default connect(MapState, MapDispatch)(Form.create({ name: "search_question" })(Look))
+export default injectIntl(connect(MapState, MapDispatch)(Form.create({ name: "search_question" })(View)))
