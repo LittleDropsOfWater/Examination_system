@@ -103,10 +103,12 @@ function Student(props) {
             </Col>
             <Col className="gutter-row" span={4}>
               <Form.Item>
-                {getFieldDecorator('room', {})(
+                {getFieldDecorator('room', {
+                })(
                   <Select
                     placeholder="请选择教室号"
                   >
+                  <Option  value={''}>所有教室</Option>
                     {
                       room.map(item => (
                         <Option key={item.room_id} value={item.room_id}>{item.room_text}</Option>
@@ -120,6 +122,8 @@ function Student(props) {
               <Form.Item>
                 {getFieldDecorator('grade', {})(
                   <Select placeholder="班级名">
+                  <Option  value={''}>所有班级</Option>
+
                     {
                       grade.map(item => (
                         <Option key={item.grade_id} value={item.grade_id}>{item.grade_name}</Option>

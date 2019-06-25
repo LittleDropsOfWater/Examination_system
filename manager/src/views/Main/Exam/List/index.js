@@ -82,7 +82,7 @@ function ExamList(props) {
     form,
     searchExams
   } = props;
-  let[radioValue,ChangeRadioValue]=useState(-1)
+  let[radioValue,ChangeRadioValue]=useState(0)
   let[currentExams,ChangeCurrentExams]=useState(exams)
   function handleSubmit(e) {
     e.preventDefault();
@@ -98,15 +98,19 @@ function ExamList(props) {
   
     });
   }
+
+  function arrFilter(arr,index,now){
+    const filterParten=[val=>val,
+      val=>+val.start_time>now,
+      val=>+val.start_time<now && +val.end_time>now,
+      val=>+val.end_time<now
+    ];
+    return arr.filter(filterParten[index])
+  }
   function TabChange(e){
     const value=e.target.value;
     ChangeRadioValue(value);
-    if(value===-1){
-      ChangeCurrentExams(exams)
-    }else{
-      ChangeCurrentExams(exams.filter(val=>val.status===value));
-
-    }
+    ChangeCurrentExams(arrFilter(exams,value,+new Date()))
   }
   useEffect(getAllType, []);
   useEffect(()=>{
@@ -175,9 +179,10 @@ function ExamList(props) {
         <div className={styles.tool}>
 				<h4>试卷列表</h4>
         <Radio.Group value={radioValue} onChange={TabChange} style={{ marginBottom: 16 }}>
-          <Radio.Button value={-1}>全部</Radio.Button>
-          <Radio.Button value={1}>进行中</Radio.Button>
-          <Radio.Button value={2}>已结束</Radio.Button>
+          <Radio.Button value={0}>全部</Radio.Button>
+          <Radio.Button value={1}>未开始</Radio.Button>
+          <Radio.Button value={2}>进行中</Radio.Button>
+          <Radio.Button value={3}>已结束</Radio.Button>
         </Radio.Group>
 
         </div>

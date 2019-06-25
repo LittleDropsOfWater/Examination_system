@@ -15,6 +15,7 @@ import {
 } from "antd";
 const { Content } = Layout;
 const { Option } = Select;
+const { confirm } = Modal;
 function Grade(props) {
   const [DialogVisible, setDialogVisible] = useState(false);
   const [addClass, updateClass] = useState(false);
@@ -34,7 +35,9 @@ function Grade(props) {
     getGrade()
     getRoom()
     getSubject()
-  }, [])
+  },[]);
+
+  //操作后提示
   useEffect(() => {
     if (msg.code === -1) return
     if (msg.code === 1) {
@@ -46,6 +49,22 @@ function Grade(props) {
   const handleCancel = e => {
     setDialogVisible(false);
   };
+  const [deleteConfirm]=useState(()=>function (grade_id,grade_name) {
+    confirm({
+      title: '确定删除这个班级吗?',
+      content: `班级名为${grade_name}`,
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        deleteGrade({
+          grade_id
+        })
+      },
+      onCancel() {
+      },
+    });
+  })
   const columns = [
     {
       title: "班级名",
@@ -68,9 +87,7 @@ function Grade(props) {
         e.preventDefault();
         props.form.setFieldsValue({ grade_name: val.grade_name, room_id: val.room_id, subject_id: val.subject_id })
       }}>修改</span>|<span className={style.active} onClick={() => {
-        deleteGrade({
-          grade_id: val.grade_id
-        })
+        deleteConfirm(val.grade_id,val.grade_name)
       }}>删除</span></p>,
     }
   ];

@@ -1,6 +1,7 @@
+import {useEffect,} from 'react';
 import styles from "./style.scss";
 import { Menu, Icon } from "antd";
-import { Link } from "dva/router";
+import { Link,withRouter } from "dva/router";
 import { injectIntl } from "react-intl";
 import { connect } from "dva";
 
@@ -8,12 +9,15 @@ const { SubMenu } = Menu;
 function LeftSide(props) {
   const {
     myView,
-    intl: { formatMessage }
+    intl: { formatMessage },
+    location:{pathname}
   } = props;
+
+
   return (
     <div>
       <Menu
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={[pathname]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
         theme="dark"
@@ -22,7 +26,7 @@ function LeftSide(props) {
         {myView &&
           myView.map(
             ({ id, title, icon, children, path, disable }) =>
-              disable || (
+              !disable&&children&&children.length>0&&  (
                 <SubMenu
                   key={id}
                   title={
@@ -52,4 +56,4 @@ function LeftSide(props) {
 }
 
 const mapState = state => ({ myView: state.user.myView });
-export default injectIntl(connect(mapState)(LeftSide));
+export default injectIntl(withRouter(connect(mapState)(LeftSide)));

@@ -5,7 +5,6 @@ import Editor from "for-editor";
 import styles from "./index.scss";
 import SelectOption from "@/components/SelectOption";
 import Title from "@/components/Title";
-import { getUserData } from "@/utils/user";
 import { injectIntl } from "react-intl";
 
 const { Content } = Layout;
@@ -27,10 +26,10 @@ function QuestionsAdd(props) {
     subjectType,
     typeCode,
     msg,
+    user_id,
     intl: { formatMessage }
   } = props;
   const { getFieldDecorator } = form;
-
   //发起请求
   useEffect(question, []);
   useEffect(() => {
@@ -53,8 +52,7 @@ function QuestionsAdd(props) {
         form.validateFields((err, values) => {
           if (!err) {
             //调添加试题接口
-            // console.log({ ...values, user_id: getUserData().user_id });
-            addQuestions({ ...values, user_id: getUserData().user_id });
+            addQuestions({ ...values, user_id: user_id });
           }
         });
       },
@@ -194,7 +192,7 @@ function QuestionsAdd(props) {
  */
 const mapState = state => {
   // console.log("add-redux.state:", state);
-  return { ...state.question, user_id: state.user.user_id };
+  return { ...state.question, user_id: state.user.userInfo.user_id };
 };
 const mapDispatch = dispatch => ({
   question() {

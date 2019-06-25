@@ -16,13 +16,14 @@ function AddUser(props) {
         Addapi_authority,
         setIdentityApi,
         setIdentityView,
-        addView_authority
+        addView_authority,
+        getUserData
     } = props;
     const { getFieldDecorator } = props.form;
     const { Option } = Select;
     let [show, upshow] = useState(false);
     useEffect(() => {
-        props.getUserData()
+        getUserData()
     }, [])
   
     function onChange(e) {
@@ -68,7 +69,9 @@ function AddUser(props) {
                                 <Radio.Button value="updateUser">更新用户</Radio.Button>
                             </Radio.Group>
                             {show && <Form.Item style={{ margin: 0, marginTop: "10px" }}>
-                                {getFieldDecorator('user_id', {})(
+                                {getFieldDecorator('user_id', {
+                                    
+                                })(
                                     <Select placeholder="请选择身份id" style={{ width: 150 }}>
                                         {
                                             allUser.map(item => (
@@ -79,12 +82,18 @@ function AddUser(props) {
                                 )}
                             </Form.Item>}
                             <Form.Item style={{ margin: 0, marginTop: "10px" }}>
-                                {getFieldDecorator('user_name', {})(
+                                {getFieldDecorator('user_name', {
+                                    
+
+                                })(
                                     <Input placeholder="请输入用户名" />
                                 )}
                             </Form.Item>
                             <Form.Item style={{ margin: 0, marginTop: "10px" }}>
-                                {getFieldDecorator('user_pwd', {})(
+                                {getFieldDecorator('user_pwd', {
+                                    
+
+                                })(
                                     <Input type="password" placeholder="请输入密码" />
                                 )}
                             </Form.Item>

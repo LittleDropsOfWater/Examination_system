@@ -1,5 +1,3 @@
-
-
 @charset "UTF-8";
 html,
 body,
@@ -84,7 +82,10 @@ input {
   padding: 0;
   border: none;
   outline: 0;
-  font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
   vertical-align: baseline;
 }
 
@@ -141,7 +142,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -178,40 +179,40 @@ textarea {
   -o-tap-highlight-color: transparent;
 }
 
-
-:global{
- 
-#root {
-  height: 100%;
-}
-  .content{
-    background: rgb(255, 255, 255); padding: 24px; margin: 0px 0px 20px; border-radius: 10px;
+:global {
+  #root {
+    height: 100%;
+  }
+  .content {
+    background: rgb(255, 255, 255);
+    padding: 24px;
+    margin: 0px 0px 20px;
+    border-radius: 10px;
   }
 
-  .reactMarkdown{
-    width: 100%;    
+  .reactMarkdown {
+    width: 100%;
     white-space: pre-wrap;
-    
-    h4{
+    h4 {
       margin: 12px 0;
     }
-    img{
+    img {
       width: 100%;
     }
-    pre{
+    pre {
       background-color: #f6f6f6;
       color: #657b83;
       padding: 10px;
-		line-height: 1.5;
+      line-height: 1.5;
       white-space: pre-wrap;
     }
   }
-  
-  .ant-btn-primary{
-    padding: 0 40px!important;
-    background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+
+  .ant-btn-primary {
+    padding: 0 40px !important;
+    background: linear-gradient(-90deg, #4e75ff, #0139fd) !important;
   }
-  .ant-table-row td{
+  .ant-table-row td {
     vertical-align: middle;
   }
 }

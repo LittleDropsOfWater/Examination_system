@@ -18,13 +18,13 @@ function Detail(props) {
       <Content style={{ display: "flex" }}>
         <Content className={styles.stem}>
           <span>出题人：{props.user_name}</span>
-          <div>试题类型:    </div>
+          <div>试题类型: </div>
           <div>
             <Tag color="blue">{props.questions_type_text}</Tag>
             <Tag color="geekblue">{props.subject_text}</Tag>
             <Tag color="gold">{props.exam_name}</Tag>
           </div>
-          <h4 className={styles.questionTitle}>{ props.title}</h4>
+          <h4 className={styles.questionTitle}>{props.title}</h4>
           <ReactMarkdown
             className={"reactMarkdown"}
             source={props.questions_stem}

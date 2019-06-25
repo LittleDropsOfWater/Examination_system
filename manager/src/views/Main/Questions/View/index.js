@@ -70,6 +70,11 @@ function View(props) {
         if (ind !== -1) {
           payload.subject_id = subjectType[ind].subject_id
         }
+        for(var k in values){
+          if(!payload[k]){
+            delete payload[k]
+          }
+        }
         getClassData(payload)
       }
     });
@@ -103,7 +108,9 @@ function View(props) {
             <Col span={8}>
               <Form.Item>
                 考试类型:
-                {getFieldDecorator('exam_id', {})(
+                {getFieldDecorator('exam_id', {
+                  initialValue:''
+                })(
                   <Select
                     style={{ width: 120 }}
                     dropdownRender={menu => (
@@ -112,6 +119,7 @@ function View(props) {
                       </div>
                     )}
                   >
+                  <Option  value={''}>所有类型</Option>
                     {Options(examType,'exam_id','exam_name')}
                   </Select>
                 )}
@@ -119,7 +127,9 @@ function View(props) {
             </Col>
             <Col span={8}>
               <Form.Item>题目类型:
-                {getFieldDecorator('questions_type_id', {})(
+                {getFieldDecorator('questions_type_id', {
+                  initialValue:''
+                })(
                 <Select
                   style={{ width: 120 }}
                   dropdownRender={menu => (
@@ -128,6 +138,7 @@ function View(props) {
                     </div>
                   )}
                 >
+                <Option  value={''}>所有类型</Option>
                   {
                     Options(questions_type,'questions_type_id','questions_type_text')
                   }
