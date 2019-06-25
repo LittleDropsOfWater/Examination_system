@@ -21,4 +21,5 @@ export default {
 	'router.mark.classlist':'PendingClass',
 	'router.mark.classmate':'PendingPapers',
 	'router.mark.examinationPapers':'examinationPapers',
+
 }

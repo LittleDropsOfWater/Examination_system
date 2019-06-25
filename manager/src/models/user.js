@@ -3,7 +3,6 @@ import {
   setToken,
   getToken,
   removeToken,
-  removeUserData
 } from "@/utils/user";
 import { routerRedux } from "dva/router";
 
@@ -31,9 +30,15 @@ export default {
   //订阅路由跳转，监听页面切换
   subscriptions: {
     setup({ dispatch, history }) {
-      // eslint-disable-line
-      // console.log("sbuscriptions:", a, b);
+      let oldPathname;
       return history.listen(({ pathname = "/" }) => {
+        // console.log('=======================');
+        // console.log(pathname,oldPathname===pathname);
+        // console.log(history);
+        // console.log(routerRedux);
+        // console.log('=======================');
+        if(oldPathname===pathname) return ;
+        oldPathname=pathname;
         const token = getToken();
         //1.判断去的页面是否不是登录页面
         if (pathname.indexOf("/login") === -1) {
@@ -54,8 +59,10 @@ export default {
           //1.2用户没有登录态
         } else {
           //1.2.1去登录页面，如果已登录跳回首页
+          // console.log('登录页提示');
           if (token) {
             //利用redux做路由跳转
+            // console.log('登录页跳转到首页')
             dispatch(
               routerRedux.replace({
                 pathname: "/"
@@ -70,10 +77,10 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      console.log("payload...", payload,login);
+      // console.log("payload...", payload,login);
       //1.调用登录接口
       let data = yield call(login, payload);
-      console.log("data...", data);
+      // console.log("data...", data);
       //2.设置登录态到cookie里
       if (data.code === 1) {
         setToken(data.token);
@@ -111,7 +118,6 @@ export default {
     },
     *logOut({ payload }, { call, put }) {
       yield removeToken("");
-      yield removeUserData("");
       yield put({ type: "logReset" });
       yield put(
         routerRedux.push({

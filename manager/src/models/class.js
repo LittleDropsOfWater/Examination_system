@@ -21,6 +21,7 @@ export default {
             code: -1
         }
     },
+    
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
         },
@@ -49,7 +50,6 @@ export default {
                 });
             }
         },
-        //添加班级
         *addGrode({ payload }, { call, put }) {
             let data = yield call(getAddGrode, payload)
             yield put({
@@ -58,7 +58,7 @@ export default {
                     msg: data
                 }
             })
-            if (data.code) { //如果添加成功重新获取班级和教室
+            if (data.code) {
                 yield put({
                     type: "classMsg"
                 })
@@ -172,7 +172,7 @@ export default {
     reducers: {
         save(state, action) {
             return { ...state, ...action.payload };
-        }, 
+        },
         deleteGradeReducer(state,action){//删除班级 更新数据
             return {...state,grade:state.grade.filter(item=>item.grade_id!==action.payload.grade_id)}
         },

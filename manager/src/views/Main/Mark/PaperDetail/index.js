@@ -13,7 +13,7 @@ import {
 import Title from "@/components/Title";
 import styles from "./index.scss";
 import ReactMarkdown from "react-markdown";
-const { Content} = Layout;
+const { Content, } = Layout;
 const {confirm} = Modal;  
 function PaperDetail(props) {
   const {
@@ -41,7 +41,7 @@ function PaperDetail(props) {
       okText:'确认',
       cancelText:'取消',
       onOk() {
-        console.log({exam_student_id,score});
+        // console.log({exam_student_id,score});
         markingTestPaper({exam_student_id,score,grade_id:paper.grade_id});
       },
       onCancel() {

@@ -50,12 +50,12 @@ const MarkClassMate = dynamic({
 const PaperDetail = dynamic({
   component: () => import("@/views/Main/Mark/PaperDetail")
 });
-const NotFound = dynamic({
-  component: () => import("@/views/Main/NotFound")
-});
-const Forbidden = dynamic({
-  component: () => import("@/views/Main/Forbidden")
-});
+// const NotFound = dynamic({
+//   component: () => import("@/views/Main/NotFound")
+// });
+// const Forbidden = dynamic({
+//   component: () => import("@/views/Main/Forbidden")
+// });
 
 export default {
   routes: [
@@ -202,29 +202,6 @@ export default {
         }
       ]
     },
-    {
-      id: "403",
-      disable: true,
-      children: [
-        {
-          id: "main",
-          path: "/403",
-          component: Forbidden,
-          disable: true
-        }
-      ]
-    },
-    {
-      id: "404",
-      disable: true,
-      children: [
-        {
-          id: "main",
-          path: "",
-          component: NotFound,
-          disable: true
-        }
-      ]
-    }
+    
   ]
 };

@@ -1,10 +1,4 @@
-import { addExam,
-  updateExam,
-  getExam,
-  getTheExam,
-  getStudentsPapers,
-  getTheStudentPaper,
-  markingTestPaper} from "@/services/exam";
+import { addExam,updateExam,getExam,getTheExam,getStudentsPapers,getTheStudentPaper ,markingTestPaper} from "@/services/exam";
 import {  setExam} from "@/utils/user";
 import { routerRedux } from "dva/router";
 
@@ -30,19 +24,21 @@ export default {
 		},  
 		*addExam({ payload }, { call, put }) {  // eslint-disable-line
 			let data=yield call(addExam,payload);
-			if(data.code){
+				if(data.code){
         yield setExam(data.data);
         yield put(routerRedux.push({
           pathname: `/exam/edit`,
         }))
+        
 			}
 		},	*updateExam({ payload }, { call, put }) {  // eslint-disable-line
 			let data=yield call(updateExam,payload.id,payload.params);
-			console.log(data);
-			if(data.code){
+				if(data.code){
         yield  put(routerRedux.push({
           pathname: `/exam/list`,
         }))
+        
+
 			}
     },
     *getAllExam({ payload }, { call, put }){
@@ -68,14 +64,14 @@ export default {
     },
     *getStudentsPapers({payload},{call,put}){
       let data= yield call(getStudentsPapers,payload);
-      yield put({
+        yield put({
         type:'updateAllPapers',
         payload:data.exam,
       })
     },
     *getTheStudentPaper({payload},{call,put}){
       let data= yield call(getTheStudentPaper,payload);
-      yield put({
+        yield put({
         type:'TheStudentPaper',
         payload:data.data,
       })

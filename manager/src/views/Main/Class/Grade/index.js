@@ -66,10 +66,7 @@ function Grade(props) {
         setDialogVisible(true)
         updateClass(true)
         e.preventDefault();
-        props.form.setFieldsValue({ 
-          grade_name: val.grade_name, 
-          room_id: val.room_id, 
-          subject_id: val.subject_id })
+        props.form.setFieldsValue({ grade_name: val.grade_name, room_id: val.room_id, subject_id: val.subject_id })
       }}>修改</span>|<span className={style.active} onClick={() => {
         deleteGrade({
           grade_id: val.grade_id
@@ -111,14 +108,11 @@ function Grade(props) {
           minHeight: 280
         }}
       >
-        <Button type="primary" onClick={(e) => {
+        <Button type="primary" onClick={() => {
           updateClass(false)
+          props.form.setFieldsValue({ grade_name: '', room_id: '', subject_id: '' })
           setDialogVisible(true)
-          e.preventDefault();
-          props.form.setFieldsValue({ 
-            grade_name: '', 
-            room_id: undefined, 
-            subject_id: undefined })
+
         }}>
           <Icon type="plus" />
           添加班级
@@ -132,7 +126,7 @@ function Grade(props) {
         </div>
       </Content>
       <Modal
-        title="添加班级"
+        title={addClass?"修改班级":"添加班级"}
         visible={DialogVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -145,7 +139,7 @@ function Grade(props) {
           </Form.Item>
           <Form.Item label="教室号">
             {getFieldDecorator('room_id', {
-              rules: [{ required: true, message: 'Please input your note!' }]
+              rules: [{ required: true, message: 'Please input your note!' }],
             })(
               <Select style={{ width: '100%' }} placeholder="教室号">
                 {

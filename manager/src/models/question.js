@@ -109,6 +109,7 @@ export default {
       }
     },
     *getAllType({ payload }, { call, put }) {
+      // console.log("models-getAddPage");
       yield put({ type: "getExamType" });
       yield put({ type: "getSubject" });
       yield put({ type: "getQuestionsType" });
@@ -123,7 +124,6 @@ export default {
       // console.log('model-question-addQuestionsType.payload',payload);
       try {
         let data = yield call(addQuestionsType, payload);
-        console.log(data);
         yield put({ type: "getQuestionsType" });
         yield put({ type: "callTypeCode", payload: data.code === 1 ? 1 : 0 });
       } catch (err) {

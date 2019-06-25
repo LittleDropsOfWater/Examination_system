@@ -112,6 +112,9 @@ function UserShow(props) {
     useEffect(() => {
         props.getUserData()
     }, [])
+    useEffect(() => {
+       console.log('arr:...',arr);
+    }, [props])
     return (
         <div>
             <h2 style={{lineHeight:"60px"}}>用户展示</h2>
