@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { connect } from "dva";
 import styles from "./index.css";
+import { injectIntl } from "react-intl";
 import { Input, Form, Button, Checkbox, Icon, message } from "antd";
-
-function LoginPage({ login, form, history, match, location,code, msg  }) {
+import LocaleDropdown from '@/components/LocaleDropdown';
+function LoginPage({ login, form, history, match, location,code, msg,intl:{formatMessage}  }) {
   //判断是否登陆
   useEffect(() => {
     if (code === -1) return;
+    console.log('loginPage-Code',code,msg)
     if (code) {
       //1.提示登录成功
       message.success(msg);
@@ -40,16 +42,19 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
     <div className={styles.wrap}>
       <div className={styles.content}>
         <Form onSubmit={handleSubmit} className={styles["login-form"]}>
+        <div className={styles.floatButton}>
+        <LocaleDropdown/>
+        </div>
           <Form.Item>
             {getFieldDecorator("username", {
-              rules: [{ required: true, message: "请输入你的用户名!" }]
+              rules: [{ required: true, message: formatMessage({id:'router.login.userErrorMsg'}) }]
             })(
               <Input
                 size="large"
                 prefix={
                   <Icon type="user" style={{ color: "rgba(0,0,0,.65)" }} />
                 }
-                placeholder="请输入用户名"
+                placeholder={formatMessage({id:'router.login.userMsg'})}
               />
             )}
           </Form.Item>
@@ -57,10 +62,10 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
             {getFieldDecorator("password", {
               validateTrigger:'onBlur',
               rules: [
-                { required: true, message: "请输入你的密码!" },
+                { required: true, message: formatMessage({id:'router.login.passwordErrorMsg.required'}) },
                 {
                   pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[1-9])(?=.*[\W]).{6,}$/,
-                  message: "密码校验失败!密码包含大小写字母、数字、特殊符号"
+                  message: formatMessage({id:'router.login.passwordErrorMsg.pattern'}) 
                 }
               ]
             })(
@@ -70,7 +75,7 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
                   <Icon type="lock" style={{ color: "rgba(0,0,0,.65)" }} />
                 }
                 type="password"
-                placeholder="请输入用户密码"
+                placeholder={formatMessage({id:'router.login.passwordMsg'})}
               />
             )}
           </Form.Item>
@@ -78,9 +83,9 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
             {getFieldDecorator("remember", {
               valuePropName: "checked",
               initialValue: true
-            })(<Checkbox>记住密码</Checkbox>)}
+            })(<Checkbox>{formatMessage({id:'router.login.rememberPassword'})}</Checkbox>)}
             <a className={styles["login-form-forgot"]} href="">
-              忘记密码
+            {formatMessage({id:'router.login.forgetPassword'})}
             </a>
             <Button
               type="primary"
@@ -88,7 +93,7 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
               className={styles["login-form-button"]}
               size="large"
             >
-              登录
+              {formatMessage({id:'router.login.loginButton'})}
             </Button>
           </Form.Item>
         </Form>
@@ -98,6 +103,7 @@ function LoginPage({ login, form, history, match, location,code, msg  }) {
 }
 
 const mapStateToProps = state => ({...state.user});
+
 const mapDispatchToProps = dispatch => ({
   login(payload) {
     dispatch({
@@ -106,9 +112,10 @@ const mapDispatchToProps = dispatch => ({
     });
   }
 });
-export default Form.create({ name: "normal_login" })(
+
+export default injectIntl(Form.create({ name: "normal_login" })(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )(LoginPage)
-);
+));

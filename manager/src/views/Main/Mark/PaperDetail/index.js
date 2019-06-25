@@ -3,7 +3,9 @@ import { connect } from "dva";
 import {
   Layout,
   Slider,
+ 
   Button,
+
   List,
   Tag,
   Divider,
@@ -13,7 +15,7 @@ import {
 import Title from "@/components/Title";
 import styles from "./index.scss";
 import ReactMarkdown from "react-markdown";
-const { Content} = Layout;
+const { Content, } = Layout;
 const {confirm} = Modal;  
 function PaperDetail(props) {
   const {

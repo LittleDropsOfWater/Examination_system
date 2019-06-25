@@ -24,9 +24,7 @@ export default {
         identity_api_authority_relation: [],
         view_authority: [],
         identity_view_authority_relation: [],
-        msg: {
-            code: -1
-        }
+        
     },
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
@@ -93,64 +91,50 @@ export default {
         *addUser({ payload }, { call, put }) {
             let data = yield call(getAddUser, payload)
             yield put({
-                type: "save",
-                payload: {
-                    msg: data
-                }
+                type: "message/callMessage",
+                payload: data
             })
         },
         *updateUser({ payload }, { call, put }) {
             let data = yield call(getUpdateUser, payload)
             yield put({
-                type: "save",
-                payload: {
-                    msg: data
-                }
+                type: "message/callMessage",
+                payload: data
             })
         },
         *addIdentity({ payload }, { call, put }) {
             let data = yield call(getAddIdentity, payload)
-            yield put({
-                type: "save",
-                payload: {
-                    msg: data
-                }
+             yield put({
+                type: "message/callMessage",
+                payload: data
             })
         },
         *api_authority({ payload }, { call, put }) {
             let data = yield call(getApi_authority, payload)
-            yield put({
-                type: "save",
-                payload: {
-                    msg: data
-                }
+             yield put({
+                type: "message/callMessage",
+                payload: data
             })
         },
         *IdentityApi({ payload }, { call, put }) {
             let data = yield call(getIdentityApi, payload)
-            yield put({
-                type: "save",
-                payload: {
-                    msg: data
-                }
+             yield put({
+                type: "message/callMessage",
+                payload: data
             })
         },
         *IdentityView({ payload }, { call, put }) {
             let data = yield call(getIdentityView, payload)
-            yield put({
-                type: "save",
-                payload: {
-                    msg: data
-                }
+             yield put({
+                type: "message/callMessage",
+                payload: data
             })
         },
         *view_authority({ payload }, { call, put }) {
             let data = yield call(addView_authority, payload)
-            yield put({
-                type: "save",
-                payload: {
-                    msg: data
-                }
+             yield put({
+                type: "message/callMessage",
+                payload: data
             })
         }
     },

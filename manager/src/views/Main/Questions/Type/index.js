@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "dva";
-import Title from "@/components/Title"
-import {
-  Layout,
-  Button,
-  Icon,
-  Table,
-  Modal,
-  Input,
-  message,
-  Form,
-} from "antd";
+import Title from "@/components/Title";
+import { injectIntl } from "react-intl";
+
+import { Layout, Button, Icon, Table, Modal, Input, message, Form } from "antd";
 const { Content } = Layout;
 const { success, error } = message;
 function Type(props) {
-  const { addQuestionsType, questions_type, typeCode } = props;
+  const {
+    addQuestionsType,
+    questions_type,
+    typeCode,
+    intl: { formatMessage }
+  } = props;
   const [DialogVisible, setDialogVisible] = useState(false);
   //弹框中的输入框
   const [iptValue, setIptValue] = useState("");
@@ -52,19 +50,19 @@ function Type(props) {
     props.getQuestionsType();
   }, []);
   useEffect(() => {
-    setIptValue('');
+    setIptValue("");
   }, [questions_type]);
   useEffect(() => {
     if (typeCode === -1) return;
     if (typeCode) {
-      success('添加成功')
+      success("添加成功");
     } else {
-      error('添加失败')
+      error("添加失败");
     }
-  }, [typeCode])
+  }, [typeCode]);
   return (
     <Layout style={{ padding: "0 24px 24px" }}>
-      <Title>试题分类</Title>
+      <Title>{formatMessage({ id: "router.questions.type" })}</Title>
       <Content
         style={{
           background: "#fff",
@@ -118,7 +116,11 @@ const MapDispatch = dispatch => ({
     });
   }
 });
-export default Form.create({ name: 'addQuestionsType' })(connect(
-  MapState,
-  MapDispatch
-)(Type));
+export default injectIntl(
+  Form.create({ name: "addQuestionsType" })(
+    connect(
+      MapState,
+      MapDispatch
+    )(Type)
+  )
+);

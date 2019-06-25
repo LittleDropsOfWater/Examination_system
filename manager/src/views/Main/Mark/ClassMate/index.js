@@ -16,39 +16,7 @@ import Title from "@/components/Title";
 
 const { Content } = Layout;
 const { Option } = Select;
-const columns = [
 
-  {
-    title: "姓名",
-    dataIndex: "student_name"
-  },
-  {
-    title: "阅卷状态",
-    dataIndex: "status",
-    render: status => <span>{status ? "已阅" : "未阅"}</span>
-  },
-  {
-    title: "开始时间",
-    dataIndex: "start_time",
-    render: text => <>{new Date(+text).toLocaleString()}</>
-  },
-  {
-    title: "结束时间",
-    dataIndex: "end_time",
-    render: text => <>{new Date(+text).toLocaleString()}</>
-  },
-  {
-    title: "得分",
-    dataIndex:'score',
-  },
-  {
-    title: "操作",
-    key: "action",
-    render: (text, record) => (
-      <Link to={{ pathname: `/mark/paper/detail/${text.exam_student_id}` }}>批卷</Link>
-    )
-  }
-];
 function ExamList(props) {
   const { getFieldDecorator } = props.form;
   const {
@@ -61,6 +29,43 @@ function ExamList(props) {
       params: { id }
     }
   } = props;
+  const columns = [
+    {
+      title: "班级",
+      dataIndex: "grade_id",
+      render:id=>grade.find(val=>val.grade_id===id).grade_name
+    },
+    {
+      title: "姓名",
+      dataIndex: "student_name"
+    },
+    {
+      title: "阅卷状态",
+      dataIndex: "status",
+      render: status => <span>{status ? "已阅" : "未阅"}</span>
+    },
+    {
+      title: "开始时间",
+      dataIndex: "start_time",
+      render: text => <>{new Date(+text).toLocaleString()}</>
+    },
+    {
+      title: "结束时间",
+      dataIndex: "end_time",
+      render: text => <>{new Date(+text).toLocaleString()}</>
+    },
+    {
+      title: "得分",
+      dataIndex:'score',
+    },
+    {
+      title: "操作",
+      key: "action",
+      render: (text, record) => (
+        <Link to={{ pathname: `/mark/paper/detail/${text.exam_student_id}` }}>批卷</Link>
+      )
+    }
+  ];
 
   //查询按钮
   function handleSubmit(e) {

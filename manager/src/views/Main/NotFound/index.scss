@@ -8,6 +8,7 @@
   background-image: linear-gradient(0deg, #e8f4f8, lightblue);
   width: 120vw;
   margin-left: -10vw;
+  animation: fadeIn 2s ease-in;
 }
 body {
   margin: 0;
@@ -470,5 +471,11 @@ body {
       0 100%,
       3% 39%
     );
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
 }
