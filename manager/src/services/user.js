@@ -1,4 +1,4 @@
-import {postRequest,getRequest} from '../utils/request';
+import {postRequest,getRequest,putRequest} from '../utils/request';
 //登录接口
 export function login(params){
 	return postRequest({
@@ -12,7 +12,13 @@ export function getUserInfo(){
 		url:'/user/userInfo',
 	})
 }
-
+//更新当前用户信息接口
+export function updateUserInfo(params){
+	return putRequest({
+		url:'/user/user',
+		params
+	})
+}
 //获取当前用户权限
 export function getViewAuthority(user_id){
 	return getRequest({

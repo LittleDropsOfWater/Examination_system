@@ -65,19 +65,28 @@ function Student(props) {
   ]
   const handleSubmit = e => { //按条件搜索
     e.preventDefault();
+        let resut = reduxStudent;
+
     props.form.validateFields((err, values) => {
       if (!err) {
-        let resut = reduxStudent;
-        if (values.username) {
-          resut = resut.filter(item => item.student_name === values.username)
-        }
-        if (values.room) {
-          resut = resut.filter(item => item.room_id === values.room)
-        }
-        if (values.grade) {
-          resut = resut.filter(item => item.grade_id === values.grade)
-        }
-        updateStudent(resut)
+        Object.keys(values).forEach(k => {
+            if(!values[k]) {
+                delete values[k]
+            }
+        })
+        let vals = Object.entries(values)
+        // [[k,v]]
+        let arr =  resut.filter(item => vals.every(v => item[v[0]] === v[1]))
+        // if (values.username) {
+        //   resut = resut.filter(item => item.student_name === values.username)
+        // }
+        // if (values.room) {
+        //   resut = resut.filter(item => item.room_id === values.room)
+        // }
+        // if (values.grade) {
+        //   resut = resut.filter(item => item.grade_id === values.grade)
+        // }
+        updateStudent(arr)
       }
     });
   }
@@ -96,14 +105,14 @@ function Student(props) {
           <Row className={style.form} gutter={16}>
             <Col className="gutter-row" span={4}>
               <Form.Item>
-                {getFieldDecorator('username', {})(
+                {getFieldDecorator('student_name', {})(
                   <Input placeholder="请输入学生姓名" />,
                 )}
               </Form.Item>
             </Col>
             <Col className="gutter-row" span={4}>
               <Form.Item>
-                {getFieldDecorator('room', {})(
+                {getFieldDecorator('room_id', {})(
                   <Select
                     placeholder="请选择教室号"
                   >
@@ -118,7 +127,7 @@ function Student(props) {
             </Col>
             <Col className="gutter-row" span={4}>
               <Form.Item>
-                {getFieldDecorator('grade', {})(
+                {getFieldDecorator('grade_id', {})(
                   <Select placeholder="班级名">
                     {
                       grade.map(item => (
@@ -137,7 +146,7 @@ function Student(props) {
                 <Button type="primary" onClick={
                   e => {
                     e.preventDefault();
-                    props.form.setFieldsValue({ username: undefined, grade: undefined, room: undefined })
+                    props.form.setFieldsValue({ student_name: undefined, grade_id: undefined, room_id: undefined })
                   }}>
                   重置
                   </Button>

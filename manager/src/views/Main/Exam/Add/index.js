@@ -11,8 +11,10 @@ import {
 } from "antd";
 // import Editor from "for-editor";
 import SelectOption from "@/components/SelectOption";
+
 import Title from "@/components/Title";
 // import { getUserData } from "@/utils/user";
+import moment from "moment";
 import styles from "./index.scss";
 const { Content } = Layout;
 // const { confirm } = Modal;
@@ -33,7 +35,7 @@ function ExamAdd(props) {
     // questions_type,
     subjectType,
     typeCode,
-    msg,
+    msg
     // history
   } = props;
   const { getFieldDecorator } = form;
@@ -63,16 +65,25 @@ function ExamAdd(props) {
         //调添加试题接口
         values.start_time = +values.start_time;
         values.end_time = +values.end_time;
-        console.log("组件：", values);
         addExam(values);
       }
     });
+  }
+  function setDate(key, value) {
+    let minute = moment(value).minute() % 10;
+    if (minute !== 0) {
+      setTimeout(() => {
+        form.setFieldsValue({
+          [key]: moment(value).subtract(minute, "minutes")
+        });
+      }, 0);
+    }
   }
 
   return (
     <Layout>
       <Title>添加考试</Title>
-      <Content className='content' >
+      <Content className="content">
         <Form layout="vertical" onSubmit={handleSubmit}>
           <Form.Item label="试卷名称">
             {getFieldDecorator("title", {
@@ -106,12 +117,15 @@ function ExamAdd(props) {
           <Content style={{ display: "flex", alignItems: "flex-end" }}>
             <Form.Item label="考试时间：">
               {getFieldDecorator("start_time", {
-                rules: [{ required: true, message: "请选择考试开始时间!" }],
+                rules: [{ required: true, message: "请选择考试开始时间!" }]
               })(
                 <DatePicker
                   format="YYYY-MM-DD HH:mm"
                   placeholder="开始时间"
-                  showTime
+                  showTime={{ format: "HH:mm", minuteStep: 10 }}
+                  onChange={e => {
+                    setDate("start_time", e);
+                  }}
                 />
               )}
             </Form.Item>
@@ -131,7 +145,10 @@ function ExamAdd(props) {
                 <DatePicker
                   format="YYYY-MM-DD HH:mm"
                   placeholder="结束时间"
-                  showTime
+                  showTime={{ format: "HH:mm", minuteStep: 10 }}
+                  onChange={e => {
+                    setDate("end_time", e);
+                  }}
                 />
               )}
             </Form.Item>

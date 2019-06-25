@@ -1,9 +1,5 @@
-import { login, getUserInfo, getViewAuthority } from "@/services";
-import {
-  setToken,
-  getToken,
-  removeToken,
-} from "@/utils/user";
+import { login, getUserInfo, getViewAuthority,updateUserInfo } from "@/services";
+import { setToken, getToken, removeToken } from "@/utils/user";
 import { routerRedux } from "dva/router";
 
 //引入路由表
@@ -13,10 +9,10 @@ import allView from "@/router/config.js";
 const defaultState = {
   code: -1,
   msg: "",
-  userInfo:{},
+  userInfo: {},
   viewAuthority: [], //用户锁拥有的视图权限
   myView: [], //拥有权限的前端路由
-  forbiddenView: [] //没有权限访问的路由
+  forbiddenView: [] ,//没有权限访问的路由
 };
 export default {
   //命名空间
@@ -32,13 +28,9 @@ export default {
     setup({ dispatch, history }) {
       let oldPathname;
       return history.listen(({ pathname = "/" }) => {
-        // console.log('=======================');
-        // console.log(pathname,oldPathname===pathname);
-        // console.log(history);
-        // console.log(routerRedux);
-        // console.log('=======================');
-        if(oldPathname===pathname) return ;
-        oldPathname=pathname;
+        if (pathname === oldPathname) return;
+        oldPathname = pathname;
+        console.log("pathname...", pathname);
         const token = getToken();
         //1.判断去的页面是否不是登录页面
         if (pathname.indexOf("/login") === -1) {
@@ -77,7 +69,7 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      // console.log("payload...", payload,login);
+      console.log("payload...", payload, login);
       //1.调用登录接口
       let data = yield call(login, payload);
       // console.log("data...", data);
@@ -95,26 +87,26 @@ export default {
         payload: data
       });
     },
-    *getUserInfo(action, { call, put,select }) {
-  
+    *getUserInfo({ payload }, { call, put, select }) {
       //1.判断是否有权限
-      let myView = yield select(state=>state.user.myView);
-      if(myView.length){return;}
-  
+      let myView = yield select(state => state.user.myView);
+      if (myView.length) {
+        return;
+      }
+
       //2.获取用户信息
       let userInfo = yield call(getUserInfo);
       yield put({
         type: "updateUserInfo",
         payload: userInfo.data
-      })
+      });
 
       //3.根据id获取视图权限
-      let viewAuthority= yield call(getViewAuthority,
-        userInfo.data.user_id);
-        yield put({
-          type:'updateViewAuthority',
-          payload:viewAuthority.data
-        })
+      let viewAuthority = yield call(getViewAuthority, userInfo.data.user_id);
+      yield put({
+        type: "updateViewAuthority",
+        payload: viewAuthority.data
+      });
     },
     *logOut({ payload }, { call, put }) {
       yield removeToken("");
@@ -124,6 +116,23 @@ export default {
           pathname: `/login`
         })
       );
+    },
+    *updateAvatar({ payload }, { call, put,select }){
+      let userInfo= yield select(state=>state.user.userInfo)
+      let data= yield call(updateUserInfo,{
+        user_id:userInfo.user_id,
+        avatar:payload
+      });
+      yield put({
+        type:'message/callMessage',
+        payload:data
+      })
+      if(data.code){
+        yield put({
+          type:'updateUserInfo',
+          payload:{...userInfo,avatar:payload}
+        })
+      }
     }
   },
 
@@ -135,29 +144,35 @@ export default {
     logReset(state) {
       return { ...state, ...defaultState };
     },
-    updateLogin(state, { payload:{code,msg} }) {
-      return { ...state, msg,code };
+    updateLogin(
+      state,
+      {
+        payload: { code, msg }
+      }
+    ) {
+      return { ...state, msg, code };
     },
-    updateUserInfo(state,{payload}){
-      return {...state,userInfo:payload}
+    updateUserInfo(state, { payload }) {
+      return { ...state, userInfo: payload };
     },
-    updateViewAuthority(state,{payload}){
+    updateViewAuthority(state, { payload }) {
       //筛选出我所有的前端路由权限
-      let myView=allView.routes,forbiddenView=[];
-      myView=myView.map(item=>{
-        if(!item.children)return item;
-        let children=item.children.filter(value=>{
-          if(payload.findIndex(id=>id.view_id===value.id) !== -1){
-            return true
-          }else{
-            forbiddenView.push(value.path)
-            return false
+      let myView = allView.routes,
+        forbiddenView = [];
+      myView = myView.map(item => {
+        if (!item.children) return item;
+        let children = item.children.filter(value => {
+          if (payload.findIndex(id => id.view_id === value.id) !== -1) {
+            return true;
+          } else {
+            forbiddenView.push(value.path);
+            return false;
           }
-        })
-        return {...item,children}
-      })
-      console.log('myView...',myView);
-      return {...state,viewAuthority:payload,myView,forbiddenView};
+        });
+        return { ...item, children };
+      });
+      console.log("myView...", myView);
+      return { ...state, viewAuthority: payload, myView, forbiddenView };
     }
   }
 };

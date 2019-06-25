@@ -29,3 +29,8 @@
   color: #fff!important;
   background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
 }
+.floatButton{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { connect } from "dva";
 import styles from "./style.scss";
 import { Avatar, Layout, Spin } from "antd";
@@ -8,14 +7,14 @@ import HeaderRight from "@/components/HeaderRight";
 import Message from "@/components/Message";
 import NotFound from "./NotFound";
 import Forbidden from "./Forbidden";
-import UDFile from '@/components/UploadButton'
+import PersonalCenter from "./PersonalCenter";
 const { Header, Content, Sider } = Layout;
 function HomePage(props) {
-  const { img, loading, myView, forbiddenView } = props;
-  const [nickname, updateName] = useState("猫猫");
-  useEffect(() => {
-    updateName(props.userInfo.user_name);
-  }, [props.userInfo]);
+  const { avatar, user_name, loading, myView, forbiddenView } = props;
+  console.log('========================');
+  console.log(myView);
+  console.log(forbiddenView)
+  console.log('========================');
   return (
     <Layout className={styles.wrap}>
       <Header className={styles.header}>
@@ -24,8 +23,8 @@ function HomePage(props) {
         </div>
         <HeaderRight>
           <>
-            <Avatar src={img} style={{ marginRight: "10px" }} />
-            {nickname}
+            <Avatar src={avatar} style={{ marginRight: "10px" }} />
+            {user_name}
           </>
         </HeaderRight>
       </Header>
@@ -36,12 +35,13 @@ function HomePage(props) {
         <Content className={styles.content} style={{ overflow: "hidden" }}>
           <Content className={styles.scroll}>
             <Switch>
-              <Route path='/upload' component={UDFile}/>
               <Redirect exact from="/" to="/questions/add" />
+
               {/* 访问无权限的路由时跳往403路由 */}
-              {forbiddenView.map(item => {
-                return <Redirect key={item} from={item} to="/403" />;
-              })}
+              {forbiddenView.map(item => (
+                <Redirect key={item} from={item} to="/403" />
+              ))}
+
               {/* 渲染该用户拥有的路由 */}
               {myView.map(
                 item =>
@@ -54,8 +54,12 @@ function HomePage(props) {
                     />
                   ))
               )}
+              {/* 个人中心 */}
+              <Route path="/account" component={PersonalCenter} />
+
               {/* 403路由 */}
               <Route path="/403" component={Forbidden} />
+
               {/* 404路由 */}
               <Route path="" component={NotFound} />
             </Switch>
@@ -74,19 +78,19 @@ function HomePage(props) {
   );
 }
 HomePage.defaultProps = {
-  img:
+  avatar:
     "https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png",
-  nickname: "chenmanjie"
+  user_name: "chenmanjie"
 };
 const mapState = state => {
   return {
     loading: state.loading.global,
-    ...state.user
+    ...state.user,
+    avatar: state.user.userInfo.avatar,
+    user_name: state.user.userInfo.user_name
   };
 };
-const mapDispatch = dispatch => ({
-
-});
+const mapDispatch = dispatch => ({});
 export default connect(
   mapState,
   mapDispatch
