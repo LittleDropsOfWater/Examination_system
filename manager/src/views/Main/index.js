@@ -1,3 +1,4 @@
+import {useState,useEffect} from 'react';
 import { connect } from "dva";
 import styles from "./style.scss";
 import { Avatar, Layout, Spin } from "antd";
@@ -8,13 +9,15 @@ import Message from "@/components/Message";
 import NotFound from "./NotFound";
 import Forbidden from "./Forbidden";
 import PersonalCenter from "./PersonalCenter";
+import uploadPage from '@/components/UploadButton'
 const { Header, Content, Sider } = Layout;
 function HomePage(props) {
   const { avatar, user_name, loading, myView, forbiddenView } = props;
-  console.log('========================');
-  console.log(myView);
-  console.log(forbiddenView)
-  console.log('========================');
+const [defaultPath,uploadDefaultPath]=useState(false)
+  useEffect(()=>{
+    if(!(myView[0]&&myView[0].children[0]))return;
+    uploadDefaultPath(myView[0].children[0].path)
+  },[myView])
   return (
     <Layout className={styles.wrap}>
       <Header className={styles.header}>
@@ -36,7 +39,7 @@ function HomePage(props) {
           <Content className={styles.scroll}>
             <Switch>
 
-              <Redirect exact from="/" to="/questions/add" />
+              {defaultPath&&<Redirect exact from="/" to={defaultPath} />}
 
               {/* 访问无权限的路由时跳往403路由 */}
               {forbiddenView.map(item => (
@@ -55,6 +58,8 @@ function HomePage(props) {
                     />
                   ))
               )}
+              {/* 上传/下载excel */}
+              <Route path='/upload' component={uploadPage} />
               {/* 个人中心 */}
               <Route path="/account" component={PersonalCenter} />
 

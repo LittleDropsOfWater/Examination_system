@@ -35,7 +35,7 @@ function ExamEdit(props) {
     updateExam({
       id: exam.exam_exam_id,
       params: {
-        question_ids: questions.map(val => val.questions_id).join(",")
+        question_ids:JSON.stringify(questions.map(val=>val.questions_id))
       }
     });
   }

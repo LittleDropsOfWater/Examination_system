@@ -12,6 +12,8 @@ import {
   Form,
 } from "antd";
 const { Content } = Layout;
+const { confirm } = Modal;
+
 function Room(props) {
   const [DialogVisible, setDialogVisible] = useState(false);
   const { getFieldDecorator } = props.form;
@@ -25,7 +27,7 @@ function Room(props) {
   
   useEffect(() => {
     getRoom()
-  }, [])
+  }, [getRoom])
   useEffect(() => {
     if (msg.code === -1) return
     if (msg.code === 1) {
@@ -48,6 +50,24 @@ function Room(props) {
       }
     });
   }
+
+  const [deleteConfirm]=useState(()=>function (room_id,room_text) {
+    confirm({
+      title: '确定删除这个教室吗?',
+      content: `教室号为${room_text}`,
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        deleteRoom({
+          room_id
+        })
+      },
+      onCancel() {
+      },
+    });
+  })
+
   const columns = [
     {
       title: "教室号",
@@ -57,9 +77,7 @@ function Room(props) {
       title: '操作',
       dataIndex: '',
       render: (val) => <p onClick={() => {
-        deleteRoom({
-          room_id: val.room_id
-        })
+        deleteConfirm(val.room_id,val.room_text)
       }}>删除</p>
     }
   ]
