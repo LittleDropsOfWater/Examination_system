@@ -1,4 +1,4 @@
-import {Select} from 'antd';
+import {Select} from './node_modules/antd';
 const { Option } = Select;
 
  export default function Options(data=[],value,text){

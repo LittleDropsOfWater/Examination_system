@@ -201,7 +201,6 @@ export default {
           disable: true
         }
       ]
-    },
-    
+    }, 
   ]
 };

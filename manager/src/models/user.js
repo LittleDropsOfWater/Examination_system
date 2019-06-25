@@ -12,7 +12,7 @@ const defaultState = {
   userInfo: {},
   viewAuthority: [], //用户锁拥有的视图权限
   myView: [], //拥有权限的前端路由
-  forbiddenView: [] //没有权限访问的路由
+  forbiddenView: [] ,//没有权限访问的路由
 };
 export default {
   //命名空间
@@ -51,8 +51,10 @@ export default {
           //1.2用户没有登录态
         } else {
           //1.2.1去登录页面，如果已登录跳回首页
+          // console.log('登录页提示');
           if (token) {
             //利用redux做路由跳转
+            // console.log('登录页跳转到首页')
             dispatch(
               routerRedux.replace({
                 pathname: "/"
@@ -70,7 +72,7 @@ export default {
       console.log("payload...", payload, login);
       //1.调用登录接口
       let data = yield call(login, payload);
-      console.log("data...", data);
+      // console.log("data...", data);
       //2.设置登录态到cookie里
       if (data.code === 1) {
         setToken(data.token);

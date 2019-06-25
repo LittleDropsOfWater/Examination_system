@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { Layout, Button, Typography } from "antd";
+import {
+  Layout,
+  Button,
+  Typography
+} from "antd";
 import { connect } from "dva";
 import PageTitle from "@/components/Title";
 import axios from "axios";
@@ -13,8 +17,8 @@ function PersonalCenter(props) {
   const [src, updateSrc] = useState("");
   const [canvas, updateCanvas] = useState("");
   const [ctx, updateCtx] = useState("");
-  const [width, updateWidth] = useState(400);
-  const [height, updateHeight] = useState(400);
+  const [width] = useState(400);
+  const [height] = useState(400);
   const [isupload, updateupload] = useState(false);
   useEffect(() => {
     if (!canvas.getContext) return;
@@ -30,10 +34,8 @@ function PersonalCenter(props) {
 
     console.log("e...", e);
     let files = e.target.files;
-    console.log("files...", files);
     let form = new FormData();
     for (let i = 0, len = files.length; i < len; i++) {
-      console.log(files[i]);
       form.append(files[i].name, files[i]);
     }
     axios({

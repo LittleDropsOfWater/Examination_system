@@ -21,6 +21,7 @@ export default {
             code: -1
         }
     },
+    
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
         },

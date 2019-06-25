@@ -43,7 +43,7 @@ function PaperDetail(props) {
       okText:'确认',
       cancelText:'取消',
       onOk() {
-        console.log({exam_student_id,score});
+        // console.log({exam_student_id,score});
         markingTestPaper({exam_student_id,score,grade_id:paper.grade_id});
       },
       onCancel() {

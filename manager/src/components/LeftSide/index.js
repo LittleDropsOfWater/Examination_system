@@ -4,7 +4,6 @@ import { Menu, Icon } from "antd";
 import { Link,withRouter } from "dva/router";
 import { injectIntl } from "react-intl";
 import { connect } from "dva";
-
 const { SubMenu } = Menu;
 function LeftSide(props) {
   const {
@@ -22,6 +21,8 @@ function LeftSide(props) {
         mode="inline"
         theme="dark"
         className={styles.menu}
+      //   openKeys={openKey}
+      // onOpenChange={onOpenChange}
       >
         {myView &&
           myView.map(
